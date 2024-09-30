@@ -118,8 +118,8 @@ body {
 }
 
 
-.hero-section {
-  background: url('../../Images/landingbg.png') no-repeat center center;
+.hero_section {
+  background: url('../../Resources/landingbg.png') no-repeat center center;
   background-size: cover; 
   padding: 40px 20px;
   color: white;
@@ -132,7 +132,7 @@ body {
   justify-content: flex-end; 
   z-index: 0; 
 }
-.hero-text {
+.hero_text {
 
   pointer-events: none; 
   position: absolute;
@@ -145,19 +145,19 @@ body {
   color: #004664;
 }
 
-.hero-text h1 {
+.hero_text h1 {
   font-size: 65px;
   line-height: 1.2;
   font-weight: bold;
 }
 
-.hero-text p {
+.hero_text p {
   font-size: 20px;
   margin-top: 20px;
   line-height: 1.4;
 }
 
-.appointment-button {
+.appointment_button {
   display: inline-block;
   background-color: #17AFEF;
   color: #ffffff;
@@ -170,7 +170,7 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.appointment-button:hover {
+.appointment_button:hover {
   background-color: #DE732D;
 }
 
@@ -179,9 +179,9 @@ body {
 }
 
 /* Adding another image over the hero section on the right */
-.hero-section::after {
+.hero_section::after {
   content: "";
-  background: url('../../Images/landingcircle.png') no-repeat right center; 
+  background: url('../../Resources/landingcircle.png') no-repeat right center; 
   background-size: auto 100%; 
   position: absolute;
   top: 0;
@@ -191,9 +191,9 @@ body {
   z-index: 1; 
   pointer-events: none; 
 }
-.hero-section::before {
+.hero_section::before {
   content: "";
-  background: url('../../Images/heroPets.png') no-repeat right center; 
+  background: url('../../Resources/heroPets.png') no-repeat right center; 
   background-size: auto 100%;
   position: absolute;
   top: 220px;
@@ -204,7 +204,7 @@ body {
   pointer-events: none; 
 }
 
-.card-section {
+.card_section {
   display: flex;
   justify-content: space-between; 
   margin: 0 120px; 
@@ -224,7 +224,7 @@ body {
   justify-content: flex-start; 
 }
 
-.card-header {
+.card_header {
   display: flex;
   align-items: center; 
   justify-content: space-between;
@@ -236,7 +236,7 @@ body {
   margin: 0; /* Remove margins */
 }
 
-.card-header img {
+.card_header img {
   width: 30px; 
   height: 30px; 
   margin-left: 10px; 
