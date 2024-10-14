@@ -1,0 +1,696 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #fbfdfe;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.navbar_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  width: 100%;
+  top: 15px;
+  background: transparent;
+  position: fixed;
+  z-index: 1;
+  transition: top 0.3s; 
+}
+
+.navbar_left, .navbar_right {
+  display: flex;
+  align-items: center;
+  border-radius: 45px;
+  padding: 15px;
+  height: 30px;
+}
+
+.navbar_left {
+  background-color: #F2FCFF;
+  margin-left: 120px;
+  width: 200px;
+  justify-content: center;
+}
+
+.navbar_right {
+  background-color: #F2FCFF;
+  margin-right: 120px;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+}
+
+.logo img {
+  margin-right: 10px;
+  width: 50px;
+  height: 50px;
+}
+
+.nav_links {
+  display: flex;
+  align-items: center;
+}
+
+.nav_links a {
+  text-decoration: none;
+  color: rgb(101, 64, 64);
+  font-size: 14px;
+  margin: 0 20px;
+}
+
+.nav_links a:hover {
+  color: #17AFEF;
+}
+
+.nav_buttons {
+  display: flex;
+  align-items: center;
+}
+
+.signup_button {
+  background-color: transparent; 
+  border: 2px solid #17AFEF; 
+  color: #17AFEF; 
+  padding: 5px 32px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px; 
+  transition: background-color 0.3s ease, color 0.3s ease; 
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.signup_button:hover {
+  background-color: transparent; 
+  border: 2px solid #0096d7; 
+  color: #0096d7; 
+}
+
+.signin_button {
+  background-color: #17AFEF;
+  padding: 7px 32px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 14px; 
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.signin_button:hover {
+  background-color: #0096d7;
+  color: white;
+}
+
+
+.hero_section {
+  background: url('../../Resources/landingbg.png') no-repeat center center;
+  background-size: cover; 
+  padding: 40px 20px;
+  color: white;
+  text-align: center;
+  height: 100vh; 
+  width: 100vw; 
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  justify-content: flex-end; 
+  z-index: 0; 
+}
+.hero_text {
+
+  pointer-events: none; 
+  position: absolute;
+  top: 200px;
+  left: 120px;
+  width: 50%; 
+  height: 50%; 
+  z-index: 2;
+  text-align: left;
+  color: #004664;
+}
+
+.hero_text h1 {
+  font-size: 65px;
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+.hero_text p {
+  font-size: 20px;
+  margin-top: 20px;
+  line-height: 1.4;
+}
+
+.appointment_button {
+  display: inline-block;
+  background-color: #17AFEF;
+  color: #ffffff;
+  padding: 12px 32px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.appointment_button:hover {
+  background-color: #0096d7;
+}
+
+.brand {
+  color: #17AFEF; 
+}
+
+/* Adding  image over the hero section on the right */
+.hero_section::after {
+  content: "";
+  background: url('../../Resources/landingcircle.png') no-repeat right center; 
+  background-size: auto 100%; 
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%; 
+  height: 96%; 
+  z-index: 1; 
+  pointer-events: none; 
+}
+.hero_section::before {
+  content: "";
+  background: url('../../Resources/heroPets.png') no-repeat right center; 
+  background-size: auto 100%;
+  position: absolute;
+  top: 220px;
+  right: 100px;
+  width: 45%; 
+  height: 45%; 
+  z-index: 2;
+  pointer-events: none; 
+}
+
+.services_card_section {
+  display: flex;
+  justify-content: space-between; 
+  margin: 0 120px; 
+  padding: 180px 0; 
+}
+
+.services_card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 40px;
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 32%; 
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column; 
+  justify-content: flex-start; 
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.services_card:hover {
+  box-shadow: 0 8px 16px rgb(172, 220, 250);
+}
+.services_card_header {
+  display: flex;
+  align-items: center; 
+  justify-content: space-between;
+}
+
+.services_card h3 {
+  font-size: 24px;
+  color: #17AFEF;
+  margin: 0;
+}
+
+.services_card_header img {
+  width: 30px; 
+  height: 30px; 
+  margin-left: 10px; 
+}
+
+.services_card p {
+  font-size: 14px;
+  color: #333333b6;
+  line-height: 1.5;
+  margin: 20px 0 0 0; 
+  font-weight: lighter;
+}
+
+.services_card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+/* About section */
+.about_section_txt {
+align-items: center;
+text-align: center;
+
+}
+
+/* Container Styles */
+.about_grid_container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 180px;
+}
+
+/* Grid Layout Styles */
+.about_bento_grid {
+  display: grid;
+  height: 90%;
+  width: calc(100% - 240px); 
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 30px;
+  padding: 8px;
+  border-radius: 8px;
+  
+}
+
+/* Grid Item common Styles */
+.about_bento_grid_item {
+  border-radius: 8px;
+  box-shadow: 0 6px 14px #e5e8e9c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+/* Individual Grid Items */
+.compassion_card {
+  grid-column: span 3;
+  grid-row: span 2;
+  background-color: #ffffff;
+}
+
+.guidance_card {
+  grid-column: span 2;
+  grid-row: span 4;
+  background-color: #ffffff;
+}
+
+.logo_card {
+  grid-column: span 2;
+  grid-row: span 2;
+  background-color: #ffffff;
+}
+
+.convenience_card {
+  grid-column: span 1;
+  grid-row: span 2;
+  background-color: #ffffff;
+}
+
+/* Health tips section */
+.healthtips_background_container {
+  width: 100vw;
+  background-color: #eef9fd;
+  padding: 5px 0; 
+}
+
+.healthtips_content_container {
+  display: flex;
+  justify-content: space-between; 
+  margin: 0 120px; 
+  padding: 90px 0;
+}
+
+.healthtips_card {
+  background-color: #f8fbfc;
+  border-radius: 8px;
+  padding: 40px;
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 32%; 
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; 
+}
+
+.healthtips_card:hover {
+  box-shadow: 0 8px 16px #17aeef58;
+}
+
+.healthtips_card h2 {
+  font-size: 24px;
+  color: #17AFEF;
+  margin: 0; 
+}
+
+.healthtips_card p {
+  font-size: 14px;
+  color: #333333b6;
+  line-height: 1.5;
+  margin: 20px 0 0 0; 
+  font-weight: lighter;
+}
+
+
+.healthtips_card img {
+  max-width: 70%; 
+  height: auto;
+  border-radius: 8px;
+  margin: 20px auto 0 auto;
+}
+
+
+
+.healthtips_info_section {
+  display: flex;
+  flex-direction: column; 
+  width: 30%;
+  text-align: left;
+  border-radius: 16px;
+ 
+  
+}
+
+.healthtips_info_section h2 {
+  align-items: flex-start;
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.healthtips_info_section p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.healthtips_info_section button {
+  background-color: #17AFEF;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-bottom: 20px; 
+  margin-top: 20px;
+  width: 150px;
+}
+
+.healthtips_info_section button:hover {
+  background-color: #0096d7;
+}
+
+.healthtips_info_section img {
+  display: block; 
+  margin-left: auto; 
+  margin-right: 0; 
+  max-width: 40%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+
+/* stats section */
+.stats_section_txt {
+  align-items: center;
+  text-align: center;
+  margin-bottom: 50px;
+  padding-top: 180px;
+
+  }
+
+  .stats_section {
+    margin-left: 120px; 
+    margin-right: 120px;
+    border-radius: 1.5rem; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem; 
+    background: url('../../Resources/whyChooseUsbg.png');
+}
+
+.vet_image img {
+    width: 28.125rem; 
+    height: auto;
+    margin-right: 1.25rem; 
+}
+
+.stats_grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem; 
+}
+
+.stat_item {
+    background-color: #f0f8ff;
+    border-radius: 1rem; 
+    padding: 2rem; 
+    text-align: center;
+    box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+}
+
+
+.stat_item h3 {
+    font-size: 2.5rem;
+    color: #005478;
+    margin-bottom: 0.625rem;
+}
+
+.stat_item p {
+    font-size: 1.25rem;
+    color: #555;
+    font-weight: lighter;
+}
+
+/* Reviews section */
+
+/* Container for the reviews section */
+.reviews_section {
+  margin-top: 180px;
+  margin-bottom: 180px;
+  padding: 50px 0;
+  background-color: #eef9fd;
+ width: 100%;
+}
+
+.reviews_container {
+  margin-left: 120px;
+  margin-right: 120px;
+}
+
+/* Flexbox container for h2 and image */
+.reviews_header {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 40px; 
+}
+
+.reviews_header h2 {
+  font-size: 2rem;
+  color: #333;
+  margin: 0; 
+}
+
+.reviews_header img {
+  max-width: 10%;
+  height: auto; 
+  margin-right: 0; 
+}
+
+/* Reviews grid styling */
+.reviews_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px;
+}
+
+
+.reviews_card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.reviews_card img {
+  width: 100%;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.rating {
+  font-size: 1.5rem;
+  color: #ffcc00;
+  margin-bottom: 10px;
+}
+
+.reviews_card h3 {
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.reviews_card p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.reviews_card a {
+  color: #0073e6;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .reviews_grid {
+      grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .reviews_grid {
+      grid-template-columns: 1fr;
+  }
+
+  .reviews_section {
+      margin-left: 20px;
+      margin-right: 20px;
+  }
+}
+
+
+/* For large screens (1920px and above) */
+@media (min-width: 1920px) {
+  
+  .stats_section {
+      padding: 9rem; 
+  }
+
+  .vet_image img {
+      width: 90rem; 
+     padding-right: 120px;
+  }
+
+  .stat_item h3 {
+      font-size: 4rem; 
+  }
+
+  .stat_item p {
+      font-size: 2rem; 
+  }
+
+  .stat_item {
+      padding: 3rem; 
+  }
+}
+
+
+/* For large screens (1200px and 1920px) */
+@media (min-width: 1200px) and (max-width: 1920px) {
+    
+
+    .vet_image img {
+        width: 30rem; 
+        height: 30rem;
+        
+    }
+    .stat_item {
+      background-color: #f0f8ff;
+      border-radius: 1rem; 
+      padding: 3rem; 
+      text-align: center;
+      box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+  }
+    .stat_item h3 {
+        font-size: 2rem; 
+    }
+
+    .stat_item p {
+        font-size: 1rem; 
+    }
+}
+
+/* For medium screens (tablets and smaller laptops - 768px to 1200px) */
+@media (max-width: 1200px) and (min-width: 768px) {
+  
+
+    .stats_section {
+        flex-direction: column; 
+        padding: 3rem; 
+    }
+
+    .vet_image img {
+        width: 25rem; 
+        margin-bottom: 2rem; 
+    }
+
+    .stat_item h3 {
+        font-size: 2rem; 
+    }
+
+    .stat_item p {
+        font-size: 1rem;
+    }
+}
+
+/* For small screens (mobile devices, 768px and below) */
+@media (max-width: 768px) {
+  
+
+    .stats_section {
+        flex-direction: column;
+        margin-left: 2rem; 
+        margin-right: 2rem;
+        padding: 2rem;
+    }
+
+    .vet_image img {
+        width: 100%;
+        margin-bottom: 1.5rem; 
+    }
+
+    .stats_grid {
+        grid-template-columns: 1fr; 
+        grid-gap: 1rem; 
+    }
+
+    .stat_item {
+        padding: 1.5rem; 
+    }
+
+    .stat_item h3 {
+        font-size: 1.75rem; 
+    }
+
+    .stat_item p {
+        font-size: 0.875rem; 
+    }
+}
