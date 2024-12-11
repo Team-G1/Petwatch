@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 135%;
+    background-color: #ffffff;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+}
+  
+.logo img {
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+/*Navigation Bar*/
+.navbar_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  width: 100%;
+  top: 15px;
+  background: transparent;
+  position: fixed;
+  z-index: 1;
+  transition: top 0.3s; 
+}
+
+.navbar_left, .navbar_right {
+  display: flex;
+  align-items: center;
+  border-radius: 45px;
+  padding: 15px;
+  height: 30px;
+}
+
+.navbar_left {
+  background-color: #F2FCFF;
+  margin-left: 120px;
+  width: 200px;
+  justify-content: center;
+}
+
+.navbar_right {
+  background-color: #F2FCFF;
+  margin-right: 120px;
+  justify-content: space-between;
+}
+
+.nav_links {
+  display: flex;
+  align-items: center;
+}
+
+.nav_links a {
+  text-decoration: none;
+  color: rgb(101, 64, 64);
+  font-size: 14px;
+  margin: 0 20px;
+}
+
+.nav_links a:hover {
+  color: #17AFEF;
+}
+
+.nav_buttons {
+  display: flex;
+  align-items: center;
+}
+
+/*Navigation bar sign up button*/
+.signup_button {
+  background-color: transparent; 
+  border: 2px solid #17AFEF; 
+  color: #17AFEF; 
+  padding: 5px 32px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px; 
+  transition: background-color 0.3s ease, color 0.3s ease; 
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.signup_button:hoverin{
+  background-color: transparent; 
+  border: 2px solid #DE732D; 
+  color: #DE732D; 
+}
+
+/*Navigation bar sign in button*/
+.signin_button {
+  background-color: #17AFEF;
+  padding: 7px 32px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 14px; 
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.signin_button:hover {
+  background-color: #DE732D;
+  color: white;
+}
+
+
+/* Sign Up Card */
+.card_body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 900px;
+    height: 80vh;
+    margin-top: 50px;
+}
+
+/*Sign up card left section*/
+.signin_left_section h2{
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 40px;
+}
+.signin_left_section p{
+  text-align: left;
+  padding-bottom: 60px;
+  font-weight: lighter;
+  color: #959595;
+  margin-top: 20px; 
+  margin-left: 40px;
+}
+
+.Signin_sub_txt {
+  color: #17AFEF;
+  font-weight: bold;
+}
+
+.signin_left_section {
+    background-image: url(../../Resources/Ellipse\ 5.png);
+    background-repeat: no-repeat;
+    background-position: 0px 120px;
+    padding: 30px;
+    width: 50%;
+    text-align: center;
+}
+
+.signin_left_section img {
+    width: 100%;   
+}
+
+/*Sign up card right section*/
+.signin_right_section {
+    padding: 50px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.signin_right_section h2 {
+  text-align: center; 
+  padding-bottom: 25px;
+}
+
+.input_field {
+    margin-bottom: 20px; 
+    margin-right: 28px;
+
+}
+
+.input_field input {
+    width: 100%; 
+    padding: 13px; 
+    border: 1px solid rgba(187, 234, 254, 1);
+    border-radius: 30px; 
+    font-size: 14px;
+}
+
+.signin_btn {
+    width: 100%; 
+    padding: 13px; 
+    background-color: rgba(23, 175, 239, 1);
+    color: #fff;
+    border: none; 
+    border-radius: 30px; 
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 20px;
+}
+
+.signin_btn:hover {
+    background-color: #DE732D;
+}
+
+.signin_right_section p {
+    text-align: center; 
+    padding-top: 25px;
+    font-weight: 100;
+}
+
+.signin_right_section a{
+    color: #17AFEF;
+}
+
+.Signin_option_btn {
+  color: #17AFEF; 
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card_body {
+        padding: 30px;
+    }
+
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .signin_left_section, .signin_right_section {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .signin_left_section img {
+        display: none;
+    }
+
+    .signin_btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .card_body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .signin_btn {
+        font-size: 12px;
+        padding: 10px;
+    }
+}
