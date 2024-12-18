@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services</title>
+    <link rel="stylesheet" href="Services.css">
+    <link rel="stylesheet" href="footer.css">
+</head>
+<body>
+
+    <div class="navbar_container">
+        <div class="navbar_left"> 
+            <div class="logo">
+                <img src="../../Resources/pwlogo.png" alt="Logo" width="24" height="24">
+                    PetWatch
+            </div>
+        </div>
+        
+            <div class="navbar_right">
+                <div class="nav_links">
+                    <a href="#home">Home</a>
+                    <a href="#services">Our services</a>
+                    <a href="#about">About us</a>
+                    <a href="#help">Help</a>
+                </div>
+                <div class="nav-buttons">
+                    <a href="#signup" class="signup_button">Sign Up</a>
+                    <a href="#signin" class="signin_button">Sign In</a>
+                </div>
+            </div>
+        </div>
+        <br><br><br>
+        <br><br><br>
+
+        <!--FORM-->
+
+    <div>
+  <h1 class="booking-title">Booking Services</h1>
+
+  
+  
+</div>
+    <div class="container">
+
+  
+       
+        
+        <div class="tabs">
+            <button class="tab-link" onclick="openTab(event, 'pet-care')">Pet Care</button>
+            <button class="tab-link active" onclick="openTab(event, 'pet-clinic')">Pet Clinic</button>
+            <button class="tab-link" onclick="openTab(event, 'pet-grooming')">Pet Grooming</button>
+        </div>
+
+        <div id="pet-clinic" class="tab-content" style="display: block;">
+            <form class="booking-form">
+                <div class="form-row">
+                    <label for="pet-name">Pet's Name</label>
+                    <input type="text" id="pet-name" placeholder="Enter Your Pet's Name">
+                </div>
+                <div class="form-row">
+                    <label for="pet-type">Pet Type</label>
+                    <input type="text" id="pet-type" placeholder="Pet type">
+                    <label for="breed">Breed</label>
+                    <input type="text" id="breed" placeholder="Breed">
+                </div>
+                <div class="form-row">
+                    <label for="age">Age</label>
+                    <input type="text" id="age" placeholder="Age">
+                    <label for="weight">Weight</label>
+                    <input type="text" id="weight" placeholder="Weight">
+                </div>
+                <div class="form-row">
+                    <label for="location">Location</label>
+                    <select id="location">
+                        <option value="kandy">Kandy</option>
+                        <option value="colombo">Colombo</option>
+                        <option value="galle">Galle</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label for="date">Date</label>
+                    <input type="date" id="date">
+                    <label for="time">Time</label>
+                    <input type="time" id="time">
+                </div>
+                <button type="submit" class="btn">Book Appointment</button>
+            </form>
+        </div>
+    </div>
+
+<!--FOOTER-->
+
+    <br><br><br>
+        <section class="footer">
+            <div class="footer_row">
+                <div class="footer_col">
+                <h4>Petwatch</h4>
+                    <ul class="links">
+                      <li><a href="#">About Us</a></li>
+                      <li><a href="#">Help & Feedback</a></li>
+                      <li><a href="#">Terms of Services</a></li>
+                      <li><a href="#">Privacy Policy</a></li>                  
+                    </ul>
+                </div>
+    
+                <div class="footer_col">
+                <h4>Our Services</h4>
+                    <ul class="links">
+                      <li><a href="#">Pet Care</a></li>
+                      <li><a href="#">Pet Clinic</a></li>
+                      <li><a href="#">Pet Grooming</a></li>
+                      <li><a href="#">Health Tips</a></li>                  
+                    </ul>
+                </div>
+
+
+                    
+                <div class="footer_col">
+                <h4>Our Locations</h4>
+                    <ul class="links">
+                      <li><a href="#">Kandy</a></li>
+                      <li><a href="#">Colombo</a></li>
+                      <li><a href="#">Gampaha</a></li>
+                      <li><a href="#">Jaffna</a></li>
+                      <li><a href="#">Galle</a></li>  
+                    </ul>
+                </div>
+    
+                <div class="footer_col">
+                <h4>Contact Us</h4>
+                    <ul class="links">
+                      <p><a href="mailto:pw@gmail.com">pw@gmail.com</a></p>
+                      
+                    </ul>
+                </div>
+    
+                <div class="footer_col">
+                    <div class="logo_container">
+                      <img src="../../Resources/footerimg.png" alt="PetWatch Logo" class="logo">
+                      <button class="footer_button">PetWatch</button>
+                    </div>
+                    <p>Connect with Us</p>
+                    <div class="footer_icons">
+                      <a href="#"><img src="../../Resources/facebook.png" alt="Facebook"></a>
+                      <a href="#"><img src="../../Resources/instagram.png" alt="Instagram"></a>
+                      <a href="#"><img src="../../Resources/tiktok.png" alt="TikTok"></a>
+                    </div>
+                </div>              
+            </div>
+    
+                <div class="footer_copyright">
+                  <p>© 2024 PetWatch. All rights reserved.</p>
+                </div>
+    
+        </section>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</body>
+</html>
