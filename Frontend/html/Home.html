@@ -4,29 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
-    <link rel="stylesheet" href="../../Frontend/css/Home.css">
+    <link rel="stylesheet" href="../../Frontend/css/home.css">
+   
 </head>
 <body>
-    <div class="navbar_container">
-        <div class="navbar_left">
-            <div class="logo">
-                <img src="../../Resources/pwlogo.png" alt="Logo" width="24" height="24">
-                PetWatch
-            </div>
-        </div>
-        <div class="navbar_right">
-            <div class="nav_links">
-                <a href="#home">Home</a>
-                <a href="#services">Our services</a>
-                <a href="#about">About us</a>
-                <a href="#help">Help</a>
-            </div>
-            <div class="nav_buttons">
-                <a href="#signup" class="signup_button">Sign Up</a>
-                <a href="#signin" class="signin_button">Sign In</a>
-            </div>
-        </div>
-    </div>
+    <div id="navbar"></div>
     
     <div class="hero_section">
         <div class="hero_text">
@@ -76,10 +58,11 @@
               <p>guidance</p>
           </div>
           <div class="about_bento_grid_item logo_card">
-              <p>logo</p>
+            <img src="../../Resources/logoLarge.png" alt="Cat">
           </div>
           <div class="about_bento_grid_item convenience_card">
-              <p>convenience</p>
+            <h3>Convenience</h3>
+              <p>We strive to make pet care accessible with just a few clicks.</p>
           </div>
       </div>
   </div>
@@ -99,7 +82,7 @@
         <div class="healthtips_info_section">
             <h2>Keep Your Pets Healthy!</h2>
             <p>Find essential health tips to keep your pets happy and healthy. Get expert advice on nutrition, exercise, and overall well-being from PetWatch.</p>
-            <button>See more</button>
+            <button onclick="window.location.href='healthtips.html'">See more</button>
             <img src="../../Resources/vetandpetshealthtips.png" alt="Vet and Pets">
         </div>
     </div>
@@ -137,38 +120,89 @@
 <section class="reviews_section">
   <div class="reviews_container">
   <div class="reviews_header">
-  <h2>Hear from Our <br> Happy Pet Owners</h2>
+  <h2>Hear from Our  Happy Pet Owners</h2>
   <img src="../../Resources/reviewsIconPets.png" alt="Reviews Icon">
 </div>
   <div class="reviews_grid">
       <div class="reviews_card">
-          <img src="person1.jpg" alt="Dinusha Gamage">
+          <img src="../../Resources/Dinusha.png" alt="Dinusha Gamage">
           <div class="rating">★★★★★</div>
           <h3>Dinusha Gamage</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
+          <p>PetWatch has been a fantastic platform for managing all my pet care needs. The website is easy to navigate, and scheduling appointments for grooming, clinics, and ....</p>
           <a href="#">See more ></a>
       </div>
       <div class="reviews_card">
-          <img src="person2.jpg" alt="Adrian Perera">
+          <img src="../../Resources/Adrian.png" alt="Adrian Perera">
           <div class="rating">★★★★★</div>
           <h3>Adrian Perera</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
+          <p>’ve been using PetWatch for several months now, and it has truly made pet care more accessible. The booking system is seamless, and I appreciate how well-organized ...</p>
           <a href="#">See more ></a>
       </div>
       <div class="reviews_card">
-          <img src="person1.jpg" alt="Dinusha Gamage">
+          <img src="../../Resources/Kasun.png" alt="Kasun Rathnayaka">
           <div class="rating">★★★★★</div>
-          <h3>Dinusha Gamage</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
+          <h3>Kasun Rathnayaka</h3>
+          <p>PetWatch has exceeded my expectations. The platform is well-designed, user-friendly, and provides all the essential services I need....</p>
           <a href="#">See more ></a>
       </div>
   </div>
 </div>
 </section>
 
+<div class="locations_section_txt">  
+        
+    <h1>Our locations</h1>
+    <p>PetWatch proudly offers islandwide services, currently spanning five convenient locations</p>
+  </div>
+
+<div class="container">
+    <section class="locations">
+      <div class="map">
+        <img src="../../Resources/map.png" alt="Map of PetWatch Locations">
+      </div>
+    </section>
+
+    <div class="experts_section_txt">  
+        <h1>Expert Care from Trusted Vets</h1>
+        <p>Our Experts at PetWatch are Committed to Providing Top-Notch Healthcare for Your Furry Friends</p>
+        </div>
+
+        <section class="experts">
+            <div class="cards">
+              <div class="card">
+                <img src="../../Resources/neha.png" alt="Dr. Neha Kariyawasam">
+                <h3>Dr. Neha Kariyawasam</h3>
+                <p>MBBS / MBA / PHD<br>Founder & CEO</p>
+                <a href="doctors.html?doctor=neha">
+                  <button>&rarr;</button>
+                </a>
+              </div>
+              <div class="card">
+                <img src="../../Resources/athula.png" alt="Dr. Athula Wijesekara">
+                <h3>Dr. Athula Wijesekara</h3>
+                <p>MBBS / MBA / PHD<br>Head Veterinarian</p>
+                <a href="doctors.html?doctor=athula">
+                  <button>&rarr;</button>
+                </a>
+              </div>
+              <div class="card">
+                <img src="../../Resources/dinithi.png" alt="Dr. Dinithi Dias">
+                <h3>Dr. Dinithi Dias</h3>
+                <p>MBBS / MBA / PHD<br>Head of PetCare</p>
+                <a href="doctors.html?doctor=dinithi">
+                  <button>&rarr;</button>
+                </a>
+              </div>
+            </div>
+          </section>
+          
+  </div>
+<footer>
+  <div id="footer"></div>
+</footer>
 
 
-
-    <script src="../../Frontend/javascript/Home.js"></script>
+    <script src="../../Frontend/javascript/navbar.js"></script>
+    <script src="../../Frontend/javascript/footer.js"></script>
 </body>
 </html>

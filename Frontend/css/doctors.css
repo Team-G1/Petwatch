@@ -1,202 +1,77 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-*{
-    margin: 0;
-    padding: 0;
+/* Updated CSS for better layout */
+* {
+  margin: 0;
+  padding: 0;
 }
+
 html, body {
-    height: 135%;
-    background-color: #ffffff;
-}
-
-body {
-    font-family: Arial, sans-serif;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: bold;
-    color: black;
-}
-  
-.logo img {
-    margin-right: 10px;
-    width: 50px;
-    height: 50px;
-}
-
-/*Navigation Bar*/
-.navbar_container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  width: 100%;
-  top: 15px;
-  background: transparent;
-  position: fixed;
-  z-index: 1;
-  transition: top 0.3s; 
-}
-
-.navbar_left, .navbar_right {
-  display: flex;
-  align-items: center;
-  border-radius: 45px;
-  padding: 15px;
-  height: 30px;
-}
-
-.navbar_left {
-  background-color: #F2FCFF;
-  margin-left: 120px;
-  width: 200px;
-  justify-content: center;
-  height: 50px;
-}
-
-.navbar_right {
-  background-color: #F2FCFF;
-  margin-right: 120px;
-  justify-content: space-between;
-  height: 50px;
-}
-
-.nav_links {
-  display: flex;
-  align-items: center;
-}
-
-.nav_links a {
-  text-decoration: none;
-  color: rgb(101, 64, 64);
-  font-size: 14px;
-  margin: 0 20px;
-}
-
-.nav_links a:hover {
-  color: #17AFEF;
-}
-
-.nav_buttons {
-  display: flex;
-  align-items: center;
-}
-
-/*Navigation bar sign up button*/
-.signup_button {
-  background-color: transparent; 
-  border: 2px solid #17AFEF; 
-  color: #17AFEF; 
-  padding: 5px 32px;
-  border-radius: 20px;
-  font-weight: bold;
-  font-size: 14px; 
-  transition: background-color 0.3s ease, color 0.3s ease; 
-  text-decoration: none;
-  margin-left: 10px;
-}
-
-.signup_button:hover {
-  background-color: transparent; 
-  border: 2px solid #DE732D; 
-  color: #DE732D; 
-}
-
-/*Navigation bar sign in button*/
-.signin_button {
-  background-color: #17AFEF;
-  padding: 7px 32px;
-  border-radius: 20px;
-  color: white;
-  font-weight: bold;
-  font-size: 14px; 
-  transition: background-color 0.3s ease;
-  text-decoration: none;
-  margin-left: 10px;
-}
-
-.signin_button:hover {
-  background-color: #DE732D;
-  color: white;
-}
-
-
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    /* background-color: #f4f4f4; */
-    padding: 20px;
+  height: 100%;
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 h1, h2 {
-    color: #333;
-    margin-bottom: 20px;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-.vet-panel, .trusted-panel {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap; /* This ensures items will wrap if they exceed the container width */
-    gap: 20px;
-    max-width: 800px; /* Ensure only 3 cards fit in one row */
-    margin: 0 auto; /* Center the container on the page */
+.vet-panel {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* Ensures items wrap if they exceed the container width */
+  gap: 20px;
+  max-width: 800px; /* Ensure only 3 cards fit in one row */
+  margin: 0 auto; /* Center the container on the page */
+  padding-left: 120px;
+  padding-right: 120px;
 }
 
 .vet-card {
-    background-color: white;
-    padding: 20px;
-    width: 250px;
-    height: 400px;
-    border-radius: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+  background-color: white;
+  padding: 20px;
+  width: calc(33% - 40px); /* 33% width minus margin */
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .vet-card img {
-    width: 200px;
-    height: 200px;
-    border-radius: 0%;
-    object-fit: cover;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%; /* Updated for better image roundness */
+  object-fit: cover;
 }
 
 .vet-card h3 {
-    margin: 10px 0;
-    color: #333;
-    text-align: left;
+  margin: 10px 0;
+  color: #333;
+  text-align: left;
 }
 
 .vet-card p {
-    margin-bottom: 10px;
-    color: #777;
-    text-align: left;
+  margin-bottom: 10px;
+  color: #777;
+  text-align: left;
 }
 
 .vet-card button {
-    background-color: #1e88e5;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    float: left;
+  background-color: #1e88e5;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 100%; /* Make button full-width */
 }
 
 .vet-card button:hover {
-    background-color: #005cb2;
+  background-color: #005cb2;
 }
