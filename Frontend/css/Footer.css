@@ -1,17 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 
+* {
+    margin: 0;
+    padding: 0;
+
+    font-family: 'Open Sans', sans-serif;
+  }
   
-body {
-    display: flex;
-    flex-direction: column;
-}
   
 .footer {
     position: relative;
     margin-top: auto;
     width: 100%;
-    background: #F3F8FA;
+    background-color: #F2FCFF;
     border-radius: 6px;
     font-family: 'Open Sans', sans-serif;
 }
@@ -28,15 +30,18 @@ body {
     color: #000000;
     font-size: 1.2rem;
     font-weight: 600;
+    
 }
   
 .footer_col .links {
     margin-top: 20px;
+    
 }
   
 .footer_col .links li {
     list-style: none;
     margin-bottom: 10px;
+    
 }
   
 .footer_col .links li a {
@@ -69,7 +74,7 @@ a[href^="mailto:"] {
 }
   
 .footer_button {
-    background-color: #00aaff;
+    background-color: #17AFEF;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -81,7 +86,7 @@ a[href^="mailto:"] {
 }
   
 .footer_button:hover {
-    background: #DE732D;
+    background: #001016;
 }
   
 .footer_icons {

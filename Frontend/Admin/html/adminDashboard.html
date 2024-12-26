@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/adminDashboard.css">
+</head>
+<body>
+    <div class="admin-dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">PetWatch</div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Dashboard</a></li>
+                    <li><a href="#">Appointments</a></li>
+                    <li><a href="#">Health Tips</a></li>
+                    <li><a href="#">Locations</a></li>
+                    <li><a href="#">Vets</a></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="logout">Logout</a>
+        </aside>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Top Bar -->
+            <div class="topbar">
+                <h1>Dashboard</h1>
+                <div class="user-profile">
+                    <img src="profile.png" alt="Profile Picture">
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- New Mail Section -->
+                <div class="new-mail">
+                    <h3>New Mail</h3>
+                    <p>
+                        <strong>Tom Ford</strong> - Kandy
+                        <span>The service of the center of Kandy...</span>
+                    </p>
+                    <button>View</button>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="card">150<br><span>Total Appointments</span></div>
+                    <div class="card">30<br><span>Kandy</span></div>
+                    <div class="card">60<br><span>Colombo</span></div>
+                    <div class="card">10<br><span>Gampaha</span></div>
+                    <div class="card">15<br><span>Jaffna</span></div>
+                    <div class="card">35<br><span>Galle</span></div>
+                </div>
+
+                <!-- Appointments Table -->
+                <h2>Appointments</h2>
+                <table class="appointments">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Appointment No</th>
+                            <th>Appointment Date</th>
+                            <th>Booking Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tom Ford</td>
+                            <td>#12547876</td>
+                            <td>25 Jun, 10:00 AM</td>
+                            <td>28 Jun, 12:30 AM</td>
+                            <td class="status complete">Complete</td>
+                            <td>
+                                <button class="cancel">Cancel</button>
+                            </td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
