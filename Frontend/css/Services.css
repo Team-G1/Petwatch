@@ -1,206 +1,229 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-
-*{
-  margin: 0;
-  padding: 0;
+/* =========================================
+   1. GLOBAL RESET & LAYOUT
+   ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html, body {
-  height: 110%;
-  font-family: Arial, sans-serif;
-}
-
-body {
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 100px;
+    height: 100%; /* Ensures page fills the window */
+    font-family: 'Inter', Arial, sans-serif;
+    background-color: #f4f6f9;
+    display: flex;
+    flex-direction: column; /* Stacks: Navbar -> Main -> Footer */
 }
 
 
-
-/*Navigation Bar*/
-.navbar_container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  width: 100%;
-  top: 15px;
-  background: transparent;
-  position: fixed;
-  z-index: 1;
-  transition: top 0.3s; 
+/* =========================================
+   3. MAIN CONTENT WRAPPER (The Fix)
+   ========================================= */
+.main-content {
+    flex: 1; /* Pushes footer to bottom */
+    display: flex;
+    justify-content: center; /* Center Horizontal */
+    align-items: center;     /* Center Vertical */
+    
+    /* CRITICAL: Pushes content down so Navbar doesn't cover it */
+    padding-top: 130px; 
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.navbar_left, .navbar_right {
-  display: flex;
-  align-items: center;
-  border-radius: 45px;
-  padding: 15px;
-  height: 30px;
+/* =========================================
+   4. CARD STYLING
+   ========================================= */
+.card-container {
+    background: white;
+    width: 100%;
+    max-width: 800px;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.08);
 }
 
-.navbar_left {
-  background-color: #F2FCFF;
-  margin-left: 120px;
-  width: 200px;
-  justify-content: center;
-  height: 50px;
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 1.8rem;
 }
 
-.navbar_right {
-  background-color: #F2FCFF;
-  margin-right: 120px;
-  justify-content: space-between;
-  height: 50px;
+/* Tabs */
+.tabs-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    background: #f1f3f6;
+    border-radius: 30px;
+    padding: 5px;
 }
 
-.nav_links {
-  display: flex;
-  align-items: center;
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    color: #666;
+    transition: 0.3s;
 }
 
-.nav_links a {
-  text-decoration: none;
-  color: rgb(101, 64, 64);
-  font-size: 14px;
-  margin: 0 20px;
+.tab.active {
+    background-color: white;
+    color: #17AFEF; /* Matches Navbar Blue */
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-.nav_links a:hover {
-  color: #17AFEF;
+/* Form Layout */
+.form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
-.nav_buttons {
-  display: flex;
-  align-items: center;
+.row {
+    display: flex;
+    gap: 24px;
 }
 
-/*Navigation bar sign up button*/
-.signup_button {
-  background-color: transparent; 
-  border: 2px solid #17AFEF; 
-  color: #17AFEF; 
-  padding: 5px 32px;
-  border-radius: 20px;
-  font-weight: bold;
-  font-size: 14px; 
-  transition: background-color 0.3s ease, color 0.3s ease; 
-  text-decoration: none;
-  margin-left: 10px;
+/* Mobile Responsive: Stack inputs */
+@media (max-width: 600px) {
+    .row { flex-direction: column; gap: 15px; }
+    .navbar_container { top: 0; background: white; flex-direction: column; height: auto; padding-bottom: 20px; }
+    .navbar_left, .navbar_right { margin: 10px 0; width: 90%; justify-content: center; }
+    .main-content { padding-top: 220px; /* More padding needed on mobile if nav wraps */ }
 }
 
-.signup_button:hover {
-  background-color: transparent; 
-  border: 2px solid #DE732D; 
-  color: #DE732D; 
+.input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-/*Navigation bar sign in button*/
-.signin_button {
-  background-color: #17AFEF;
-  padding: 7px 32px;
-  border-radius: 20px;
-  color: white;
-  font-weight: bold;
-  font-size: 14px; 
-  transition: background-color 0.3s ease;
-  text-decoration: none;
-  margin-left: 10px;
+label {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    margin-top: 16px;
+    color: #555;
+    font-weight: 600;
 }
 
-.signin_button:hover {
-  background-color: #DE732D;
-  color: white;
+.input-wrapper { position: relative; }
+
+input, select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 24px;
+    font-size: 1rem;
+    background: #fafafa;
+    outline: none;
+    transition: 0.3s;
 }
 
-
-
-
-
-/*cONTAINER*/
-
-.container {
-  background-color: #fff;
-  padding: 50px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 850px;
-  width: 100%;
+input:focus, select:focus {
+    border-color: #17AFEF; /* Matches Navbar Blue */
+    background: white;
+    box-shadow: 0 0 0 3px rgba(23, 175, 239, 0.1);
 }
 
-.booking-title {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 30px;
-  color: #333;
+/* Icons */
+.icon-right {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    pointer-events: none;
 }
 
-.tabs {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+/* Button */
+.btn-container { margin-top: 30px; }
+
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background-color: #17AFEF; /* Matches Navbar Blue */
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
 }
 
-
-.tab-link {
-  background-color: #d5effa;
-  border: none;
-  height: 50px;
-  width: 33.333333%;
-  cursor: pointer;
-
-  color: #333;
-  font-weight: 500;
+.btn-submit:hover {
+    background-color: #037bae; /* Matches Navbar Hover */
 }
 
-.tab-link.active {
-  background-color: #17afef;
-  color: white;
+/* ... KEEP ALL YOUR PREVIOUS CSS ABOVE THIS ... */
 
-}
-
+/* --- TAB LOGIC --- */
+/* Hide content by default */
 .tab-content {
-  display: none;
+    display: none;
+    animation: fadeIn 0.4s;
 }
 
-.form-row {
-  display: flex;
-justify-content: space-between;
-  margin-bottom: 15px;
+/* Show content when active */
+.tab-content.active {
+    display: block;
 }
 
-.form-row label {
-  flex-basis: 30%;
-  color: #333;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.form-row input, 
-.form-row select {
-  flex-basis: 65%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
+/* --- PET CARE SPECIAL STYLES (From/To) --- */
+.split-wrapper {
+    display: flex;
+    gap: 16px;
+    align-items: center;
 }
 
-.btn {
-  padding: 8px;
-  background-color: #17afef;
-  color: white;
-  border: none;
-  border-radius: 60px;
-  font-size: 16px;
-  width: 30%;
-  cursor: pointer;
-  margin-top: 20px;
+.mini-input {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
-.btn:hover {
-  background-color: #17afef;
+.mini-input span {
+    font-size: 0.85rem;
+    color: #888;
+    white-space: nowrap;
+}
+
+/* --- DROPDOWN STYLING FIX --- */
+
+/* 1. Remove default browser arrow so it looks like a text input */
+select {
+    -webkit-appearance: none; /* Chrome, Safari, Edge */
+    -moz-appearance: none;    /* Firefox */
+    appearance: none;         /* Standard */
+    cursor: pointer;          /* Shows hand cursor on hover */
+    background-color: #fafafa; /* Matches text inputs */
+    padding-right: 40px;      /* Prevents text from overlapping the icon */
+}
+
+/* 2. Ensure the dropdown changes color on focus (just like inputs) */
+select:focus {
+    background-color: white;
+    border-color: #17AFEF;
+}
+
+/* 3. Ensure the custom arrow icon is positioned correctly */
+/* This targets the icon specifically inside the location wrapper if needed */
+.input-wrapper .fa-caret-down {
+    color: #999;
+    z-index: 1; /* Ensures icon stays on top visually */
 }
