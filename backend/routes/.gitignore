@@ -1,0 +1,8 @@
+# Secrets
+.env
+
+# Dependency folders (very large, don't upload)
+node_modules/
+
+# Mac system files
+.DS_Store
