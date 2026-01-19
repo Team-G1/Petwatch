@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>PetWatch Admin - Edit Health Tip</title>
+    
+    <!-- Main stylesheet -->
+     <link rel="stylesheet" href="../../Admin/css/sidebar.css" />
+    <link rel="stylesheet" href="../../Admin/css/health-edit.css" />
+    
+    <!-- Sidebar manager -->
+    <script src="../../Admin/javascript/sidebar.js" defer></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar will be automatically inserted here -->
+    
+    <div class="admin-dashboard">
+        <!-- Main Content -->
+        <main>
+            <!-- Top Bar -->
+            <div class="topbar">
+                <div class="page-title">
+                    <h1>Edit Health Tip</h1>
+                    <p class="subtitle">Update health tip information</p>
+                </div>
+                
+                <div class="user-profile">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile Picture">
+                    <div class="user-info">
+                        <span class="username">Admin</span>
+                        <span class="user-role">Content Editor</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Content -->
+            <div class="dashboard-content">
+                <!-- Breadcrumb -->
+                <div class="breadcrumb">
+                    <a href="health-tips-view.html" class="breadcrumb-link">
+                        <i class="fas fa-arrow-left"></i> Back to Health Tips
+                    </a>
+                </div>
+
+                <!-- Edit Form Card -->
+                <div class="card edit-form-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-edit"></i> Edit Health Tip</h3>
+                        <div class="status-indicator">
+                            <span class="status-badge published">Published</span>
+                        </div>
+                    </div>
+                    
+                    <div class="edit-form">
+                        <!-- Basic Information -->
+                        <div class="form-section">
+                            <h4 class="section-title">Basic Information</h4>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="tip-title">Title</label>
+                                    <input type="text" id="tip-title" class="form-input" 
+                                           placeholder="Enter tip title..." 
+                                           value="Regular Vet Check-Ups">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="category">Category</label>
+                                    <select id="category" class="form-select">
+                                        <option value="cats" selected>Cats</option>
+                                        <option value="dogs">Dogs</option>
+                                        <option value="small-pets">Small Pets</option>
+                                        <option value="birds">Birds</option>
+                                        <option value="nutrition">Nutrition</option>
+                                        <option value="grooming">Grooming</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="tip-description">Description</label>
+                                <textarea id="tip-description" class="form-textarea" rows="6" 
+                                          placeholder="Write detailed description here...">
+Ensure your cat receives routine veterinary check-ups to catch any health issues early and keep their vaccinations up to date. Early detection is key to preventing serious conditions. Regular visits help monitor weight, dental health, and overall well-being.
+                                </textarea>
+                            </div>
+                        </div>
+
+                        <!-- Image Upload -->
+                        <div class="form-section">
+                            <h4 class="section-title">Featured Image</h4>
+                            
+                            <div class="image-upload-area">
+                                <div class="image-preview" id="image-preview">
+                                    <img src="https://images.unsplash.com/photo-1583512603802-3cc3af6351df?w=600&auto=format&fit=crop" 
+                                         alt="Current featured image" id="current-image">
+                                    <div class="image-overlay">
+                                        <button type="button" class="change-image-btn" id="change-image-btn">
+                                            <i class="fas fa-camera"></i> Change
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="upload-info">
+                                    <input type="file" id="image-upload" accept="image/*" style="display: none;">
+                                    <button type="button" class="btn-upload" id="upload-btn">
+                                        <i class="fas fa-cloud-upload-alt"></i> Upload New Image
+                                    </button>
+                                    <p class="upload-hint">Recommended: 600×400px JPG or PNG</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Status Settings -->
+                        <div class="form-section">
+                            <h4 class="section-title">Status Settings</h4>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="status">Status</label>
+                                    <select id="status" class="form-select">
+                                        <option value="published" selected>Published</option>
+                                        <option value="draft">Draft</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="publish-date">Publish Date</label>
+                                    <input type="date" id="publish-date" class="form-input" value="2024-01-15">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="form-actions">
+                            <div class="action-buttons">
+                                <button type="button" class="btn-secondary" id="preview-btn">
+                                    <i class="fas fa-eye"></i> Preview
+                                </button>
+                                <button type="button" class="btn-danger" id="delete-btn">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                            
+                            <div class="save-buttons">
+                                <button type="button" class="btn-cancel" id="cancel-btn">
+                                    Cancel
+                                </button>
+                                <button type="button" class="btn-save" id="save-btn">
+                                    <i class="fas fa-save"></i> Save Changes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Image upload functionality
+            const imageUpload = document.getElementById('image-upload');
+            const uploadBtn = document.getElementById('upload-btn');
+            const changeImageBtn = document.getElementById('change-image-btn');
+            const currentImage = document.getElementById('current-image');
+            
+            // Open file dialog on button click
+            uploadBtn.addEventListener('click', function() {
+                imageUpload.click();
+            });
+            
+            changeImageBtn.addEventListener('click', function() {
+                imageUpload.click();
+            });
+            
+            // Handle image selection
+            imageUpload.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    if (!file.type.match('image.*')) {
+                        alert('Please select an image file (JPG, PNG)');
+                        return;
+                    }
+                    
+                    if (file.size > 2 * 1024 * 1024) {
+                        alert('Image size must be less than 2MB');
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        currentImage.src = e.target.result;
+                        showMessage('Image uploaded successfully!', 'success');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Save button functionality
+            document.getElementById('save-btn').addEventListener('click', function() {
+                const tipTitle = document.getElementById('tip-title').value;
+                const category = document.getElementById('category').value;
+                
+                // Validate required fields
+                if (!tipTitle.trim()) {
+                    showMessage('Please enter a title for the health tip.', 'error');
+                    document.getElementById('tip-title').focus();
+                    return;
+                }
+                
+                // Show saving state
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                this.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    showMessage('Health tip saved successfully!', 'success');
+                    
+                    // Reset button
+                    this.innerHTML = originalText;
+                    this.disabled = false;
+                    
+                    console.log(`Health tip "${tipTitle}" saved in category: ${category}`);
+                }, 1000);
+            });
+            
+            // Delete button
+            document.getElementById('delete-btn').addEventListener('click', function() {
+                const tipTitle = document.getElementById('tip-title').value;
+                
+                if (confirm(`Are you sure you want to delete "${tipTitle}"?`)) {
+                    // Show deleting state
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
+                    this.disabled = true;
+                    
+                    setTimeout(() => {
+                        showMessage('Health tip deleted successfully!', 'success');
+                        
+                        // Redirect after 1 second
+                        setTimeout(() => {
+                            window.location.href = 'health-tips-view.html';
+                        }, 1000);
+                    }, 1000);
+                }
+            });
+            
+            // Preview button
+            document.getElementById('preview-btn').addEventListener('click', function() {
+                const tipTitle = document.getElementById('tip-title').value;
+                console.log(`Preview: ${tipTitle}`);
+                alert('Preview would open in a new window');
+            });
+            
+            // Cancel button
+            document.getElementById('cancel-btn').addEventListener('click', function() {
+                if (confirm('Discard changes and go back?')) {
+                    window.location.href = 'health-tips-view.html';
+                }
+            });
+            
+            // Helper function to show messages
+            function showMessage(message, type) {
+                // Remove existing message
+                const existingMessage = document.querySelector('.message-alert');
+                if (existingMessage) {
+                    existingMessage.remove();
+                }
+                
+                // Create message element
+                const messageEl = document.createElement('div');
+                messageEl.className = `message-alert ${type}`;
+                messageEl.innerHTML = `
+                    <span>${message}</span>
+                    <button class="close-message"><i class="fas fa-times"></i></button>
+                `;
+                
+                // Insert after topbar
+                const topbar = document.querySelector('.topbar');
+                topbar.parentNode.insertBefore(messageEl, topbar.nextSibling);
+                
+                // Close button functionality
+                messageEl.querySelector('.close-message').addEventListener('click', function() {
+                    messageEl.remove();
+                });
+                
+                // Auto-remove after 5 seconds
+                setTimeout(() => {
+                    if (messageEl.parentNode) {
+                        messageEl.remove();
+                    }
+                }, 5000);
+            }
+            
+            // Auto-save draft every 30 seconds
+            let autoSaveTimer;
+            function startAutoSave() {
+                autoSaveTimer = setInterval(() => {
+                    const tipTitle = document.getElementById('tip-title').value;
+                    if (tipTitle.trim()) {
+                        console.log('Auto-saving draft...');
+                        // In a real app, this would save to localStorage or send to backend
+                    }
+                }, 30000);
+            }
+            
+            // Start auto-save
+            startAutoSave();
+            
+            // Clean up on page unload
+            window.addEventListener('beforeunload', function(e) {
+                if (autoSaveTimer) {
+                    clearInterval(autoSaveTimer);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

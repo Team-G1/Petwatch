@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>PetWatch Admin - Veterinarians</title>
+    
+    <!-- Main stylesheet -->
+     <link rel="stylesheet" href="../../Admin/css/sidebar.css" />
+    <link rel="stylesheet" href="../../Admin/css/vets.css" />
+    
+    <!-- Sidebar manager -->
+    <script src="../../Admin/javascript/sidebar.js" defer></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar will be automatically inserted here -->
+    
+    <div class="admin-dashboard">
+        <!-- Main Content -->
+        <main>
+            <!-- Top Bar -->
+            <div class="topbar">
+                <div class="page-title">
+                    <h1>Veterinarians</h1>
+                    <p class="subtitle">Manage veterinary professionals and staff</p>
+                </div>
+                
+                <div class="user-profile">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile Picture">
+                    <div class="user-info">
+                        <span class="username">Admin</span>
+                        <span class="user-role">Vet Manager</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vets Content -->
+            <div class="dashboard-content">
+                <!-- Stats Cards -->
+                <div class="quick-stats">
+                    <div class="stat-card total-vets">
+                        <div class="stat-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>24</h3>
+                            <p>Total Veterinarians</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card active-vets">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>22</h3>
+                            <p>Active</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card on-duty">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>18</h3>
+                            <p>On Duty Today</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card specialties">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>8</h3>
+                            <p>Specialties</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters and Actions -->
+                <div class="vets-header">
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label for="branch-filter"><i class="fas fa-map-marker-alt"></i> Branch</label>
+                            <select id="branch-filter" class="filter-select">
+                                <option value="all">All Branches</option>
+                                <option value="kandy" selected>Kandy</option>
+                                <option value="colombo">Colombo</option>
+                                <option value="gampaha">Gampaha</option>
+                                <option value="jaffna">Jaffna</option>
+                                <option value="galle">Galle</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="specialty-filter"><i class="fas fa-stethoscope"></i> Specialty</label>
+                            <select id="specialty-filter" class="filter-select">
+                                <option value="all">All Specialties</option>
+                                <option value="surgery">Surgery</option>
+                                <option value="internal-medicine">Internal Medicine</option>
+                                <option value="dermatology">Dermatology</option>
+                                <option value="dentistry">Dentistry</option>
+                                <option value="ophthalmology">Ophthalmology</option>
+                                <option value="emergency">Emergency Care</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="status-filter"><i class="fas fa-circle"></i> Status</label>
+                            <select id="status-filter" class="filter-select">
+                                <option value="all">All Status</option>
+                                <option value="active">Active</option>
+                                <option value="on-duty">On Duty</option>
+                                <option value="off-duty">Off Duty</option>
+                                <option value="vacation">On Vacation</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="actions">
+                        <button class="btn-primary" id="add-vet-btn">
+                            <i class="fas fa-plus"></i> Add New Vet
+                        </button>
+                        <button class="btn-secondary" id="edit-vets-btn">
+                            <i class="fas fa-edit"></i> Edit Vets
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Veterinarians Grid -->
+                <div class="card vets-grid-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-users"></i> Veterinarians</h3>
+                        <div class="table-actions">
+                            <input type="text" class="search-input" placeholder="Search veterinarians...">
+                            <button class="btn-refresh">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="vets-grid">
+                        <!-- Vet Card 1 -->
+                        <div class="vet-card">
+                            <div class="vet-header">
+                                <span class="vet-badge senior">Senior Vet</span>
+                                <div class="vet-actions">
+                                    <button class="btn-action view" title="View Profile">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-action edit" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="vet-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Dr. Harry Fernando">
+                                <span class="online-status active"></span>
+                            </div>
+                            <div class="vet-info">
+                                <h3>Dr. Harry Fernando</h3>
+                                <p class="vet-title">Senior Veterinarian</p>
+                                <div class="vet-specialties">
+                                    <span class="specialty">Surgery</span>
+                                    <span class="specialty">Internal Medicine</span>
+                                </div>
+                                <div class="vet-meta">
+                                    <span class="vet-location">
+                                        <i class="fas fa-map-marker-alt"></i> Kandy
+                                    </span>
+                                    <span class="vet-experience">
+                                        <i class="fas fa-award"></i> 15 years
+                                    </span>
+                                </div>
+                                <div class="vet-contact">
+                                    <span><i class="fas fa-phone"></i> 081-2345678</span>
+                                    <a href="mailto:harry.fernando@petwatch.com">
+                                        <i class="fas fa-envelope"></i> Email
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="vet-footer">
+                                <span class="vet-status active">
+                                    <i class="fas fa-check-circle"></i> On Duty
+                                </span>
+                                <button class="btn-action schedule" title="View Schedule">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Vet Card 2 -->
+                        <div class="vet-card">
+                            <div class="vet-header">
+                                <span class="vet-badge specialist">Specialist</span>
+                                <div class="vet-actions">
+                                    <button class="btn-action view" title="View Profile">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-action edit" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="vet-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Dr. Helen Perera">
+                                <span class="online-status active"></span>
+                            </div>
+                            <div class="vet-info">
+                                <h3>Dr. Helen Perera</h3>
+                                <p class="vet-title">Veterinary Dermatologist</p>
+                                <div class="vet-specialties">
+                                    <span class="specialty">Dermatology</span>
+                                    <span class="specialty">Allergy</span>
+                                </div>
+                                <div class="vet-meta">
+                                    <span class="vet-location">
+                                        <i class="fas fa-map-marker-alt"></i> Colombo
+                                    </span>
+                                    <span class="vet-experience">
+                                        <i class="fas fa-award"></i> 10 years
+                                    </span>
+                                </div>
+                                <div class="vet-contact">
+                                    <span><i class="fas fa-phone"></i> 011-3456789</span>
+                                    <a href="mailto:helen.perera@petwatch.com">
+                                        <i class="fas fa-envelope"></i> Email
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="vet-footer">
+                                <span class="vet-status active">
+                                    <i class="fas fa-check-circle"></i> On Duty
+                                </span>
+                                <button class="btn-action schedule" title="View Schedule">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Vet Card 3 -->
+                        <div class="vet-card">
+                            <div class="vet-header">
+                                <span class="vet-badge surgeon">Surgeon</span>
+                                <div class="vet-actions">
+                                    <button class="btn-action view" title="View Profile">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-action edit" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="vet-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Dr. Vikum Dissanayaka">
+                                <span class="online-status active"></span>
+                            </div>
+                            <div class="vet-info">
+                                <h3>Dr. Vikum Dissanayaka</h3>
+                                <p class="vet-title">Veterinary Surgeon</p>
+                                <div class="vet-specialties">
+                                    <span class="specialty">Orthopedics</span>
+                                    <span class="specialty">Soft Tissue</span>
+                                    <span class="specialty">Emergency</span>
+                                </div>
+                                <div class="vet-meta">
+                                    <span class="vet-location">
+                                        <i class="fas fa-map-marker-alt"></i> Kandy
+                                    </span>
+                                    <span class="vet-experience">
+                                        <i class="fas fa-award"></i> 12 years
+                                    </span>
+                                </div>
+                                <div class="vet-contact">
+                                    <span><i class="fas fa-phone"></i> 081-3456789</span>
+                                    <a href="mailto:vikum.d@petwatch.com">
+                                        <i class="fas fa-envelope"></i> Email
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="vet-footer">
+                                <span class="vet-status active">
+                                    <i class="fas fa-check-circle"></i> On Duty
+                                </span>
+                                <button class="btn-action schedule" title="View Schedule">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Vet Card 4 -->
+                        <div class="vet-card">
+                            <div class="vet-header">
+                                <span class="vet-badge general">General Vet</span>
+                                <div class="vet-actions">
+                                    <button class="btn-action view" title="View Profile">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-action edit" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="vet-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dr. Aruni Dissanayaka">
+                                <span class="online-status away"></span>
+                            </div>
+                            <div class="vet-info">
+                                <h3>Dr. Aruni Dissanayaka</h3>
+                                <p class="vet-title">General Veterinarian</p>
+                                <div class="vet-specialties">
+                                    <span class="specialty">Preventive Care</span>
+                                    <span class="specialty">Vaccinations</span>
+                                </div>
+                                <div class="vet-meta">
+                                    <span class="vet-location">
+                                        <i class="fas fa-map-marker-alt"></i> Gampaha
+                                    </span>
+                                    <span class="vet-experience">
+                                        <i class="fas fa-award"></i> 8 years
+                                    </span>
+                                </div>
+                                <div class="vet-contact">
+                                    <span><i class="fas fa-phone"></i> 033-4567890</span>
+                                    <a href="mailto:aruni.d@petwatch.com">
+                                        <i class="fas fa-envelope"></i> Email
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="vet-footer">
+                                <span class="vet-status away">
+                                    <i class="fas fa-clock"></i> Away
+                                </span>
+                                <button class="btn-action schedule" title="View Schedule">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Vet Card 5 -->
+                        <div class="vet-card">
+                            <div class="vet-header">
+                                <span class="vet-badge dentist">Dentist</span>
+                                <div class="vet-actions">
+                                    <button class="btn-action view" title="View Profile">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-action edit" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="vet-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="Dr. Ruwan Kumara">
+                                <span class="online-status active"></span>
+                            </div>
+                            <div class="vet-info">
+                                <h3>Dr. Ruwan Kumara</h3>
+                                <p class="vet-title">Veterinary Dentist</p>
+                                <div class="vet-specialties">
+                                    <span class="specialty">Dentistry</span>
+                                    <span class="specialty">Oral Surgery</span>
+                                </div>
+                                <div class="vet-meta">
+                                    <span class="vet-location">
+                                        <i class="fas fa-map-marker-alt"></i> Colombo
+                                    </span>
+                                    <span class="vet-experience">
+                                        <i class="fas fa-award"></i> 9 years
+                                    </span>
+                                </div>
+                                <div class="vet-contact">
+                                    <span><i class="fas fa-phone"></i> 011-4567890</span>
+                                    <a href="mailto:ruwan.k@petwatch.com">
+                                        <i class="fas fa-envelope"></i> Email
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="vet-footer">
+                                <span class="vet-status active">
+                                    <i class="fas fa-check-circle"></i> On Duty
+                                </span>
+                                <button class="btn-action schedule" title="View Schedule">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Vet Card 6 -->
+                        <div class="vet-card">
+                            <div class="vet-header">
+                                <span class="vet-badge ophthalmologist">Eye Specialist</span>
+                                <div class="vet-actions">
+                                    <button class="btn-action view" title="View Profile">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-action edit" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="vet-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Dr. Manel Ekanayaka">
+                                <span class="online-status active"></span>
+                            </div>
+                            <div class="vet-info">
+                                <h3>Dr. Manel Ekanayaka</h3>
+                                <p class="vet-title">Veterinary Ophthalmologist</p>
+                                <div class="vet-specialties">
+                                    <span class="specialty">Ophthalmology</span>
+                                    <span class="specialty">Eye Surgery</span>
+                                </div>
+                                <div class="vet-meta">
+                                    <span class="vet-location">
+                                        <i class="fas fa-map-marker-alt"></i> Galle
+                                    </span>
+                                    <span class="vet-experience">
+                                        <i class="fas fa-award"></i> 11 years
+                                    </span>
+                                </div>
+                                <div class="vet-contact">
+                                    <span><i class="fas fa-phone"></i> 091-5678901</span>
+                                    <a href="mailto:manel.e@petwatch.com">
+                                        <i class="fas fa-envelope"></i> Email
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="vet-footer">
+                                <span class="vet-status active">
+                                    <i class="fas fa-check-circle"></i> On Duty
+                                </span>
+                                <button class="btn-action schedule" title="View Schedule">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <button class="pagination-btn" disabled>
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <div class="page-numbers">
+                            <button class="page-number active">1</button>
+                            <button class="page-number">2</button>
+                            <button class="page-number">3</button>
+                            <span class="ellipsis">...</span>
+                            <button class="page-number">5</button>
+                        </div>
+                        <button class="pagination-btn">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Statistics & Schedule -->
+                <div class="stats-section">
+                    <div class="card specialty-stats-card">
+                        <h3><i class="fas fa-chart-pie"></i> Veterinarians by Specialty</h3>
+                        <div class="specialty-stats">
+                            <div class="specialty-stat">
+                                <div class="specialty-info">
+                                    <span class="specialty-name">General Practice</span>
+                                    <span class="specialty-count">8 vets</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress general-progress" style="width: 33%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="specialty-stat">
+                                <div class="specialty-info">
+                                    <span class="specialty-name">Surgery</span>
+                                    <span class="specialty-count">5 vets</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress surgery-progress" style="width: 21%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="specialty-stat">
+                                <div class="specialty-info">
+                                    <span class="specialty-name">Dermatology</span>
+                                    <span class="specialty-count">3 vets</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress derm-progress" style="width: 13%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="specialty-stat">
+                                <div class="specialty-info">
+                                    <span class="specialty-name">Dentistry</span>
+                                    <span class="specialty-count">2 vets</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress dental-progress" style="width: 8%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="specialty-stat">
+                                <div class="specialty-info">
+                                    <span class="specialty-name">Other Specialties</span>
+                                    <span class="specialty-count">6 vets</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress other-progress" style="width: 25%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card upcoming-shifts-card">
+                        <h3><i class="fas fa-calendar-check"></i> Upcoming Shifts</h3>
+                        <div class="shifts-list">
+                            <div class="shift-item">
+                                <div class="shift-time">
+                                    <span class="date">Today</span>
+                                    <span class="time">8:00 AM - 4:00 PM</span>
+                                </div>
+                                <div class="shift-details">
+                                    <span class="vet-name">Dr. Harry Fernando</span>
+                                    <span class="shift-location">Kandy Branch</span>
+                                </div>
+                                <button class="btn-action view">View</button>
+                            </div>
+                            
+                            <div class="shift-item">
+                                <div class="shift-time">
+                                    <span class="date">Today</span>
+                                    <span class="time">2:00 PM - 10:00 PM</span>
+                                </div>
+                                <div class="shift-details">
+                                    <span class="vet-name">Dr. Helen Perera</span>
+                                    <span class="shift-location">Colombo Branch</span>
+                                </div>
+                                <button class="btn-action view">View</button>
+                            </div>
+                            
+                            <div class="shift-item">
+                                <div class="shift-time">
+                                    <span class="date">Tomorrow</span>
+                                    <span class="time">7:00 AM - 3:00 PM</span>
+                                </div>
+                                <div class="shift-details">
+                                    <span class="vet-name">Dr. Vikum Dissanayaka</span>
+                                    <span class="shift-location">Kandy Branch</span>
+                                </div>
+                                <button class="btn-action view">View</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filter functionality
+            const filterSelects = document.querySelectorAll('.filter-select');
+            filterSelects.forEach(select => {
+                select.addEventListener('change', function() {
+                    console.log(`Filter changed: ${this.id} = ${this.value}`);
+                    filterVets();
+                });
+            });
+            
+            // Search functionality
+            const searchInput = document.querySelector('.search-input');
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                filterVets(searchTerm);
+            });
+            
+            // Refresh button
+            const refreshBtn = document.querySelector('.btn-refresh');
+            refreshBtn.addEventListener('click', function() {
+                this.classList.add('refreshing');
+                setTimeout(() => {
+                    this.classList.remove('refreshing');
+                    console.log('Veterinarians list refreshed');
+                }, 1000);
+            });
+            
+            // Add vet button
+            document.getElementById('add-vet-btn').addEventListener('click', function() {
+                console.log('Opening add vet form...');
+                window.location.href = 'vets-edit.html';
+            });
+            
+            // Edit vets button
+            document.getElementById('edit-vets-btn').addEventListener('click', function() {
+                console.log('Opening edit vets mode...');
+                // Enable edit mode
+                document.querySelectorAll('.vet-card').forEach(card => {
+                    card.classList.add('edit-mode');
+                });
+                showMessage('Edit mode activated. Click on vet cards to edit.', 'info');
+            });
+            
+            // Vet action buttons
+            document.querySelectorAll('.btn-action.view').forEach(button => {
+                button.addEventListener('click', function() {
+                    const vetCard = this.closest('.vet-card');
+                    const vetName = vetCard.querySelector('h3').textContent;
+                    console.log(`View profile: ${vetName}`);
+                    // Open vet profile modal
+                });
+            });
+            
+            document.querySelectorAll('.btn-action.edit').forEach(button => {
+                button.addEventListener('click', function() {
+                    const vetCard = this.closest('.vet-card');
+                    const vetName = vetCard.querySelector('h3').textContent;
+                    console.log(`Edit vet: ${vetName}`);
+                    window.location.href = `vets-edit.html?vet=${encodeURIComponent(vetName)}`;
+                });
+            });
+            
+            document.querySelectorAll('.btn-action.schedule').forEach(button => {
+                button.addEventListener('click', function() {
+                    const vetCard = this.closest('.vet-card');
+                    const vetName = vetCard.querySelector('h3').textContent;
+                    console.log(`View schedule: ${vetName}`);
+                    // Open schedule modal
+                });
+            });
+            
+            // Pagination
+            document.querySelectorAll('.page-number').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.page-number').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    console.log(`Page ${this.textContent} selected`);
+                });
+            });
+            
+            // Function to filter vets
+            function filterVets(searchTerm = '') {
+                const branchFilter = document.getElementById('branch-filter').value;
+                const specialtyFilter = document.getElementById('specialty-filter').value;
+                const statusFilter = document.getElementById('status-filter').value;
+                
+                document.querySelectorAll('.vet-card').forEach(card => {
+                    const location = card.querySelector('.vet-location').textContent.toLowerCase();
+                    const specialties = card.querySelectorAll('.specialty');
+                    const status = card.querySelector('.vet-status').textContent.toLowerCase();
+                    const vetName = card.querySelector('h3').textContent.toLowerCase();
+                    const vetTitle = card.querySelector('.vet-title').textContent.toLowerCase();
+                    
+                    // Check branch filter
+                    const matchesBranch = branchFilter === 'all' || 
+                                          location.includes(branchFilter);
+                    
+                    // Check specialty filter
+                    let matchesSpecialty = specialtyFilter === 'all';
+                    if (!matchesSpecialty) {
+                        specialties.forEach(specialty => {
+                            if (specialty.textContent.toLowerCase().includes(specialtyFilter)) {
+                                matchesSpecialty = true;
+                            }
+                        });
+                    }
+                    
+                    // Check status filter
+                    let matchesStatus = statusFilter === 'all';
+                    if (statusFilter === 'active' && status.includes('on duty')) matchesStatus = true;
+                    if (statusFilter === 'on-duty' && status.includes('on duty')) matchesStatus = true;
+                    if (statusFilter === 'off-duty' && status.includes('off duty')) matchesStatus = true;
+                    if (statusFilter === 'vacation' && status.includes('vacation')) matchesStatus = true;
+                    
+                    // Check search term
+                    const matchesSearch = searchTerm === '' || 
+                                          vetName.includes(searchTerm) || 
+                                          vetTitle.includes(searchTerm);
+                    
+                    if (matchesBranch && matchesSpecialty && matchesStatus && matchesSearch) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 10);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            }
+            
+            // Helper function to show messages
+            function showMessage(message, type) {
+                // Remove existing message
+                const existingMessage = document.querySelector('.message-alert');
+                if (existingMessage) {
+                    existingMessage.remove();
+                }
+                
+                // Create message element
+                const messageEl = document.createElement('div');
+                messageEl.className = `message-alert ${type}`;
+                messageEl.innerHTML = `
+                    <span>${message}</span>
+                    <button class="close-message"><i class="fas fa-times"></i></button>
+                `;
+                
+                // Insert after topbar
+                const topbar = document.querySelector('.topbar');
+                topbar.parentNode.insertBefore(messageEl, topbar.nextSibling);
+                
+                // Close button functionality
+                messageEl.querySelector('.close-message').addEventListener('click', function() {
+                    messageEl.remove();
+                });
+                
+                // Auto-remove after 5 seconds
+                setTimeout(() => {
+                    if (messageEl.parentNode) {
+                        messageEl.remove();
+                    }
+                }, 5000);
+            }
+            
+            // Initialize filters
+            filterVets();
+        });
+    </script>
+</body>
+</html>
