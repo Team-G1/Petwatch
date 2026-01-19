@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & FAQ - PetWatch</title>
+    
+    <link rel="stylesheet" href="../../Frontend/css/services.css">
+    <link rel="stylesheet" href="../../Frontend/css/help.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <main class="main-content">
+        <div class="help-container">
+            
+            <div class="faq-section">
+                <h1>Help & Frequently Asked Questions (FAQ)</h1>
+
+                <div class="faq-item">
+                    <h3>1. How do I book an appointment for my pet?</h3>
+                    <p><b>Answer:</b><br>You can book an appointment by selecting the "Our Services" option on our homepage. Choose your preferred location, service type, and a convenient time slot. Fill in your pet's details and submit the booking.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>2. What services does PetWatch offer?</h3>
+                    <p><b>Answer:</b><br>PetWatch provides a wide range of services, including pet grooming, veterinary care, and health consultations. You can explore these services under the "Our Services" section on our website.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>3. Are your services available across the island?</h3>
+                    <p><b>Answer:</b><br>Yes, PetWatch offers islandwide services in five locations. You can choose the one closest to you when booking an appointment.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>4. Can I cancel or reschedule my appointment?</h3>
+                    <p><b>Answer:</b><br>Yes, you can cancel or reschedule your appointment through your account dashboard. Simply navigate to your upcoming bookings, and select the option to modify your appointment.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>5. How do I access pet health tips?</h3>
+                    <p><b>Answer:</b><br>Our "Keep Your Pets Healthy" section offers valuable health tips. You can find articles and advice to help you care for your pet, from grooming techniques to dietary recommendations.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>6. Can I edit my pet's details after registering?</h3>
+                    <p><b>Answer:</b><br>Yes, you can update your pet's profile by going to your account dashboard and selecting the "My Pets" section. From there, you can edit details like age, breed, and weight.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>7. How can I contact customer support?</h3>
+                    <p><b>Answer:</b><br>You can reach us by clicking on the "Contact Us" link at the bottom of the website. Alternatively, you can email us at <a href="mailto:pw@gmail.com">pw@gmail.com</a> or call our hotline for assistance. Or use the Inquiries form below.</p>
+                </div>
+            </div>
+
+            <div class="inquiry-wrapper">
+                
+                <div class="inquiry-left">
+                    <h2>Inquire Now!</h2>
+                    <p class="inquiry-desc">
+                        Please feel welcome to contact our friendly reception staff with any general or medical enquiry. Our Veterinary professionals will receive or return any urgent calls.
+                    </p>
+                    
+                    <div class="illustration-box">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <div class="icon-bg">
+                            <i class="fa-solid fa-envelope"></i>
+                            <i class="fa-solid fa-at"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inquiry-right">
+                    <div class="form-card">
+                        <h3>Please write your inquiry here.</h3>
+                        <form id="inquiryForm">
+                            <div class="input-group">
+                                <label>Service Branch</label>
+                                <input type="text" placeholder="Kandy">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Your Name</label>
+                                <input type="text" placeholder="Emma Roberts">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Your Email</label>
+                                <input type="email" placeholder="em@gmail.com">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Message</label>
+                                <textarea rows="4" placeholder="............"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-submit">Send inquiry</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../../Frontend/javascript/navbar.js"></script>
+    <script src="../../Frontend/javascript/footer.js"></script>
+
+    <script>
+        // Simple Interaction for the Inquiry Form
+        document.getElementById('inquiryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("Thank you! Your inquiry has been sent to our support team.");
+            this.reset();
+        });
+    </script>
+
+</body>
+</html>
