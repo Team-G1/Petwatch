@@ -22,37 +22,29 @@
                 <img src="../../Resources/Sg_image.png" alt="dog and cat">
             </div>
 
-            <div class="signup_right_section">
-                <h2>Sign Up</h2>
-                    <form>
-                        <div class="input_field">
-                            <input type="text" placeholder="Username" required>
-                        </div>
-                        <div class="input_field">
-                            <input type="email" placeholder="Email" required>
-                        </div>
-                        <div class="input_field">
-                            <input type="tel" placeholder="Mobile" required>
-                        </div>
-                        <div class="input_field">
-                            <input type="password" placeholder="Password" required>
-                        </div>
-                        <div class="input_field">
-                            <input type="password" placeholder="Confirm password" required>
-                        </div>
-                        <button class="signup_btn" type="submit">Sign Up</button>
-                    </form>
-                <p>Already have an account? <a href="#">Sign In</a></p>
-        
-            </div>
-        </div>
-    </div> 
+            <form id="signupForm">
+                <div class="input_field">
+                    <input type="text" placeholder="Username" name="name" required>
+                </div>
+                <div class="input_field">
+                    <input type="email" placeholder="Email" name="email" required>
+                </div>
+                <div class="input_field">
+                    <input type="tel" placeholder="Mobile" name="mobile" required>
+                </div>
+                <div class="input_field">
+                    <input type="password" placeholder="Password" name="password" required>
+                </div>
+                <div class="input_field">
+                    <input type="password" placeholder="Confirm password" name="confirmPassword" required>
+                </div>
+                <button class="signup_btn" type="submit">Sign Up</button>
+            </form>
+            <div id="messageDisplay" class="validation_error"></div>
     
     
     
-    <footer>
-        <div id="footer"></div>
-      </footer>
+    
       
       
           <script src="../../Frontend/javascript/navbar.js"></script>

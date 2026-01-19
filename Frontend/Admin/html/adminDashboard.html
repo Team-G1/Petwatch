@@ -1,88 +1,180 @@
+<!-- AdminDashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="../css/adminDashboard.css">
+    <link rel="stylesheet" href="../../Admin/css/sidebar.css" />
+    <link rel="stylesheet" href="../../Admin/css/adminDashboard.css">
+    
+    <!-- Load sidebar manager -->
+    <script src="../../Admin/javascript/sidebar.js" defer></script>
 </head>
 <body>
+    <!-- Sidebar will be automatically inserted here -->
+    
     <div class="admin-dashboard">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo">PetWatch</div>
-            <nav>
-                <ul>
-                    <li><a href="#" class="active">Dashboard</a></li>
-                    <li><a href="#">Appointments</a></li>
-                    <li><a href="#">Health Tips</a></li>
-                    <li><a href="#">Locations</a></li>
-                    <li><a href="#">Vets</a></li>
-                    <li><a href="#">Settings</a></li>
-                </ul>
-            </nav>
-            <a href="#" class="logout">Logout</a>
-        </aside>
-
         <!-- Main Content -->
         <main>
             <!-- Top Bar -->
             <div class="topbar">
                 <h1>Dashboard</h1>
                 <div class="user-profile">
-                    <img src="profile.png" alt="Profile Picture">
+                    <span class="notification-badge">3</span>
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile Picture">
+                    <span class="username">Admin User</span>
                 </div>
             </div>
 
             <!-- Dashboard Content -->
             <div class="dashboard-content">
-                <!-- New Mail Section -->
-                <div class="new-mail">
-                    <h3>New Mail</h3>
-                    <p>
-                        <strong>Tom Ford</strong> - Kandy
-                        <span>The service of the center of Kandy...</span>
-                    </p>
-                    <button>View</button>
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-info">
+                            <h3>150</h3>
+                            <p>Total Appointments</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📍</div>
+                        <div class="stat-info">
+                            <h3>30</h3>
+                            <p>Kandy</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏙️</div>
+                        <div class="stat-info">
+                            <h3>60</h3>
+                            <p>Colombo</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-info">
+                            <h3>25%</h3>
+                            <p>Growth Rate</p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Summary Cards -->
-                <div class="summary-cards">
-                    <div class="card">150<br><span>Total Appointments</span></div>
-                    <div class="card">30<br><span>Kandy</span></div>
-                    <div class="card">60<br><span>Colombo</span></div>
-                    <div class="card">10<br><span>Gampaha</span></div>
-                    <div class="card">15<br><span>Jaffna</span></div>
-                    <div class="card">35<br><span>Galle</span></div>
+                <!-- Recent Activity & Appointments -->
+                <div class="main-content-grid">
+                    <!-- New Mail/Notifications -->
+                    <div class="card notifications-card">
+                        <h3><i class="fas fa-envelope"></i> New Notifications</h3>
+                        <div class="notification-item">
+                            <div class="notification-icon">📧</div>
+                            <div class="notification-content">
+                                <strong>Tom Ford - Kandy</strong>
+                                <p>The service of the center of Kandy was excellent...</p>
+                                <small>10 minutes ago</small>
+                            </div>
+                            <button class="btn-view">View</button>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-icon">⭐</div>
+                            <div class="notification-content">
+                                <strong>New Review</strong>
+                                <p>Sarah Johnson left a 5-star review for Colombo center</p>
+                                <small>1 hour ago</small>
+                            </div>
+                            <button class="btn-view">View</button>
+                        </div>
+                    </div>
+
+                    <!-- Appointments Table -->
+                    <div class="card appointments-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-calendar-alt"></i> Recent Appointments</h3>
+                            <a href="AdminAppointments.html" class="view-all">View All</a>
+                        </div>
+                        <table class="appointments-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Appointment No</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="user-info">
+                                            <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="User">
+                                            <span>Tom Ford</span>
+                                        </div>
+                                    </td>
+                                    <td>#12547876</td>
+                                    <td>25 Jun, 10:00 AM</td>
+                                    <td><span class="status-badge completed">Completed</span></td>
+                                    <td><button class="btn-action cancel">Cancel</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-info">
+                                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User">
+                                            <span>Jane Smith</span>
+                                        </div>
+                                    </td>
+                                    <td>#12547877</td>
+                                    <td>26 Jun, 2:30 PM</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td><button class="btn-action accept">Accept</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-info">
+                                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                                            <span>Mike Johnson</span>
+                                        </div>
+                                    </td>
+                                    <td>#12547878</td>
+                                    <td>27 Jun, 9:15 AM</td>
+                                    <td><span class="status-badge confirmed">Confirmed</span></td>
+                                    <td><button class="btn-action reschedule">Reschedule</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <!-- Appointments Table -->
-                <h2>Appointments</h2>
-                <table class="appointments">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Appointment No</th>
-                            <th>Appointment Date</th>
-                            <th>Booking Date</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Tom Ford</td>
-                            <td>#12547876</td>
-                            <td>25 Jun, 10:00 AM</td>
-                            <td>28 Jun, 12:30 AM</td>
-                            <td class="status complete">Complete</td>
-                            <td>
-                                <button class="cancel">Cancel</button>
-                            </td>
-                        </tr>
-                        <!-- Add more rows as needed -->
-                    </tbody>
-                </table>
+                <!-- Location Summary -->
+                <div class="card location-summary">
+                    <h3><i class="fas fa-map-marker-alt"></i> Appointments by Location</h3>
+                    <div class="location-grid">
+                        <div class="location-item">
+                            <span class="location-name">Kandy</span>
+                            <span class="location-count">30 appointments</span>
+                            <div class="progress-bar"><div class="progress" style="width: 60%"></div></div>
+                        </div>
+                        <div class="location-item">
+                            <span class="location-name">Colombo</span>
+                            <span class="location-count">60 appointments</span>
+                            <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
+                        </div>
+                        <div class="location-item">
+                            <span class="location-name">Gampaha</span>
+                            <span class="location-count">10 appointments</span>
+                            <div class="progress-bar"><div class="progress" style="width: 30%"></div></div>
+                        </div>
+                        <div class="location-item">
+                            <span class="location-name">Jaffna</span>
+                            <span class="location-count">15 appointments</span>
+                            <div class="progress-bar"><div class="progress" style="width: 40%"></div></div>
+                        </div>
+                        <div class="location-item">
+                            <span class="location-name">Galle</span>
+                            <span class="location-count">35 appointments</span>
+                            <div class="progress-bar"><div class="progress" style="width: 70%"></div></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
