@@ -1,0 +1,143 @@
+/* sidebar.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #4f46e5 0%, #3730a3 100%);
+    color: white;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: center;
+    color: white;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    flex-grow: 1;
+}
+
+.sidebar-nav li {
+    margin-bottom: 8px;
+}
+
+.sidebar-nav a {
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.sidebar-nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transform: translateX(5px);
+}
+
+.sidebar-nav a.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-nav a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 70%;
+    background: white;
+    border-radius: 0 4px 4px 0;
+}
+
+.logout {
+    display: block;
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    margin-top: auto;
+    transition: all 0.3s ease;
+}
+
+.logout:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px;
+        padding: 20px 10px;
+    }
+    
+    .logo {
+        font-size: 0;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+    }
+    
+    .logo::after {
+        content: 'PW';
+        font-size: 20px;
+        font-weight: 700;
+    }
+    
+    .sidebar-nav a {
+        padding: 12px;
+        text-align: center;
+        font-size: 0;
+    }
+    
+    .sidebar-nav a::before {
+        font-size: 18px;
+        display: block;
+    }
+    
+    .sidebar-nav a[data-page="dashboard"]::before { content: "📊"; }
+    .sidebar-nav a[data-page="appointments"]::before { content: "📅"; }
+    .sidebar-nav a[data-page="health-tips"]::before { content: "💡"; }
+    .sidebar-nav a[data-page="locations"]::before { content: "📍"; }
+    .sidebar-nav a[data-page="vets"]::before { content: "👨‍⚕️"; }
+    .sidebar-nav a[data-page="settings"]::before { content: "⚙️"; }
+    
+    .logout {
+        font-size: 0;
+        padding: 12px;
+    }
+    
+    .logout::before {
+        content: "🚪";
+        font-size: 18px;
+        display: block;
+    }
+}
