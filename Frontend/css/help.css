@@ -1,0 +1,193 @@
+/* Frontend/css/help.css */
+
+/* General Layout for Help Page */
+.help-container {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* --- FAQ SECTION --- */
+.faq-section {
+    margin-bottom: 60px;
+}
+
+.faq-section h1 {
+    font-size: 1.8rem;
+    color: #000;
+    margin-bottom: 30px;
+    font-weight: 800;
+}
+
+.faq-item {
+    margin-bottom: 25px;
+}
+
+.faq-item h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #222;
+}
+
+.faq-item p {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.5;
+}
+
+.faq-item a {
+    color: #17AFEF;
+    text-decoration: none;
+}
+
+/* --- INQUIRY SECTION --- */
+.inquiry-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    
+    padding: 40px 0; /* Background visual separation */
+    align-items: center;
+}
+
+/* Left Side (Text & Illustration) */
+.inquiry-left {
+    flex: 1;
+    min-width: 300px;
+    padding-right: 20px;
+}
+
+.inquiry-left h2 {
+    font-size: 2rem;
+    color: #222;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+.inquiry-desc {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    font-size: 0.95rem;
+}
+
+/* Custom Illustration using Icons (Mimics the 3D graphic) */
+.illustration-box {
+    position: relative;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.illustration-box i.fa-paper-plane {
+    font-size: 80px;
+    color: #17AFEF;
+    z-index: 2;
+    transform: rotate(-10deg);
+    text-shadow: 0 10px 20px rgba(23, 175, 239, 0.3);
+}
+
+.icon-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 120px;
+    background: #eef7fc;
+    border-radius: 50%;
+    z-index: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.icon-bg i {
+    font-size: 40px;
+    color: #b3dffc;
+}
+
+/* Right Side (Form Card) */
+.inquiry-right {
+    flex: 1;
+    min-width: 300px;
+}
+
+.form-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+}
+
+.form-card h3 {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.form-card .input-group {
+    margin-bottom: 15px;
+}
+
+.form-card label {
+    display: block;
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.form-card input, 
+.form-card textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #eee;
+    border-radius: 25px; /* Fully rounded inputs */
+    font-size: 0.9rem;
+    background: #fff;
+    outline: none;
+    font-family: inherit;
+    transition: 0.3s;
+}
+
+.form-card textarea {
+    border-radius: 15px; /* Slightly less rounded for textarea */
+    resize: none;
+}
+
+.form-card input:focus, 
+.form-card textarea:focus {
+    border-color: #17AFEF;
+    background: #fdfdfd;
+}
+
+.form-card .btn-submit {
+    width: auto;
+    min-width: 150px;
+    margin: 10px auto 0;
+    display: block;
+    background-color: #17AFEF;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    box-shadow: 0 4px 10px rgba(23, 175, 239, 0.3);
+}
+.form-card .btn-submit:hover {
+    background-color: #0d9bd6;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .inquiry-wrapper {
+        flex-direction: column;
+    }
+    .inquiry-left {
+        text-align: center;
+        padding-right: 0;
+    }
+}

@@ -1,19 +1,17 @@
-require('dotenv').config(); // This loads the variables from .env
-const { MongoClient } = require('mongodb');
+// db.js
+const mongoose = require('mongoose');
 
-const uri = process.env.MONGO_URI; // This pulls the string from your .env file
-const client = new MongoClient(uri);
-
-async function connectDB() {
+// This function handles the connection logic
+const connectDB = async () => {
     try {
-        await client.connect();
-        console.log("✅ Successfully connected to MongoDB Atlas via Environment Variables!");
+        // We use the variable from your .env file
+        const conn = await mongoose.connect(process.env.MONGO_URI);
         
-        const db = client.db("PetWatchDB");
-        return db;
+        console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
-        console.error("❌ Connection error:", error);
+        console.error(`❌ Connection Error: ${error.message}`);
+        process.exit(1); // Stop the server if we can't connect
     }
-}
+};
 
-connectDB();
+module.exports = connectDB; // Export the function so server.js can use it
