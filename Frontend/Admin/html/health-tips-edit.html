@@ -170,163 +170,132 @@ Ensure your cat receives routine veterinary check-ups to catch any health issues
 
     <!-- JavaScript -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Image upload functionality
-            const imageUpload = document.getElementById('image-upload');
-            const uploadBtn = document.getElementById('upload-btn');
-            const changeImageBtn = document.getElementById('change-image-btn');
-            const currentImage = document.getElementById('current-image');
-            
-            // Open file dialog on button click
-            uploadBtn.addEventListener('click', function() {
-                imageUpload.click();
+document.addEventListener('DOMContentLoaded', async () => {
+
+    const params = new URLSearchParams(window.location.search);
+    const tipId = params.get('id');
+    const uploadBtn = document.getElementById('upload-btn');
+const changeImageBtn = document.getElementById('change-image-btn');
+
+uploadBtn.addEventListener('click', () => {
+  imageInput.click();
+});
+
+changeImageBtn.addEventListener('click', () => {
+  imageInput.click();
+});
+
+
+    if (!tipId) {
+        alert('Invalid tip ID');
+        window.location.href = 'health-tips-view.html';
+        return;
+    }
+
+    const titleInput = document.getElementById('tip-title');
+    const categoryInput = document.getElementById('category');
+    const descInput = document.getElementById('tip-description');
+    const statusInput = document.getElementById('status');
+    const publishDateInput = document.getElementById('publish-date');
+    const imageInput = document.getElementById('image-upload');
+    const currentImage = document.getElementById('current-image');
+
+    // 1. FETCH + PREFILL
+    try {
+        const res = await fetch(`http://localhost:5001/api/health-tips/${tipId}`);
+        const tip = await res.json();
+
+        titleInput.value = tip.title;
+        categoryInput.value = tip.category;
+        descInput.value = tip.description;
+        statusInput.value = tip.status;
+
+        if (tip.publishDate) {
+            publishDateInput.value = tip.publishDate.split('T')[0];
+        }
+
+        if (tip.image) {
+            currentImage.src = `http://localhost:5001${tip.image}`;
+        }
+
+    } catch (err) {
+        alert('Failed to load tip');
+        return;
+    }
+
+    // 2. IMAGE PREVIEW
+    imageInput.addEventListener('change', e => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (!file.type.startsWith('image/')) {
+            alert('Invalid image');
+            return;
+        }
+
+        if (file.size > 2 * 1024 * 1024) {
+            alert('Max image size 2MB');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = e => currentImage.src = e.target.result;
+        reader.readAsDataURL(file);
+    });
+
+    // 3. SAVE (UPDATE)
+    document.getElementById('save-btn').addEventListener('click', async function () {
+
+        if (!titleInput.value.trim()) {
+            alert('Title is required');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('title', titleInput.value);
+        formData.append('category', categoryInput.value);
+        formData.append('description', descInput.value);
+        formData.append('status', statusInput.value);
+        formData.append('publishDate', publishDateInput.value);
+
+        if (imageInput.files[0]) {
+            formData.append('image', imageInput.files[0]);
+        }
+
+        this.disabled = true;
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+        try {
+            const res = await fetch(`http://localhost:5001/api/health-tips/${tipId}`, {
+                method: 'PUT',
+                body: formData
             });
-            
-            changeImageBtn.addEventListener('click', function() {
-                imageUpload.click();
-            });
-            
-            // Handle image selection
-            imageUpload.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    if (!file.type.match('image.*')) {
-                        alert('Please select an image file (JPG, PNG)');
-                        return;
-                    }
-                    
-                    if (file.size > 2 * 1024 * 1024) {
-                        alert('Image size must be less than 2MB');
-                        return;
-                    }
-                    
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        currentImage.src = e.target.result;
-                        showMessage('Image uploaded successfully!', 'success');
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-            
-            // Save button functionality
-            document.getElementById('save-btn').addEventListener('click', function() {
-                const tipTitle = document.getElementById('tip-title').value;
-                const category = document.getElementById('category').value;
-                
-                // Validate required fields
-                if (!tipTitle.trim()) {
-                    showMessage('Please enter a title for the health tip.', 'error');
-                    document.getElementById('tip-title').focus();
-                    return;
-                }
-                
-                // Show saving state
-                const originalText = this.innerHTML;
-                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
-                this.disabled = true;
-                
-                // Simulate API call
-                setTimeout(() => {
-                    showMessage('Health tip saved successfully!', 'success');
-                    
-                    // Reset button
-                    this.innerHTML = originalText;
-                    this.disabled = false;
-                    
-                    console.log(`Health tip "${tipTitle}" saved in category: ${category}`);
-                }, 1000);
-            });
-            
-            // Delete button
-            document.getElementById('delete-btn').addEventListener('click', function() {
-                const tipTitle = document.getElementById('tip-title').value;
-                
-                if (confirm(`Are you sure you want to delete "${tipTitle}"?`)) {
-                    // Show deleting state
-                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
-                    this.disabled = true;
-                    
-                    setTimeout(() => {
-                        showMessage('Health tip deleted successfully!', 'success');
-                        
-                        // Redirect after 1 second
-                        setTimeout(() => {
-                            window.location.href = 'health-tips-view.html';
-                        }, 1000);
-                    }, 1000);
-                }
-            });
-            
-            // Preview button
-            document.getElementById('preview-btn').addEventListener('click', function() {
-                const tipTitle = document.getElementById('tip-title').value;
-                console.log(`Preview: ${tipTitle}`);
-                alert('Preview would open in a new window');
-            });
-            
-            // Cancel button
-            document.getElementById('cancel-btn').addEventListener('click', function() {
-                if (confirm('Discard changes and go back?')) {
-                    window.location.href = 'health-tips-view.html';
-                }
-            });
-            
-            // Helper function to show messages
-            function showMessage(message, type) {
-                // Remove existing message
-                const existingMessage = document.querySelector('.message-alert');
-                if (existingMessage) {
-                    existingMessage.remove();
-                }
-                
-                // Create message element
-                const messageEl = document.createElement('div');
-                messageEl.className = `message-alert ${type}`;
-                messageEl.innerHTML = `
-                    <span>${message}</span>
-                    <button class="close-message"><i class="fas fa-times"></i></button>
-                `;
-                
-                // Insert after topbar
-                const topbar = document.querySelector('.topbar');
-                topbar.parentNode.insertBefore(messageEl, topbar.nextSibling);
-                
-                // Close button functionality
-                messageEl.querySelector('.close-message').addEventListener('click', function() {
-                    messageEl.remove();
-                });
-                
-                // Auto-remove after 5 seconds
-                setTimeout(() => {
-                    if (messageEl.parentNode) {
-                        messageEl.remove();
-                    }
-                }, 5000);
-            }
-            
-            // Auto-save draft every 30 seconds
-            let autoSaveTimer;
-            function startAutoSave() {
-                autoSaveTimer = setInterval(() => {
-                    const tipTitle = document.getElementById('tip-title').value;
-                    if (tipTitle.trim()) {
-                        console.log('Auto-saving draft...');
-                        // In a real app, this would save to localStorage or send to backend
-                    }
-                }, 30000);
-            }
-            
-            // Start auto-save
-            startAutoSave();
-            
-            // Clean up on page unload
-            window.addEventListener('beforeunload', function(e) {
-                if (autoSaveTimer) {
-                    clearInterval(autoSaveTimer);
-                }
-            });
+
+            if (!res.ok) throw new Error();
+
+            alert('Health tip updated');
+            window.location.href = 'health-tips-view.html';
+
+        } catch {
+            alert('Update failed');
+            this.disabled = false;
+            this.innerHTML = '<i class="fas fa-save"></i> Save Changes';
+        }
+    });
+
+    // 4. DELETE
+    document.getElementById('delete-btn').addEventListener('click', async () => {
+        if (!confirm('Delete this health tip?')) return;
+
+        await fetch(`http://localhost:5001/api/health-tips/${tipId}`, {
+            method: 'DELETE'
         });
-    </script>
+
+        window.location.href = 'health-tips-view.html';
+    });
+
+});
+</script>
+
 </body>
 </html>
