@@ -15,10 +15,10 @@ body {
 .hero_text {
   pointer-events: none; 
   position: relative;
-  margin-top: 160px;
-  margin-bottom: 120px; 
+  margin-top: 100px;
+  margin-bottom: 20px; 
   text-align: right;
-  margin-left: 400px;
+  margin-left: 200px;
   color: #004664;
 }
 
@@ -29,7 +29,8 @@ body {
 }
 
 .brand {
-  color: #17AFEF; 
+  color: #17AFEF;
+
 }
 
 .container {
