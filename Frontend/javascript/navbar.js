@@ -52,3 +52,36 @@ function initializeScrollHandling() {
 
 // Call the function to load the navbar
 loadnavbar();
+
+/* Frontend/javascript/navbar.js */
+
+document.addEventListener("DOMContentLoaded", function () {
+    const navbarContainer = document.getElementById("navbar");
+    
+    if (navbarContainer) {
+        navbarContainer.innerHTML = `
+            <div class="navbar_container">
+                <div class="navbar_left">
+                    <a href="home.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+                        <div class="logo">
+                            <img src="../../Resources/pwlogo.png" alt="Logo" width="24" height="24">
+                            PetWatch
+                        </div>
+                    </a>
+                </div>
+                <div class="navbar_right">
+                    <div class="nav_links">
+                        <a href="home.html">Home</a>
+                        <a href="services.html">Our services</a>
+                        <a href="doctors.html">About us</a>
+                        <a href="help.html">Help</a>
+                    </div>
+                    <div class="nav_buttons">
+                        <a href="signup.html" class="signup_button">Sign Up</a>
+                        <a href="signin.html" class="signin_button">Sign In</a>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+});
