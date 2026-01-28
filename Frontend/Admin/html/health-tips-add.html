@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>PetWatch Admin - Add Health Tip</title>
+
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="../../Admin/css/sidebar.css" />
+    <link rel="stylesheet" href="../../Admin/css/health-edit.css" />
+
+    <!-- Sidebar manager -->
+    <script src="../../Admin/javascript/sidebar.js" defer></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar will be automatically inserted here -->
+
+    <div class="admin-dashboard">
+        <main>
+            <!-- Top Bar -->
+            <div class="topbar">
+                <div class="page-title">
+                    <h1>Add Health Tip</h1>
+                    <p class="subtitle">Create a new health tip</p>
+                </div>
+
+                <div class="user-profile">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile Picture">
+                    <div class="user-info">
+                        <span class="username">Admin</span>
+                        <span class="user-role">Content Editor</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Content -->
+            <div class="dashboard-content">
+                <!-- Breadcrumb -->
+                <div class="breadcrumb">
+                    <a href="health-tips-view.html" class="breadcrumb-link">
+                        <i class="fas fa-arrow-left"></i> Back to Health Tips
+                    </a>
+                </div>
+
+                <!-- Add Form Card -->
+                <div class="card edit-form-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-plus-circle"></i> Add Health Tip</h3>
+                        <div class="status-indicator">
+                            <span class="status-badge draft">Draft</span>
+                        </div>
+                    </div>
+
+                    <div class="edit-form">
+                        <!-- Basic Information -->
+                        <div class="form-section">
+                            <h4 class="section-title">Basic Information</h4>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="tip-title">Title</label>
+                                    <input
+                                        type="text"
+                                        id="tip-title"
+                                        class="form-input"
+                                        placeholder="Enter tip title..."
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="category">Category</label>
+                                    <select id="category" class="form-select">
+                                        <option value="">Select category</option>
+                                        <option value="cats">Cats</option>
+                                        <option value="dogs">Dogs</option>
+                                        <option value="small-pets">Small Pets</option>
+                                        <option value="birds">Birds</option>
+                                        <option value="nutrition">Nutrition</option>
+                                        <option value="grooming">Grooming</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tip-description">Description</label>
+                                <textarea
+                                    id="tip-description"
+                                    class="form-textarea"
+                                    rows="6"
+                                    placeholder="Write detailed description here..."
+                                ></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Image Upload -->
+                        <div class="form-section">
+                            <h4 class="section-title">Featured Image</h4>
+
+                            <div class="image-upload-area">
+                                <div class="image-preview" id="image-preview">
+                                    <img
+                                        src="https://via.placeholder.com/600x400?text=No+Image"
+                                        alt="Image preview"
+                                        id="current-image"
+                                    >
+                                </div>
+
+                                <div class="upload-info">
+                                    <input type="file" id="image-upload" accept="image/*" style="display:none;">
+                                    <button type="button" class="btn-upload" id="upload-btn">
+                                        <i class="fas fa-cloud-upload-alt"></i> Upload Image
+                                    </button>
+                                    <p class="upload-hint">Recommended: 600×400px JPG or PNG</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Status Settings -->
+                        <div class="form-section">
+                            <h4 class="section-title">Status Settings</h4>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="status">Status</label>
+                                    <select id="status" class="form-select">
+                                        <option value="draft" selected>Draft</option>
+                                        <option value="published">Published</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="publish-date">Publish Date</label>
+                                    <input
+                                        type="date"
+                                        id="publish-date"
+                                        class="form-input"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="form-actions">
+                            <div class="action-buttons">
+                                <button type="button" class="btn-secondary" id="preview-btn">
+                                    <i class="fas fa-eye"></i> Preview
+                                </button>
+                            </div>
+
+                            <div class="save-buttons">
+                                <button type="button" class="btn-cancel" id="cancel-btn">
+                                    Cancel
+                                </button>
+                                <button type="button" class="btn-save" id="save-btn">
+                                    <i class="fas fa-save"></i> Create Health Tip
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const imageUpload = document.getElementById('image-upload');
+            const uploadBtn = document.getElementById('upload-btn');
+            const currentImage = document.getElementById('current-image');
+            const params = new URLSearchParams(window.location.search);
+const tipId = params.get('id');
+
+
+            uploadBtn.addEventListener('click', function () {
+                imageUpload.click();
+            });
+
+            imageUpload.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (!file || !file.type.startsWith('image/')) {
+                    alert('Please select a valid image file.');
+                    return;
+                }
+
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('Image size must be under 2MB.');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    currentImage.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+
+           document.getElementById('save-btn').addEventListener('click', async function () {
+    const title = document.getElementById('tip-title').value.trim();
+    const category = document.getElementById('category').value;
+    const description = document.getElementById('tip-description').value.trim();
+    const status = document.getElementById('status').value;
+    const publishDate = document.getElementById('publish-date').value;
+    const imageFile = document.getElementById('image-upload').files[0];
+
+    if (!title || !category || !description) {
+        alert('Title, category, and description are required.');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('category', category);
+    formData.append('description', description);
+    formData.append('status', status);
+    formData.append('publishDate', publishDate);
+
+    if (imageFile) {
+        formData.append('image', imageFile);
+    }
+
+    this.disabled = true;
+    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
+
+    try {
+        const response = await fetch('http://localhost:5001/api/health-tips', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            alert(result.message || 'Failed to save health tip');
+            this.disabled = false;
+            this.innerHTML = '<i class="fas fa-save"></i> Create Health Tip';
+            return;
+        }
+
+        alert('Health tip created successfully');
+        window.location.href = 'health-tips-view.html';
+
+    } catch (error) {
+        console.error(error);
+        alert('Server error');
+        this.disabled = false;
+        this.innerHTML = '<i class="fas fa-save"></i> Create Health Tip';
+    }
+});
+
+if (tipId) {
+    document.querySelector('h1').textContent = 'Edit Health Tip';
+
+    fetch(`http://localhost:5001/api/health-tips/${tipId}`)
+        .then(res => res.json())
+        .then(tip => {
+            document.getElementById('title').value = tip.title;
+            document.getElementById('category').value = tip.category;
+            document.getElementById('description').value = tip.description;
+            document.getElementById('status').value = tip.status;
+
+            if (tip.publishDate) {
+                document.getElementById('publishDate').value =
+                    tip.publishDate.split('T')[0];
+            }
+        });
+}
+
+            document.getElementById('preview-btn').addEventListener('click', function () {
+                alert('Preview would open in a new window.');
+            });
+
+            document.getElementById('cancel-btn').addEventListener('click', function () {
+                if (confirm('Discard this health tip?')) {
+                    window.location.href = 'health-tips-view.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
