@@ -8,11 +8,38 @@ const app = express();
 const port = process.env.PORT || 5001; 
 
 // Middleware
+
 app.use(cors()); 
 app.use(express.json());
 
 // Database Connection
 connectDB();
+const multer = require('multer');
+const path = require('path');
+
+app.use('/uploads', express.static('uploads'));
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({
+    storage,
+    limits: { fileSize: 2 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+        if (!file.mimetype.startsWith('image/')) {
+            cb(new Error('Only image files allowed'));
+        }
+        cb(null, true);
+    }
+});
+
+
 
 // --- 1. SCHEMA DESIGN ---
 // This schema holds both pet info (Step 1) and user info (Step 2)
@@ -161,6 +188,148 @@ app.patch('/api/book/status/:id', async (req, res) => {
 });
 
 // Start Server
+
+
+// HEALTH TIP SCHEMA
+const HealthTipSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    category: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: String
+    },
+    status: {
+        type: String,
+        enum: ['draft', 'published'],
+        default: 'draft'
+    },
+    publishDate: {
+        type: Date,
+        default: null
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+
+const HealthTip = mongoose.model('HealthTip', HealthTipSchema);
+
+// Route D: Create Health Tip
+app.post('/api/health-tips', upload.single('image'), async (req, res) => {
+    try {
+        const {
+            title,
+            category,
+            description,
+            status,
+            publishDate
+        } = req.body;
+
+        if (!title || !category || !description) {
+            return res.status(400).json({ message: 'Required fields missing' });
+        }
+
+       const newTip = new HealthTip({
+    title,
+    category,
+    description,
+    status,
+    publishDate: publishDate || null,
+    image: req.file ? `/uploads/${req.file.filename}` : null
+});
+
+
+        await newTip.save();
+
+        res.status(201).json({
+            message: 'Health tip created successfully',
+            data: newTip
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// Route E: Get All Health Tips
+app.get('/api/health-tips', async (req, res) => {
+    try {
+        const tips = await HealthTip.find().sort({ createdAt: -1 });
+        res.status(200).json(tips);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to fetch health tips' });
+    }
+});
+
+// Get single health tip by ID
+app.get('/api/health-tips/:id', async (req, res) => {
+    try {
+        const tip = await HealthTip.findById(req.params.id);
+        if (!tip) return res.status(404).json({ message: 'Tip not found' });
+        res.json(tip);
+    } catch (err) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// Update health tip
+app.put('/api/health-tips/:id', upload.single('image'), async (req, res) => {
+    try {
+        const updatedData = {
+            title: req.body.title,
+            category: req.body.category,
+            description: req.body.description,
+            status: req.body.status,
+            publishDate: req.body.publishDate || null
+        };
+
+        if (req.file) {
+            updatedData.image = `/uploads/${req.file.filename}`;
+        }
+
+        const tip = await HealthTip.findByIdAndUpdate(
+            req.params.id,
+            updatedData,
+            { new: true }
+        );
+
+        res.json(tip);
+    } catch (err) {
+        res.status(500).json({ message: 'Update failed' });
+    }
+});
+
+// Delete health tip
+app.delete('/api/health-tips/:id', async (req, res) => {
+    try {
+        const deletedTip = await HealthTip.findByIdAndDelete(req.params.id);
+
+        if (!deletedTip) {
+            return res.status(404).json({ message: 'Tip not found' });
+        }
+
+        res.status(200).json({ message: 'Health tip deleted successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Delete failed' });
+    }
+});
+
+
+
 app.listen(port, () => {
   console.log(`🚀 PetWatch Server live at http://localhost:${port}`);
 });
