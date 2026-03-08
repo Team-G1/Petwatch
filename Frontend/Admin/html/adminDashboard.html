@@ -1,182 +1,190 @@
-<!-- AdminDashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>PetWatch Admin | Dashboard</title>
     <link rel="stylesheet" href="../../Admin/css/sidebar.css" />
     <link rel="stylesheet" href="../../Admin/css/adminDashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Load sidebar manager -->
     <script src="../../Admin/javascript/sidebar.js" defer></script>
 </head>
 <body>
-    <!-- Sidebar will be automatically inserted here -->
-    
     <div class="admin-dashboard">
-        <!-- Main Content -->
         <main>
-            <!-- Top Bar -->
             <div class="topbar">
-                <h1>Dashboard</h1>
+                <div class="page-title">
+                    <h1>Admin Dashboard</h1>
+                    <p class="subtitle">Operational Overview</p>
+                </div>
+                
                 <div class="user-profile">
-                    <span class="notification-badge">3</span>
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile Picture">
-                    <span class="username">Admin User</span>
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile Picture">
+                    <div class="user-info">
+                        <span class="username">Admin</span>
+                        <span class="user-role">Administrator</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Dashboard Content -->
             <div class="dashboard-content">
-                <!-- Quick Stats -->
                 <div class="quick-stats">
                     <div class="stat-card">
                         <div class="stat-icon">📊</div>
                         <div class="stat-info">
-                            <h3>150</h3>
+                            <h3 id="stat-total-apps">0</h3>
                             <p>Total Appointments</p>
                         </div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon">📍</div>
                         <div class="stat-info">
-                            <h3>30</h3>
+                            <h3 id="stat-kandy">0</h3>
                             <p>Kandy</p>
                         </div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon">🏙️</div>
                         <div class="stat-info">
-                            <h3>60</h3>
+                            <h3 id="stat-colombo">0</h3>
                             <p>Colombo</p>
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">📈</div>
+                        <div class="stat-icon">👨‍⚕️</div>
                         <div class="stat-info">
-                            <h3>25%</h3>
-                            <p>Growth Rate</p>
+                            <h3 id="stat-vets">0</h3>
+                            <p>Total Vets</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Recent Activity & Appointments -->
                 <div class="main-content-grid">
-                    <!-- New Mail/Notifications -->
                     <div class="card notifications-card">
                         <h3><i class="fas fa-envelope"></i> New Notifications</h3>
-                        <div class="notification-item">
-                            <div class="notification-icon">📧</div>
-                            <div class="notification-content">
-                                <strong>Tom Ford - Kandy</strong>
-                                <p>The service of the center of Kandy was excellent...</p>
-                                <small>10 minutes ago</small>
+                        <div id="notifications-list">
+                            <div class="notification-item">
+                                <div class="notification-icon">📧</div>
+                                <div class="notification-content">
+                                    <strong>System Message</strong>
+                                    <p>Welcome to the PetWatch Admin Panel. Check recent appointments below.</p>
+                                    <small>Just now</small>
+                                </div>
+                                <button class="btn-view">View</button>
                             </div>
-                            <button class="btn-view">View</button>
-                        </div>
-                        <div class="notification-item">
-                            <div class="notification-icon">⭐</div>
-                            <div class="notification-content">
-                                <strong>New Review</strong>
-                                <p>Sarah Johnson left a 5-star review for Colombo center</p>
-                                <small>1 hour ago</small>
-                            </div>
-                            <button class="btn-view">View</button>
                         </div>
                     </div>
 
-                    <!-- Appointments Table -->
                     <div class="card appointments-card">
                         <div class="card-header">
                             <h3><i class="fas fa-calendar-alt"></i> Recent Appointments</h3>
                             <a href="AdminAppointments.html" class="view-all">View All</a>
                         </div>
-                        <table class="appointments-table">
+                        <table class="appointments-table" id="appointments-table">
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Appointment No</th>
-                                    <th>Date</th>
+                                    <th>ID</th>
+                                    <th>Date/Time</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="user-info">
-                                            <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="User">
-                                            <span>Tom Ford</span>
-                                        </div>
-                                    </td>
-                                    <td>#12547876</td>
-                                    <td>25 Jun, 10:00 AM</td>
-                                    <td><span class="status-badge completed">Completed</span></td>
-                                    <td><button class="btn-action cancel">Cancel</button></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="user-info">
-                                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User">
-                                            <span>Jane Smith</span>
-                                        </div>
-                                    </td>
-                                    <td>#12547877</td>
-                                    <td>26 Jun, 2:30 PM</td>
-                                    <td><span class="status-badge pending">Pending</span></td>
-                                    <td><button class="btn-action accept">Accept</button></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="user-info">
-                                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
-                                            <span>Mike Johnson</span>
-                                        </div>
-                                    </td>
-                                    <td>#12547878</td>
-                                    <td>27 Jun, 9:15 AM</td>
-                                    <td><span class="status-badge confirmed">Confirmed</span></td>
-                                    <td><button class="btn-action reschedule">Reschedule</button></td>
-                                </tr>
-                            </tbody>
+                            <tbody id="appointments-tbody"> <tr><td colspan="5" style="text-align:center;">Loading appointments...</td></tr> </tbody>
                         </table>
                     </div>
                 </div>
 
-                <!-- Location Summary -->
                 <div class="card location-summary">
-                    <h3><i class="fas fa-map-marker-alt"></i> Appointments by Location</h3>
-                    <div class="location-grid">
-                        <div class="location-item">
-                            <span class="location-name">Kandy</span>
-                            <span class="location-count">30 appointments</span>
-                            <div class="progress-bar"><div class="progress" style="width: 60%"></div></div>
-                        </div>
-                        <div class="location-item">
-                            <span class="location-name">Colombo</span>
-                            <span class="location-count">60 appointments</span>
-                            <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
-                        </div>
-                        <div class="location-item">
-                            <span class="location-name">Gampaha</span>
-                            <span class="location-count">10 appointments</span>
-                            <div class="progress-bar"><div class="progress" style="width: 30%"></div></div>
-                        </div>
-                        <div class="location-item">
-                            <span class="location-name">Jaffna</span>
-                            <span class="location-count">15 appointments</span>
-                            <div class="progress-bar"><div class="progress" style="width: 40%"></div></div>
-                        </div>
-                        <div class="location-item">
-                            <span class="location-name">Galle</span>
-                            <span class="location-count">35 appointments</span>
-                            <div class="progress-bar"><div class="progress" style="width: 70%"></div></div>
-                        </div>
-                    </div>
-                </div>
+    <h3><i class="fas fa-map-marker-alt"></i> Appointments by Location</h3>
+    <div class="location-grid" id="location-list"> </div>
+</div>
             </div>
         </main>
     </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    refreshDashboard();
+});
+
+async function refreshDashboard() {
+    const branches = ['Colombo', 'Kandy', 'Kurunegala', 'Galle', 'Jaffna'];
+
+    try {
+        // 1. Fetch all data from your API
+        const [statsRes, bookingsRes] = await Promise.all([
+            fetch('http://localhost:5001/api/admin/stats'),
+            fetch('http://localhost:5001/api/admin/bookings')
+        ]);
+
+        const stats = await statsRes.json();
+        const bookings = await bookingsRes.json();
+
+        // 2. RENDER TABLE (Recent 5)
+        const tbody = document.getElementById('appointments-tbody');
+        if (tbody) {
+            const recent = bookings.slice(0, 5); // Only show the latest 5
+            tbody.innerHTML = recent.length > 0 ? recent.map(book => `
+                <tr>
+                    <td><strong>${book.appointmentNumber || '#---'}</strong></td>
+                    <td>
+                        <div class="user-info">
+                            <span>${book.userName}</span>
+                            <small>${book.petName} (${book.petType})</small>
+                        </div>
+                    </td>
+                    <td>${book.date || book.dateFrom}</td>
+                    <td><span class="status-badge ${book.status.toLowerCase()}">${book.status}</span></td>
+                   
+                </tr>
+            `).join('') : '<tr><td colspan="5" style="text-align:center;">No recent appointments found.</td></tr>';
+        }
+
+        // 3. RENDER ALL 5 LOCATIONS
+        const locationDiv = document.getElementById('location-list');
+        if (locationDiv) {
+            locationDiv.innerHTML = branches.map(branch => {
+                const branchData = stats.locations.find(l => l._id === branch);
+                const count = branchData ? branchData.count : 0;
+                const percent = stats.total > 0 ? (count / stats.total) * 100 : 0;
+
+                return `
+                    <div class="location-row" style="margin-bottom: 18px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span style="font-weight: 500;">${branch}</span>
+                            <span style="color: #4e73df; font-weight: bold;">${count}</span>
+                        </div>
+                        <div style="background: #f1f1f1; height: 10px; border-radius: 5px;">
+                            <div style="width: ${percent}%; background: #4e73df; height: 100%; border-radius: 5px; transition: width 0.5s;"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+    } catch (err) {
+        console.error("Dashboard Update Failed:", err);
+    }
+}
+
+// Update Status function matching your server's PATCH route
+async function updateStatus(id, newStatus) {
+    if (!confirm(`Mark as ${newStatus}?`)) return;
+    try {
+        const res = await fetch(`http://localhost:5001/api/book/status/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: newStatus })
+        });
+        if (res.ok) refreshDashboard();
+    } catch (err) { console.error(err); }
+}
+    </script>
 </body>
 </html>
