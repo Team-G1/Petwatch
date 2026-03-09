@@ -112,8 +112,6 @@ app.get('/api/book/:id', async (req, res) => {
     }
 });
 
-
-
 // HEALTH TIP SCHEMA
 const HealthTipSchema = new mongoose.Schema({
     title: {
