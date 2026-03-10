@@ -1,112 +1,50 @@
-require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const connectDB = require('./db'); 
-const multer = require('multer');
-const path = require('path');
-const Vet = require('../models/vet'); // Import your Vet model
 
 const app = express();
 const port = process.env.PORT || 5001; 
 
 // Middleware
+
 app.use(cors()); 
 app.use(express.json());
-app.use('/uploads', express.static('uploads'));
 
 // Database Connection
 connectDB();
+const multer = require('multer');
+const path = require('path');
 
-// Image Upload Configuration
+app.use('/uploads', express.static('uploads'));
+
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => { cb(null, 'uploads/'); },
-    filename: (req, file, cb) => { cb(null, Date.now() + path.extname(file.originalname)); }
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
 });
+
 const upload = multer({
     storage,
     limits: { fileSize: 2 * 1024 * 1024 },
     fileFilter: (req, file, cb) => {
         if (!file.mimetype.startsWith('image/')) {
-            return cb(new Error('Only image files allowed'));
+            cb(new Error('Only image files allowed'));
         }
         cb(null, true);
     }
 });
 
-// --- VETERINARIAN ROUTES ---
 
-//Create a new Veterinarian
 
-app.post('/api/vets', upload.single('image'), async (req, res) => {
-    try {
-        const vetData = {
-            ...req.body,
-            image: req.file ? `/uploads/${req.file.filename}` : null
-        };
-        const newVet = new Vet(vetData);
-        await newVet.save();
-        res.status(201).json({ success: true, message: 'Vet created successfully' });
-    } catch (error) {
-        console.error("Save Error:", error);
-        res.status(500).json({ success: false, message: 'Server error saving vet' });
-    }
-});
-
-//Fetch all Veterinarians
-
-app.get('/api/vets', async (req, res) => {
-    try {
-        const vets = await Vet.find().sort({ createdAt: -1 });
-        res.status(200).json(vets);
-    } catch (error) {
-        res.status(500).json({ message: 'Error fetching vets' });
-    }
-});
-
-//Fetch single Veterinarian by ID
-
-app.get('/api/vets/:id', async (req, res) => {
-    try {
-        const vet = await Vet.findById(req.params.id);
-        if (!vet) return res.status(404).json({ message: 'Vet not found' });
-        res.json(vet);
-    } catch (err) {
-        res.status(500).json({ message: 'Server error' });
-    }
-});
-
-//Update Veterinarian
-
-app.put('/api/vets/:id', upload.single('image'), async (req, res) => {
-    try {
-        const updatedData = { ...req.body };
-        if (req.file) updatedData.image = `/uploads/${req.file.filename}`;
-
-        const updatedVet = await Vet.findByIdAndUpdate(req.params.id, updatedData, { new: true });
-        if (!updatedVet) return res.status(404).json({ message: "Vet not found" });
-        
-        res.json({ success: true, data: updatedVet });
-    } catch (error) {
-        res.status(400).json({ success: false, message: error.message });
-    }
-});
-
-//Delete Veterinarian
-
-app.delete('/api/vets/:id', async (req, res) => {
-    try {
-        await Vet.findByIdAndDelete(req.params.id);
-        res.json({ success: true, message: "Deleted" });
-    } catch (error) {
-        res.status(500).json({ message: "Delete failed" });
-    }
-});
-
-// --- SCHEMA DESIGN ---
-// schema holds both pet info and user info
+// --- 1. SCHEMA DESIGN ---
+// This schema holds both pet info (Step 1) and user info (Step 2)
 const BookingSchema = new mongoose.Schema({
-    // Pet & Service Details
+    // Step 1: Pet & Service Details
     serviceType: String,
     petName: String,
     petType: String,
@@ -122,7 +60,7 @@ const BookingSchema = new mongoose.Schema({
     timeTo: String,
     groomingPackage: String,
     
-    //User Details 
+    // Step 2: User Details (Updated later via PUT)
     userName: String,
     userPhone: String,
     userEmail: String,
@@ -140,7 +78,7 @@ const BookingSchema = new mongoose.Schema({
 
 const Booking = mongoose.model('Booking', BookingSchema);
 
-// --- USER-FACING ROUTES ---
+// --- 2. USER-FACING ROUTES ---
 
 /**
  * STEP 1: Create initial booking with Pet details
@@ -166,8 +104,9 @@ app.post('/api/book', async (req, res) => {
     }
 });
 
-//STEP 2: Update existing booking with User contact info
- 
+/**
+ * STEP 2: Update existing booking with User contact info
+ */
 app.put('/api/book/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -182,8 +121,9 @@ app.put('/api/book/:id', async (req, res) => {
     }
 });
 
-//STEP 3: Fetch full details for the Confirmation Page & QR Code
-
+/**
+ * STEP 3: Fetch full details for the Confirmation Page & QR Code
+ */
 app.get('/api/book/:id', async (req, res) => {
     try {
         const booking = await Booking.findById(req.params.id);
@@ -197,8 +137,9 @@ app.get('/api/book/:id', async (req, res) => {
 
 // --- 3. ADMIN-FACING ROUTES ---
 
-// Fetch all bookings for the Admin Table
-
+/**
+ * Fetch all bookings for the Admin Table
+ */
 app.get('/api/admin/bookings', async (req, res) => {
     try {
         const bookings = await Booking.find().sort({ createdAt: -1 });
@@ -208,8 +149,9 @@ app.get('/api/admin/bookings', async (req, res) => {
     }
 });
 
-// Calculate statistics for Admin Dashboard cards
-
+/**
+ * Calculate statistics for Admin Dashboard cards
+ */
 app.get('/api/admin/stats', async (req, res) => {
     try {
         const todayStr = new Date().toISOString().split('T')[0];
@@ -232,8 +174,9 @@ app.get('/api/admin/stats', async (req, res) => {
     }
 });
 
-//Update Status (When Admin clicks Complete or Cancel)
-
+/**
+ * Update Status (When Admin clicks Complete or Cancel)
+ */
 app.patch('/api/book/status/:id', async (req, res) => {
     try {
         const { status } = req.body;
@@ -245,6 +188,7 @@ app.patch('/api/book/status/:id', async (req, res) => {
 });
 
 // Start Server
+
 
 // HEALTH TIP SCHEMA
 const HealthTipSchema = new mongoose.Schema({
@@ -386,8 +330,6 @@ app.delete('/api/health-tips/:id', async (req, res) => {
 
 
 
-
 app.listen(port, () => {
   console.log(`🚀 PetWatch Server live at http://localhost:${port}`);
 });
-

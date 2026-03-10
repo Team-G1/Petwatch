@@ -1,3 +1,4 @@
+// sidebar.js
 class SidebarManager {
     constructor() {
         this.sidebar = null;
@@ -56,7 +57,6 @@ class SidebarManager {
                         <li><a href="health-tips-view.html" style="color:white;display:block;padding:10px;">Health Tips</a></li>
                         <li><a href="Update locations.html" style="color:white;display:block;padding:10px;">Locations</a></li>
                         <li><a href="vets.html" style="color:white;display:block;padding:10px;">Vets</a></li>
-                        <li><a href="Settings.html" style="color:white;display:block;padding:10px;">Settings</a></li>
                         
                     </ul>
                 </nav>

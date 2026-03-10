@@ -10,7 +10,7 @@ function handleScroll() {
   if (window.scrollY === 0) {
     // If at the top of the page, show the navbar
     navbar.style.opacity = 1;
-    isScrollingDown = false; 
+    isScrollingDown = false; // Reset scroll direction
   } else if (window.scrollY > lastScrollY) {
     // If scrolling down, hide the navbar
     isScrollingDown = true;
@@ -35,8 +35,5 @@ window.addEventListener('mousemove', (event) => {
     navbar.style.opacity = 0;
   }
 });
-
-
-
 
 
