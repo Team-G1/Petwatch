@@ -53,9 +53,9 @@ class SidebarManager {
                 <nav>
                     <ul style="list-style:none;">
                         <li><a href="AdminDashboard.html" style="color:white;display:block;padding:10px;">Dashboard</a></li>
-                        <li><a href="AdminAppointments.html" style="color:white;display:block;padding:10px;">Appointments</a></li>
-                        <li><a href="health-tips-view.html" style="color:white;display:block;padding:10px;">Health Tips</a></li>
-                        <li><a href="Update locations.html" style="color:white;display:block;padding:10px;">Locations</a></li>
+                        <li><a href="adminAppointments.html" style="color:white;display:block;padding:10px;">Appointments</a></li>
+                        <li><a href="healthTipsView.html" style="color:white;display:block;padding:10px;">Health Tips</a></li>
+                        <li><a href="updateLocations.html" style="color:white;display:block;padding:10px;">Locations</a></li>
                         <li><a href="vets.html" style="color:white;display:block;padding:10px;">Vets</a></li>
                         
                     </ul>

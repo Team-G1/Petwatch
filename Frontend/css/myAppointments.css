@@ -1,0 +1,185 @@
+/* Frontend/css/my_appointments.css */
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fbfdfe; /* Light blue/white background matching profile page */
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 140px 20px 60px; /* Top padding to clear fixed navbar */
+}
+
+/* Page Title */
+.page-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    color: #333; /* Dark grey */
+    margin-bottom: 50px;
+}
+
+/* Container for cards */
+.appointments-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Space between cards */
+}
+
+/* --- CARD STYLING --- */
+.appt-card {
+    background-color: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04); /* Subtle shadow */
+    display: flex;
+    flex-wrap: wrap; /* Allows stacking on mobile */
+    gap: 40px;
+    position: relative;
+}
+
+/* SECTIONS WITHIN CARD */
+.card-section {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 1. Left: QR Section */
+.qr-section {
+    align-items: center;
+    width: 140px;
+    flex-shrink: 0;
+}
+
+.qr-img {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.btn-download {
+    background-color: #5bbcee; /* Slightly lighter blue to match screenshot button */
+    color: white;
+    border: none;
+    padding: 8px 0;
+    width: 100%;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-download:hover {
+    background-color: #17AFEF;
+}
+
+/* 2. Middle: Details Section */
+.details-section {
+    flex: 1.2; /* Takes up slightly more space */
+}
+
+.appt-no-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #222;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* 3. Right: Pet Section */
+.pet-section {
+    flex: 1;
+    position: relative; /* For positioning date stamp */
+}
+
+.service-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #5bbcee; /* Blue text for service name */
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* SHARED INFO GRID STYLES */
+.info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Spacing between lines */
+}
+
+.info-row {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.label {
+    font-weight: 500;
+    color: #333;
+    display: inline-block;
+    min-width: 80px; /* Aligns values slightly */
+}
+
+/* Bottom Actions (Cancel + Date) */
+.card-footer-actions {
+    margin-top: auto; /* Pushes to bottom */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 30px;
+}
+
+.btn-cancel {
+    background-color: white;
+    border: 1px solid #8ecdf5; /* Light blue border */
+    color: #5bbcee;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-cancel:hover {
+    background-color: #f0f9ff;
+    border-color: #17AFEF;
+    color: #17AFEF;
+}
+
+.date-stamp {
+    font-size: 12px;
+    color: #888;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .appt-card {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .qr-section {
+        width: 100%;
+        flex-direction: row; /* Horizontal on mobile */
+        justify-content: flex-start;
+        gap: 20px;
+    }
+
+    .btn-download {
+        width: auto;
+        padding: 8px 30px;
+    }
+
+    .card-footer-actions {
+        position: relative;
+    }
+}

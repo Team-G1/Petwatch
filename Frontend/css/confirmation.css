@@ -1,0 +1,35 @@
+
+        .main-content {
+            display: flex; justify-content: center; align-items: center; min-height: 80vh; padding: 20px;
+        }
+        .confirmation-box {
+            background: white; padding: 40px; border-radius: 16px;
+            max-width: 600px; width: 100%; text-align: center;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+        }
+        .success-icon { color: #2ecc71; font-size: 50px; margin-bottom: 20px; }
+        
+        .appt-number {
+            background: #f0f9ff; color: #17AFEF; padding: 15px 30px;
+            border-radius: 12px; font-size: 1.8rem; font-weight: 800;
+            display: inline-block; margin: 20px 0; border: 2px dashed #17AFEF;
+        }
+
+        .details-grid {
+            text-align: left; background: #f9f9f9; padding: 25px;
+            border-radius: 12px; margin: 20px 0; font-size: 1rem; line-height: 1.6;
+        }
+        .details-grid p { margin: 8px 0; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+        .details-grid strong { color: #555; width: 100px; display: inline-block; }
+
+        /* QR Section */
+        .qr-container {
+            display: flex; flex-direction: column; align-items: center; 
+            margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee;
+        }
+        /* We use a CANVAS element now, which is more reliable */
+        #qr-canvas {
+            margin: 15px; 
+            border: 1px solid #ddd; 
+            border-radius: 8px;
+        }

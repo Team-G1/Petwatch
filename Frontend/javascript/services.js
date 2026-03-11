@@ -101,13 +101,12 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => response.json())
             .then(data => {
-                // --- CRITICAL FIX HERE ---
-                // We check for 'Step 1 Complete' because that is what server.js sends now.
+                
                 if(data.message === 'Step 1 Complete') {
                     // Redirect to the User Details page with the ID
-                    window.location.href = `user_details.html?bookingId=${data.bookingId}`;
+                    window.location.href = `userDetails.html?bookingId=${data.bookingId}`;
                 } else {
-                    // This handles actual errors
+                    // Handle actual errors
                     alert("⚠️ Error: " + data.message);
                 }
             })

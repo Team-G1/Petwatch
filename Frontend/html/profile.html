@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - PetWatch</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../Frontend/css/navbar.css">
+    <link rel="stylesheet" href="../../Frontend/css/profile.css">
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <main class="main-content">
+        <div class="profile-header">
+            <h1>My Profile</h1>
+            <a href="myAppointments.html" class="my-appointments-btn">My Appointments</a>
+        </div>
+
+        <div id="messageContainer" class="message"></div>
+
+        <div class="profile-card">
+            <div class="profile-left">
+                <div class="profile-image-container">
+                    <img src="../../Resources/profileImg.png" alt="User with Pets">
+                </div>
+            </div>
+
+            <div class="profile-right">
+                <div class="section-header">
+                    <h2>My Details</h2>
+                    <a href="#" class="edit-details-link" id="editDetailsBtn">
+                        <i class="fa-regular fa-pen-to-square"></i> Edit My Details
+                    </a>
+                </div>
+                <div class="form-grid" id="userDetailsForm">
+                    <div class="form-group">
+                        <label for="userName">User Name</label>
+                        <input type="text" id="userName" class="form-control" placeholder="Emma Roberts" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="Emma213@gmail.com" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="********" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile">Mobile</label>
+                        <input type="tel" id="mobile" class="form-control" placeholder="**********" readonly>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <h2>My Pets</h2>
+                </div>
+                
+                <div id="petsContainer">
+                    <!-- Pet cards will be dynamically added here -->
+                    <div class="loading">Loading your pets...</div>
+                </div>
+
+                <div class="add-pet-container">
+                    <button id="addNewPetBtn">
+                        <i class="fa-solid fa-plus"></i> Add New Pet
+                    </button>
+                </div>
+
+                <div class="actions-container">
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                    </button>
+                    <button class="save-btn" id="saveDetailsBtn" style="display: none;">Save Details</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="delete-confirmation hidden">
+        <div class="modal">
+            <h3>Delete Pet</h3>
+            <p>Are you sure you want to delete this pet? This action cannot be undone.</p>
+            <div class="buttons">
+                <button class="cancel-delete" id="cancelDelete">Cancel</button>
+                <button class="confirm-delete" id="confirmDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Templates -->
+    <template id="pet-view-template">
+        <div class="pet-card">
+            <div class="pet-header">
+                <h3 class="pet-name"></h3>
+                <div class="pet-actions">
+                    <button class="edit-pet-btn" title="Edit pet">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </button>
+                    <button class="delete-pet-btn" title="Delete pet">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="pet-form-grid">
+                <div class="form-group">
+                    <label>Pet Name</label>
+                    <input type="text" class="form-control pet-name-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Pet Type</label>
+                    <input type="text" class="form-control pet-type-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Breed</label>
+                    <input type="text" class="form-control breed-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="text" class="form-control age-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Weight (kg)</label>
+                    <input type="text" class="form-control weight-input" readonly>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="pet-edit-template">
+        <div class="pet-card">
+            <div class="pet-header">
+                <h3 class="edit-title"></h3>
+                <div class="pet-actions">
+                    <button class="save-pet-btn" title="Save">
+                        <i class="fa-regular fa-floppy-disk"></i>
+                    </button>
+                    <button class="cancel-pet-btn" title="Cancel">
+                        <i class="fa-regular fa-circle-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="pet-form-grid">
+                <div class="form-group">
+                    <label>Pet Name *</label>
+                    <input type="text" class="form-control edit-pet-name" placeholder="Enter pet name" required>
+                </div>
+                <div class="form-group">
+                    <label>Pet Type *</label>
+                    <select class="form-control edit-pet-type" required>
+                        <option value="">Select Type</option>
+                        <option value="Cat">Cat</option>
+                        <option value="Dog">Dog</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Breed *</label>
+                    <select class="form-control edit-breed" required>
+                        <option value="">Select Breed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Age *</label>
+                    <input type="text" class="form-control edit-age" placeholder="e.g., 3 years" required>
+                </div>
+                <div class="form-group">
+                    <label>Weight (kg) *</label>
+                    <input type="text" class="form-control edit-weight" placeholder="e.g., 12.5" required>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="new-pet-template">
+        <div class="pet-card new-pet-form">
+            <div class="pet-header">
+                <h3>Add New Pet</h3>
+                <div class="pet-actions">
+                    <button class="save-pet-btn" id="saveNewPetBtn" title="Save">
+                        <i class="fa-regular fa-floppy-disk"></i>
+                    </button>
+                    <button class="cancel-pet-btn" id="cancelNewPetBtn" title="Cancel">
+                        <i class="fa-regular fa-circle-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="pet-form-grid">
+                <div class="form-group">
+                    <label>Pet Name *</label>
+                    <input type="text" id="new-petName" class="form-control" placeholder="Enter pet name" required>
+                </div>
+                <div class="form-group">
+                    <label>Pet Type *</label>
+                    <select id="new-petType" class="form-control" required>
+                        <option value="">Select Type</option>
+                        <option value="Cat">Cat</option>
+                        <option value="Dog">Dog</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Breed *</label>
+                    <select id="new-breed" class="form-control" required>
+                        <option value="">Select Breed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Age *</label>
+                    <input type="text" id="new-age" class="form-control" placeholder="e.g., 3 years" required>
+                </div>
+                <div class="form-group">
+                    <label>Weight (kg) *</label>
+                    <input type="text" id="new-weight" class="form-control" placeholder="e.g., 12.5" required>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <div id="footer"></div>
+
+    <script src="../../Frontend/javascript/navbar.js"></script>
+    <script src="../../Frontend/javascript/footer.js"></script>
+    <script src="../../Frontend/javascript/profile.js"></script>
+</body>
+</html>

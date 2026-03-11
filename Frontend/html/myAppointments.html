@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Appointments - PetWatch</title>
+    
+    <link rel="stylesheet" href="../../Frontend/css/navbar.css">
+     <link rel="stylesheet" href="../../Frontend/css/myAppointments.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <main class="main-content">
+        <h1 class="page-title">My Appointments</h1>
+
+        <div class="appointments-container">
+            
+            <div class="appt-card">
+                <div class="card-section qr-section">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Appointment123" alt="QR Code" class="qr-img">
+                    <button class="btn-download">Download</button>
+                </div>
+
+                <div class="card-section details-section">
+                    <h3 class="appt-no-title">Appointment No :</h3>
+                    
+                    <div class="info-grid">
+                        <div class="info-row"><span class="label">Customer Name :</span> <span class="val"></span></div>
+                        <div class="info-row"><span class="label">Location :</span> <span class="val"></span></div>
+                        <div class="info-row"><span class="label">Date :</span> <span class="val"></span></div>
+                        <div class="info-row"><span class="label">Contact :</span> <span class="val"></span></div>
+                        <div class="info-row"><span class="label">Address :</span> <span class="val"></span></div>
+                    </div>
+                </div>
+
+                <div class="card-section pet-section">
+                    <h3 class="service-title">Pet Clinic</h3>
+                    
+                    <div class="info-grid">
+                        <div class="info-row"><span class="label">Pet :</span> <span class="val"></span></div>
+                        <div class="info-row"><span class="label">Pet Name :</span> <span class="val"></span></div>
+                        <div class="info-row"><span class="label">Age :</span> <span class="val"></span></div>
+                        <div class="info-row"><span class="label">Service :</span> <span class="val"></span></div>
+                    </div>
+
+                    <div class="card-footer-actions">
+                        <button class="btn-cancel">Cancel appointment</button>
+                        <span class="date-stamp">12/10/2024</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="appt-card">
+                <div class="card-section qr-section">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Appointment456" alt="QR Code" class="qr-img">
+                    <button class="btn-download">Download</button>
+                </div>
+
+                <div class="card-section details-section">
+                    <h3 class="appt-no-title">Appointment No :</h3>
+                    
+                    <div class="info-grid">
+                        <div class="info-row"><span class="label">Customer Name :</span> <span class="val"></span></div>
+                        <div class="info-row"><span class="label">Location :</span> <span class="val"></span></div>
+                        <div class="info-row"><span class="label">Date :</span> <span class="val"></span></div>
+                        <div class="info-row"><span class="label">Contact :</span> <span class="val"></span></div>
+                        <div class="info-row"><span class="label">Address :</span> <span class="val"></span></div>
+                    </div>
+                </div>
+
+                <div class="card-section pet-section">
+                    <h3 class="service-title">Pet Care</h3>
+                    
+                    <div class="info-grid">
+                        <div class="info-row"><span class="label">Pet :</span> <span class="val"></span></div>
+                        <div class="info-row"><span class="label">Pet Name :</span> <span class="val"></span></div>
+                        <div class="info-row"><span class="label">Age :</span> <span class="val"></span></div>
+                        <div class="info-row"><span class="label">Service :</span> <span class="val"></span></div>
+                    </div>
+
+                    <div class="card-footer-actions">
+                        <button class="btn-cancel">Cancel appointment</button>
+                        <span class="date-stamp">12/10/2024</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../../Frontend/javascript/navbar.js"></script>
+    <script src="../../Frontend/javascript/footer.js"></script>
+</body>
+</html>
