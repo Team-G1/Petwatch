@@ -29,5 +29,13 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-// Make sure you're exporting correctly
+const petSchema = new mongoose.Schema({
+    petName: { type: String, required: true },
+    petType: { type: String, required: true, enum: ['Cat', 'Dog'] },
+    breed: { type: String, required: true },
+    age: { type: String, required: true },
+    weight: { type: String, required: true }
+}, { timestamps: true });
+
+
 module.exports = mongoose.model('User', UserSchema);
