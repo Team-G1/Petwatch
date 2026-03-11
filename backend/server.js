@@ -6,7 +6,7 @@ const connectDB = require('./db');
 const crypto = require('crypto');
 const multer = require('multer');
 const path = require('path'); 
-const petRoutes = require('./routes/petRoutes');
+
 const Vet = require('./models/vet');
 
 const app = express();
@@ -16,10 +16,10 @@ const port = process.env.PORT || 5001;
 app.use(cors()); 
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
-app.use('/api', petRoutes);
+
 
 // Serve static files from Frontend folder
-app.use(express.static(path.join(__dirname, '../Frontend')));  // Now path is defined
+app.use(express.static(path.join(__dirname, '../Frontend')));  
 app.use('/uploads', express.static('uploads'));
 
 // Database Connection
@@ -27,7 +27,9 @@ connectDB();
 
 // Import Models
 const User = require('./models/User');
-const Pet = require('./models/Pet');
+const Pet = require('./models/Pet'); 
+const auth = require('./middleware/auth');
+
 
 
 // Import Routes
@@ -121,7 +123,7 @@ app.delete('/api/vets/:id', async (req, res) => {
 });
 
 
-// --- SCHEMA DESIGN ---
+// ---BOOKING SCHEMA DESIGN ---
 
 // schema holds both pet info and user info
 const BookingSchema = new mongoose.Schema({
@@ -448,20 +450,6 @@ app.delete('/api/health-tips/:id', async (req, res) => {
 
 
 
-
-const UserPetSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    petName: String,
-    petType: String,
-    breed: String,
-    age: String,
-    weight: String,
-    createdAt: { type: Date, default: Date.now }
-});
-
-const UserPet = mongoose.model('UserPet', UserPetSchema);
-
-
 // Update User Details (Name, Email, Mobile)
 app.put('/api/users/:id', async (req, res) => {
     try {
@@ -478,49 +466,50 @@ app.put('/api/users/:id', async (req, res) => {
     }
 });
 
-
-// GET all pets for a specific user
-app.get('/api/users/:userId/pets', async (req, res) => {
+// GET all pets for a specific user (Secured)
+app.get('/api/users/:userId/pets', auth, async (req, res) => {
     try {
-        const pets = await UserPet.find({ userId: req.params.userId });
+        const pets = await Pet.findByUser(req.params.userId);
         res.json(pets);
     } catch (error) {
         res.status(500).json({ message: "Error fetching pets" });
     }
 });
 
-// POST a new pet for a user
-app.post('/api/users/:userId/pets', async (req, res) => {
+// POST a new pet for a user (Secured)
+app.post('/api/users/:userId/pets', auth, async (req, res) => {
     try {
-        const newPet = new UserPet({
+        const newPet = new Pet({
             userId: req.params.userId,
             ...req.body
         });
         await newPet.save();
         res.status(201).json(newPet);
     } catch (error) {
-        res.status(500).json({ message: "Error saving pet" });
+        console.error("Save Pet Error:", error);
+        res.status(400).json({ message: "Error saving pet", error: error.message });
     }
 });
 
-// PUT (Update) a specific pet
-app.put('/api/users/:userId/pets/:petId', async (req, res) => {
+// PUT (Update) a specific pet (Secured)
+app.put('/api/users/:userId/pets/:petId', auth, async (req, res) => {
     try {
-        const updatedPet = await UserPet.findByIdAndUpdate(
+        const updatedPet = await Pet.findByIdAndUpdate(
             req.params.petId,
             req.body,
-            { new: true }
+            { new: true, runValidators: true }
         );
+        if (!updatedPet) return res.status(404).json({ message: "Pet not found" });
         res.json(updatedPet);
     } catch (error) {
-        res.status(500).json({ message: "Update failed" });
+        res.status(400).json({ message: "Update failed", error: error.message });
     }
 });
 
-// DELETE a specific pet
-app.delete('/api/users/:userId/pets/:petId', async (req, res) => {
+// DELETE a specific pet (Secured)
+app.delete('/api/users/:userId/pets/:petId', auth, async (req, res) => {
     try {
-        await UserPet.findByIdAndDelete(req.params.petId);
+        await Pet.findByIdAndDelete(req.params.petId);
         res.json({ message: "Pet deleted" });
     } catch (error) {
         res.status(500).json({ message: "Delete failed" });
