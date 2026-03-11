@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 
 // Import User model - make sure the path is correct
 const User = require('../models/User');  // This should point to your User model
@@ -89,8 +90,12 @@ router.post('/signin', async (req, res) => {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
         
-        // Password matches - create a simple token (in production, use JWT)
-        const token = crypto.randomBytes(32).toString('hex');
+        // Password matches 
+       const token = jwt.sign(
+            { id: user._id, email: user.email }, // Payload data
+            process.env.JWT_SECRET || 'petwatch2026', 
+            { expiresIn: '24h' } // Token expiration
+        );
         
         // Return user info (excluding password)
         const userResponse = {
