@@ -164,13 +164,8 @@ main {
     letter-spacing: 0.5px;
 }
 
-/* Dashboard Content Grid (Notifications + Table) */
-.main-content-grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 30px;
-    margin-bottom: 30px;
-}
+/* Dashboard Content Grid (Table) */
+
 
 .card {
     background: white;
@@ -212,47 +207,7 @@ main {
     color: white;
 }
 
-/* Notifications Styling */
-.notification-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px 0;
-    border-bottom: 1px solid #f1f5f9;
-}
 
-.notification-item:last-child { border-bottom: none; }
-
-.notification-content { flex: 1; }
-
-.notification-content strong {
-    display: block;
-    color: #1e293b;
-    font-size: 14px;
-    margin-bottom: 2px;
-}
-
-.notification-content p {
-    color: #64748b;
-    font-size: 13px;
-    margin-bottom: 3px;
-}
-
-.notification-content small {
-    color: #94a3b8;
-    font-size: 11px;
-}
-
-.btn-view {
-    background: #f8fafc;
-    color: #64748b;
-    border: 1px solid #e2e8f0;
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 12px;
-    cursor: pointer;
-}
 
 /* Table Design */
 .appointments-table {

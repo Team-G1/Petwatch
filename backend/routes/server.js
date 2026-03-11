@@ -5,7 +5,7 @@ const cors = require('cors');
 const connectDB = require('./db'); 
 const multer = require('multer');
 const path = require('path');
-const Vet = require('../models/vet'); // Import your Vet model
+const Vet = require('../models/vet');
 
 const app = express();
 const port = process.env.PORT || 5001; 
@@ -103,7 +103,9 @@ app.delete('/api/vets/:id', async (req, res) => {
     }
 });
 
+
 // --- SCHEMA DESIGN ---
+
 // schema holds both pet info and user info
 const BookingSchema = new mongoose.Schema({
     // Pet & Service Details
@@ -142,10 +144,9 @@ const Booking = mongoose.model('Booking', BookingSchema);
 
 // --- USER-FACING ROUTES ---
 
-/**
- * STEP 1: Create initial booking with Pet details
- * Generates the Appointment Number and returns the Database ID
- */
+//Create initial booking with Pet details
+//Generates the Appointment Number and returns the Database ID
+
 app.post('/api/book', async (req, res) => {
     try {
         const apptNum = '#APT-' + Math.floor(100000 + Math.random() * 900000);
@@ -166,7 +167,7 @@ app.post('/api/book', async (req, res) => {
     }
 });
 
-//STEP 2: Update existing booking with User contact info
+//Update existing booking with User contact info
  
 app.put('/api/book/:id', async (req, res) => {
     try {
@@ -182,7 +183,7 @@ app.put('/api/book/:id', async (req, res) => {
     }
 });
 
-//STEP 3: Fetch full details for the Confirmation Page & QR Code
+//Fetch full details for the Confirmation Page & QR Code
 
 app.get('/api/book/:id', async (req, res) => {
     try {
@@ -195,7 +196,7 @@ app.get('/api/book/:id', async (req, res) => {
 });
 
 
-// --- 3. ADMIN-FACING ROUTES ---
+// --- ADMIN-FACING ROUTES ---
 
 // Fetch all bookings for the Admin Table
 
@@ -282,7 +283,7 @@ const HealthTipSchema = new mongoose.Schema({
 
 const HealthTip = mongoose.model('HealthTip', HealthTipSchema);
 
-// Route D: Create Health Tip
+// Create Health Tip
 app.post('/api/health-tips', upload.single('image'), async (req, res) => {
     try {
         const {
@@ -320,7 +321,7 @@ app.post('/api/health-tips', upload.single('image'), async (req, res) => {
     }
 });
 
-// Route E: Get All Health Tips
+// Get All Health Tips
 app.get('/api/health-tips', async (req, res) => {
     try {
         const tips = await HealthTip.find().sort({ createdAt: -1 });
@@ -383,8 +384,6 @@ app.delete('/api/health-tips/:id', async (req, res) => {
         res.status(500).json({ message: 'Delete failed' });
     }
 });
-
-
 
 
 app.listen(port, () => {
