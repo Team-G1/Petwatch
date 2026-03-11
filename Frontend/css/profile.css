@@ -1,0 +1,240 @@
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fbfdfe;
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 140px 20px 60px;
+}
+
+/* Header & Buttons */
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+}
+
+.my-appointments-btn {
+    background-color: #17AFEF;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.my-appointments-btn:hover {
+    background-color: #0d9bd6;
+}
+
+/* Profile Card Layout */
+.profile-card {
+    background-color: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    gap: 60px;
+}
+
+.profile-left {
+    flex: 0 0 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-image-container {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.profile-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.add-new-pet-btn {
+    background-color: white;
+    color: #17AFEF;
+    border: 1px solid #17AFEF;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.add-new-pet-btn:hover {
+    background-color: #17AFEF;
+    color: white;
+}
+
+/* Form Styling */
+.profile-right {
+    flex: 1;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.section-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+}
+
+.edit-details-link {
+    color: #17AFEF;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.form-control {
+    padding: 15px 20px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+}
+
+.form-control:focus {
+    border-color: #17AFEF;
+    background-color: white;
+}
+
+/* Helper Classes */
+.breed-group, .mobile-group {
+    grid-column: span 2;
+}
+
+select.form-control {
+    appearance: none;
+    
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    padding-right: 40px;
+}
+
+/* Footer Actions */
+.actions-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #888;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.save-btn {
+    background-color: #17AFEF;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.save-btn:hover {
+    background-color: #0d9bd6;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .profile-card {
+        flex-direction: column;
+        padding: 30px;
+    }
+    .profile-left {
+        margin-bottom: 40px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .breed-group, .mobile-group {
+        grid-column: span 1;
+    }
+    .actions-container {
+        flex-direction: column-reverse;
+        gap: 20px;
+    }
+    .save-btn {
+        width: 100%;
+    }
+}

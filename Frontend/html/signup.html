@@ -1,53 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up Now</title>
+    <title>Sign Up - PetWatch</title>
+    
+    <link rel="stylesheet" href="../../Frontend/css/navbar.css">
+    <link rel="stylesheet" href="../../Frontend/css/services.css"> 
     <link rel="stylesheet" href="../../Frontend/css/signup.css">
-    <link rel="stylesheet" href="../../Frontend/css/footer.css"/>
-
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    
-    <div id="navbar"></div>
-    
-    <div class="card_body">
-        <div class="container">
 
-            <div class="signup_left_section">
-                <h2>Welcome to PetWatch</h2>
-                <p>Taking care of your pet has never been easier. <span class="Signup_sub_txt">Sign Up Now</span> to book appointments.</p>
-                <img src="../../Resources/Sg_image.png" alt="dog and cat">
+    <div id="navbar"></div>
+
+    <main class="signup-main">
+        <div class="signup-container">
+            
+            <div class="signup-card">
+                <div class="signup-left">
+                    <div class="left-text">
+                        <h2>Welcome to PetWatch</h2>
+                        <p>“Taking care of your pet has never been easier. <a href="#">Sign Up Now!</a> to book appointments ”</p>
+                    </div>
+                    
+                    <div class="left-graphics">
+                        <div class="blue-blob"></div>
+                        <img src="../../Resources/Sg_image.png" alt="PetWatch Pets" class="pets-img">
+                    </div>
+                </div>
+
+                <div class="signup-right">
+                    <h2 class="form-title">Sign Up</h2>
+                    
+                    <form id="signupForm" class="signup-form">
+    <div class="input-group">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" id="username" name="name" placeholder="Username" required>
+    </div>
+    
+    <div class="input-group">
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" id="email" name="email" placeholder="Email" required>
+    </div>
+    
+    <div class="input-group">
+        <i class="fa-solid fa-mobile-screen"></i>
+        <input type="tel" id="mobile" name="mobile" placeholder="Mobile" required>
+    </div>
+    
+    <div class="input-group">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <i class="fa-solid fa-eye-slash toggle-pwd"></i>
+    </div>
+    
+    <div class="input-group">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required>
+        <i class="fa-solid fa-eye-slash toggle-pwd"></i>
+    </div>
+    
+    <p id="errorMsg" style="color: #e74c3c; font-size: 13px; text-align: center; display: none; margin: 10px 0;"></p>
+    
+    <button type="submit" class="btn-signup">Sign Up</button>
+</form>
+                    <div class="login-link">
+                        Already have an account ? <!-- Change this: -->
+<a href="signin.html">Sign In</a>
+
+<!-- To this: -->
+<a href="/html/signin.html">Sign In</a>     
+                    </div>
+                </div>
             </div>
 
-            <form id="signupForm">
-                <div class="input_field">
-                    <input type="text" placeholder="Username" name="name" required>
-                </div>
-                <div class="input_field">
-                    <input type="email" placeholder="Email" name="email" required>
-                </div>
-                <div class="input_field">
-                    <input type="tel" placeholder="Mobile" name="mobile" required>
-                </div>
-                <div class="input_field">
-                    <input type="password" placeholder="Password" name="password" required>
-                </div>
-                <div class="input_field">
-                    <input type="password" placeholder="Confirm password" name="confirmPassword" required>
-                </div>
-                <button class="signup_btn" type="submit">Sign Up</button>
-            </form>
-            <div id="messageDisplay" class="validation_error"></div>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../../Frontend/javascript/navbar.js"></script>
+    <script src="../../Frontend/javascript/footer.js"></script>
+    <script src="../../Frontend/javascript/signup.js"></script>
     
-    
-    
-    
-      
-      
-          <script src="../../Frontend/javascript/navbar.js"></script>
-          <script src="../../Frontend/javascript/footer.js"></script>
 </body>
 </html>

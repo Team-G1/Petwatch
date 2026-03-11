@@ -1,108 +1,170 @@
-// Sign In Form Logic and API Connection
-const signinForm = document.getElementById('signinForm');
-const loginMessageDisplay = document.getElementById('loginMessageDisplay');
-
-// IMPORTANT: Update this URL to match your running Node.js backend address
-const LOGIN_URL = 'http://localhost:5000/api/auth/login'; 
-
-function displayLoginMessage(type, message) {
-    // Ensures the message display area is correctly styled and visible
-    if (loginMessageDisplay) {
-        loginMessageDisplay.textContent = message;
-        // The class names (.validation_error, .success, .error) should be defined in your CSS
-        loginMessageDisplay.className = `validation_error ${type}`; 
-        loginMessageDisplay.style.display = 'block';
+// Frontend/javascript/signin.js
+document.addEventListener('DOMContentLoaded', function() {
+    const signinForm = document.querySelector('.signin-form');
+    const errorMsg = document.createElement('div');
+    errorMsg.id = 'errorMsg';
+    errorMsg.style.display = 'none';
+    
+    if (signinForm) {
+        signinForm.parentNode.insertBefore(errorMsg, signinForm);
     }
-}
-
-signinForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    // Get email and password from the form elements
-    const email = signinForm.elements['email'].value;
-    const password = signinForm.elements['password'].value;
-
-    try {
-        const response = await fetch(LOGIN_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
+    
+    const API_BASE_URL = 'http://localhost:5001';
+    
+    // Toggle password visibility
+    const togglePassword = document.querySelector('.toggle-pwd');
+    const passwordInput = document.querySelector('.input-group input[type="password"]');
+    
+    if (togglePassword && passwordInput) {
+        togglePassword.addEventListener('click', function() {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            } else {
+                passwordInput.type = 'password';
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            }
         });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            // Success: Login successful
-            displayLoginMessage('success', 'Login successful! Redirecting...');
-            
-            // Store the received JWT token and user details
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('user', JSON.stringify(data.user)); 
-
-            // Redirect to the protected dashboard page
-            setTimeout(() => {
-                // IMPORTANT: Change this path to your actual protected area, e.g., 'dashboard.html'
-                window.location.href = '../dashboard/dashboard.html'; 
-            }, 1000);
-
-        } else {
-            // Failure: Invalid Credentials or other server error
-            displayLoginMessage('error', data.msg || 'Sign in failed. Check your email and password.');
+    }
+    
+    // Check if user just signed up
+    const signupSuccess = sessionStorage.getItem('signupSuccess');
+    const signupEmail = sessionStorage.getItem('signupEmail');
+    
+    if (signupSuccess === 'true' && signupEmail) {
+        showSuccess('Account created successfully! Please sign in.');
+        const emailInput = document.querySelector('.input-group input[type="text"]');
+        if (emailInput) {
+            emailInput.value = signupEmail;
         }
-
-    } catch (error) {
-        console.error('Network Error:', error);
-        displayLoginMessage('error', 'Network error. Could not connect to the server.');
+        sessionStorage.removeItem('signupSuccess');
+        sessionStorage.removeItem('signupEmail');
     }
-});
-
-
-// -------------------------------------------------------------
-// NAVBAR VISIBILITY LOGIC (Your Existing Code)
-// -------------------------------------------------------------
-
-const navbar = document.querySelector('.navbar_container');
-let lastScrollY = window.scrollY;
-let isScrollingDown = false;
-
-// Show the navbar by default
-if (navbar) {
-    navbar.style.opacity = 1;
-}
-
-// Function to handle navbar visibility on scroll
-function handleScroll() {
-    if (!navbar) return; // Exit if navbar element is not found
     
-    if (window.scrollY === 0) {
-        // If at the top of the page, show the navbar
-        navbar.style.opacity = 1;
-        isScrollingDown = false; // Reset scroll direction
-    } else if (window.scrollY > lastScrollY) {
-        // If scrolling down, hide the navbar
-        isScrollingDown = true;
-        navbar.style.opacity = 0;
-    } else {
-        // If scrolling up, update flag but keep navbar hidden
-        isScrollingDown = false;
+    // Handle form submission
+    if (signinForm) {
+        signinForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const usernameEmailInput = document.querySelector('.input-group input[type="text"]');
+            const passwordInput = document.querySelector('.input-group input[type="password"]');
+            
+            if (!usernameEmailInput || !passwordInput) {
+                showError('Form inputs not found');
+                return;
+            }
+            
+            const usernameOrEmail = usernameEmailInput.value.trim();
+            const password = passwordInput.value;
+            
+            // Since your HTML doesn't have a remember me checkbox, set rememberMe to false
+            const rememberMe = false; // FIX: Declare rememberMe variable here
+            
+            // Validation
+            if (!usernameOrEmail || !password) {
+                showError('Please enter both username/email and password');
+                return;
+            }
+            
+            // Determine if input is email or username
+            const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(usernameOrEmail);
+            
+            // Disable submit button
+            const submitBtn = document.querySelector('.btn-signin');
+            if (!submitBtn) {
+                console.error('Submit button not found');
+                return;
+            }
+            
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Signing In...';
+            submitBtn.disabled = true;
+            hideError();
+            
+            try {
+                console.log('Attempting signin with:', { usernameOrEmail, isEmail });
+                
+                const response = await fetch(`${API_BASE_URL}/api/auth/signin`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        [isEmail ? 'email' : 'username']: usernameOrEmail, 
+                        password 
+                    })
+                });
+                
+                const data = await response.json();
+                console.log('Signin response:', data);
+                
+                if (response.ok) {
+                    // Store user data
+                    const userData = {
+        id: data.user?.id || data.user?._id,
+        username: data.user?.username || data.user?.name || usernameOrEmail.split('@')[0],
+        email: data.user?.email || (isEmail ? usernameOrEmail : ''),
+        mobile: data.user?.mobile || ''
+    };
+                    
+                    // Since rememberMe is false, always use sessionStorage
+                    sessionStorage.setItem('user', JSON.stringify(userData));
+                    if (data.token) sessionStorage.setItem('token', data.token);
+                    
+                    showSuccess('Sign in successful! Redirecting...');
+                    
+                    // Redirect to home page
+                    setTimeout(() => {
+                        window.location.href = 'home.html';
+                    }, 1500);
+                } else {
+                    showError(data.message || 'Invalid username/email or password');
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            } catch (error) {
+                console.error('Signin error:', error);
+                showError('Network error. Please check your connection.');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
     }
-    lastScrollY = window.scrollY;
-}
-
-// Handle scroll events
-window.addEventListener('scroll', handleScroll);
-
-// Handle mouse hover near the top
-window.addEventListener('mousemove', (event) => {
-    if (!navbar) return; // Exit if navbar element is not found
     
-    if (event.clientY <= 100) {
-        // Show the navbar when the mouse is within 100px from the top
-        navbar.style.opacity = 1;
-    } else if (isScrollingDown) {
-        // Only hide the navbar if we are scrolling down
-        navbar.style.opacity = 0;
+    // Helper functions
+    function showError(message) {
+        if (errorMsg) {
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+            errorMsg.style.color = '#e74c3c';
+            errorMsg.style.backgroundColor = '#fde8e8';
+            errorMsg.style.padding = '10px';
+            errorMsg.style.borderRadius = '5px';
+            errorMsg.style.margin = '10px 0';
+            errorMsg.style.border = '1px solid #e74c3c';
+            errorMsg.style.textAlign = 'center';
+        }
+    }
+    
+    function hideError() {
+        if (errorMsg) {
+            errorMsg.style.display = 'none';
+        }
+    }
+    
+    function showSuccess(message) {
+        if (errorMsg) {
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+            errorMsg.style.color = '#27ae60';
+            errorMsg.style.backgroundColor = '#e8f8e8';
+            errorMsg.style.padding = '10px';
+            errorMsg.style.borderRadius = '5px';
+            errorMsg.style.margin = '10px 0';
+            errorMsg.style.border = '1px solid #27ae60';
+            errorMsg.style.textAlign = 'center';
+        }
     }
 });
