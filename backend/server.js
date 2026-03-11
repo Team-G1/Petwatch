@@ -449,10 +449,6 @@ app.delete('/api/health-tips/:id', async (req, res) => {
 
 
 
-
-
-
-
 const UserPetSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     petName: String,
