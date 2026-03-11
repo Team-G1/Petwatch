@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,17 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PetWatch Admin - Appointments</title>
     
-    <!-- Main stylesheet -->
      <link rel="stylesheet" href="../../Admin/css/sidebar.css" />
-    <link rel="stylesheet" href="../../Admin/css/AdminAppointments.css">
+    <link rel="stylesheet" href="../../Admin/css/adminAppointments.css">
     
-    <!-- Sidebar manager -->
     <script src="../../Admin/javascript/sidebar.js" defer></script>
+    <script src="../../Admin/javascript/adminAppointment.js" defer></script>
     
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -50,7 +48,7 @@
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                         <div class="stat-info">
-                            <h3>150</h3>
+                            <h3></h3>
                             <p>Total Appointments</p>
                         </div>
                     </div>
@@ -60,7 +58,7 @@
                             <i class="fas fa-calendar-day"></i>
                         </div>
                         <div class="stat-info">
-                            <h3>15</h3>
+                            <h3></h3>
                             <p>Today's Appointments</p>
                         </div>
                     </div>
@@ -70,7 +68,7 @@
                             <i class="fas fa-check-circle"></i>
                         </div>
                         <div class="stat-info">
-                            <h3>10</h3>
+                            <h3></h3>
                             <p>Completed</p>
                         </div>
                     </div>
@@ -80,7 +78,7 @@
                             <i class="fas fa-times-circle"></i>
                         </div>
                         <div class="stat-info">
-                            <h3>5</h3>
+                            <h3></h3>
                             <p>Cancelled</p>
                         </div>
                     </div>
@@ -95,7 +93,7 @@
                                 <option value="all">All Locations</option>
                                 <option value="kandy" selected>Kandy</option>
                                 <option value="colombo">Colombo</option>
-                                <option value="gampaha">Gampaha</option>
+                                <option value="gampaha">Kurunegala</option>
                                 <option value="jaffna">Jaffna</option>
                                 <option value="galle">Galle</option>
                             </select>
@@ -105,7 +103,6 @@
                             <label for="status-filter"><i class="fas fa-filter"></i> Status</label>
                             <select id="status-filter" class="filter-select">
                                 <option value="all">All Status</option>
-                                <option value="pending">Pending</option>
                                 <option value="confirmed">Confirmed</option>
                                 <option value="completed">Completed</option>
                                 <option value="cancelled">Cancelled</option>
@@ -139,7 +136,7 @@
                         <h3><i class="fas fa-list"></i> All Appointments</h3>
                         <div class="table-actions">
                             <input type="text" class="search-input" placeholder="Search appointments...">
-                            <button class="btn-refresh">
+                            <button class="btn-refresh" id="refresh-btn">
                                 <i class="fas fa-sync-alt"></i> Refresh
                             </button>
                         </div>
@@ -183,222 +180,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Row 1 -->
-                                <tr>
-                                    <td>
-                                        <div class="user-info">
-                                            <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Tom Ford">
-                                            <div class="user-details">
-                                                <span class="user-name">Tom Ford</span>
-                                                <span class="user-location">Kandy</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>#AP12548796</td>
-                                    <td>
-                                        <div class="date-info">
-                                            <span class="date">25 Jan, 2024</span>
-                                            <span class="time">10:40 PM</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="date-info">
-                                            <span class="date">28 Jan, 2024</span>
-                                            <span class="time">12:30 AM</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="status-badge completed">
-                                            <i class="fas fa-check-circle"></i> Completed
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button class="btn-action view" title="View Details">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="btn-action edit" title="Edit Appointment">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn-action cancel" title="Cancel Appointment">
-                                                <i class="fas fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
                                 
-                                <!-- Row 2 -->
-                                <tr>
-                                    <td>
-                                        <div class="user-info">
-                                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Smith">
-                                            <div class="user-details">
-                                                <span class="user-name">Jane Smith</span>
-                                                <span class="user-location">Colombo</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>#AP12548797</td>
-                                    <td>
-                                        <div class="date-info">
-                                            <span class="date">26 Jan, 2024</span>
-                                            <span class="time">2:00 PM</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="date-info">
-                                            <span class="date">27 Jan, 2024</span>
-                                            <span class="time">11:30 AM</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="status-badge confirmed">
-                                            <i class="fas fa-clock"></i> Confirmed
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button class="btn-action view" title="View Details">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="btn-action edit" title="Edit Appointment">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn-action complete" title="Mark as Complete">
-                                                <i class="fas fa-check"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <!-- Row 3 -->
-                                <tr>
-                                    <td>
-                                        <div class="user-info">
-                                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mike Johnson">
-                                            <div class="user-details">
-                                                <span class="user-name">Mike Johnson</span>
-                                                <span class="user-location">Galle</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>#AP12548798</td>
-                                    <td>
-                                        <div class="date-info">
-                                            <span class="date">27 Jan, 2024</span>
-                                            <span class="time">9:00 AM</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="date-info">
-                                            <span class="date">26 Jan, 2024</span>
-                                            <span class="time">3:45 PM</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="status-badge pending">
-                                            <i class="fas fa-clock"></i> Pending
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button class="btn-action view" title="View Details">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="btn-action accept" title="Accept Appointment">
-                                                <i class="fas fa-check"></i>
-                                            </button>
-                                            <button class="btn-action decline" title="Decline Appointment">
-                                                <i class="fas fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <!-- Row 4 -->
-                                <tr>
-                                    <td>
-                                        <div class="user-info">
-                                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sarah Williams">
-                                            <div class="user-details">
-                                                <span class="user-name">Sarah Williams</span>
-                                                <span class="user-location">Kandy</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>#AP12548799</td>
-                                    <td>
-                                        <div class="date-info">
-                                            <span class="date">28 Jan, 2024</span>
-                                            <span class="time">3:30 PM</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="date-info">
-                                            <span class="date">25 Jan, 2024</span>
-                                            <span class="time">10:20 AM</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="status-badge cancelled">
-                                            <i class="fas fa-times-circle"></i> Cancelled
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button class="btn-action view" title="View Details">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="btn-action reschedule" title="Reschedule">
-                                                <i class="fas fa-calendar-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <!-- Row 5 -->
-                                <tr>
-                                    <td>
-                                        <div class="user-info">
-                                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Robert Brown">
-                                            <div class="user-details">
-                                                <span class="user-name">Robert Brown</span>
-                                                <span class="user-location">Jaffna</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>#AP12548800</td>
-                                    <td>
-                                        <div class="date-info">
-                                            <span class="date">29 Jan, 2024</span>
-                                            <span class="time">11:00 AM</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="date-info">
-                                            <span class="date">28 Jan, 2024</span>
-                                            <span class="time">4:15 PM</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="status-badge in-progress">
-                                            <i class="fas fa-spinner"></i> In Progress
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button class="btn-action view" title="View Details">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="btn-action edit" title="Edit Appointment">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn-action complete" title="Mark as Complete">
-                                                <i class="fas fa-check"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -470,7 +252,7 @@
                             
                             <div class="location-stat">
                                 <div class="location-info">
-                                    <span class="location-name">Gampaha</span>
+                                    <span class="location-name">Kurunegala</span>
                                     <span class="location-count">10</span>
                                 </div>
                                 <div class="progress-bar">
@@ -484,88 +266,6 @@
         </main>
     </div>
 
-    <!-- JavaScript for interactive elements -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Filter functionality
-            const filterSelects = document.querySelectorAll('.filter-select');
-            filterSelects.forEach(select => {
-                select.addEventListener('change', function() {
-                    console.log(`Filter changed: ${this.id} = ${this.value}`);
-                    // Here you would typically filter the table data
-                });
-            });
-            
-            // Search functionality
-            const searchInput = document.querySelector('.search-input');
-            searchInput.addEventListener('input', function(e) {
-                const searchTerm = e.target.value.toLowerCase();
-                console.log(`Searching for: ${searchTerm}`);
-                // Here you would filter table rows
-            });
-            
-            // Refresh button
-            const refreshBtn = document.querySelector('.btn-refresh');
-            refreshBtn.addEventListener('click', function() {
-                this.classList.add('refreshing');
-                setTimeout(() => {
-                    this.classList.remove('refreshing');
-                    console.log('Table refreshed');
-                }, 1000);
-            });
-            
-            // Action buttons
-            document.querySelectorAll('.btn-action').forEach(button => {
-                button.addEventListener('click', function() {
-                    const action = this.classList[1];
-                    const row = this.closest('tr');
-                    const appointmentId = row.querySelector('td:nth-child(2)').textContent;
-                    console.log(`${action} clicked for ${appointmentId}`);
-                    
-                    // Handle different actions
-                    switch(action) {
-                        case 'view':
-                            // Show appointment details modal
-                            break;
-                        case 'edit':
-                            // Open edit form
-                            break;
-                        case 'accept':
-                            // Accept appointment
-                            break;
-                        case 'decline':
-                            // Decline appointment
-                            break;
-                        case 'complete':
-                            // Mark as complete
-                            break;
-                        case 'cancel':
-                            // Cancel appointment
-                            break;
-                        case 'reschedule':
-                            // Open reschedule modal
-                            break;
-                    }
-                });
-            });
-            
-            // New appointment button
-            document.querySelector('.btn-primary').addEventListener('click', function() {
-                console.log('Open new appointment form');
-                // Open new appointment modal/form
-            });
-            
-            // Pagination
-            document.querySelectorAll('.page-number').forEach(button => {
-                button.addEventListener('click', function() {
-                    document.querySelectorAll('.page-number').forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                    console.log(`Page ${this.textContent} selected`);
-                });
-            });
-        });
-    </script>
+    
 </body>
 </html>

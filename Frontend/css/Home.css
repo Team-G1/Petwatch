@@ -161,7 +161,7 @@ align-items: center;
 text-align: center;
 padding-bottom: 0%;
 
-}
+} 
 
 /* Container Styles */
 .about_grid_container {
@@ -197,31 +197,203 @@ padding-bottom: 0%;
 }
 
 /* Individual Grid Items */
+
+
+/* --- COMPASSION CARD SPECIFIC STYLES --- */
 .compassion_card {
   grid-column: span 3;
   grid-row: span 2;
   background-color: #ffffff;
+  
+  /* Layout: Puts Text Left, Image Right */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  
+  padding: 40px; /* Matches the spacious look in the image */
+  text-align: left; /* Resets alignment to left */
 }
 
+/* Left Side: Text Container */
+.compassion-text-side {
+    flex: 1; /* Takes up roughly 50-60% of space */
+    padding-right: 30px; /* Space between text and image */
+}
+
+.compassion-text-side h2 {
+    font-size: 1.6rem;
+  /* Extra Bold */
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.compassion-text-side p {
+    font-size: 1rem;
+    color: #777; /* Grey color for the text */
+    line-height: 1.6;
+    margin-bottom: 25px; /* Space between the two paragraphs */
+}
+
+.compassion-text-side .sub-text {
+    margin-bottom: 0; /* Remove margin from last paragraph */
+}
+
+/* Right Side: Image Container */
+.compassion-img-side {
+    flex: 0.8; /* Takes up slightly less space than text */
+    display: flex;
+    justify-content: flex-end; /* Pushes image to the far right */
+}
+
+.compassion-img-side img {
+    width: 100%;
+    max-width: 280px; /* Adjust this max-width to fit your specific image size */
+    height: auto;
+    object-fit: contain;
+}
+
+/* Responsive: Stack on Mobile */
+@media (max-width: 768px) {
+    .compassion_card {
+        flex-direction: column; /* Stack vertically on phones */
+        text-align: center;
+        padding: 30px;
+    }
+    .compassion-text-side {
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+    .compassion-text-side h3 {
+        text-align: center;
+    }
+    .compassion-img-side {
+        justify-content: center;
+    }
+}
+
+/* --- PROFESSIONAL GUIDANCE CARD SPECIFIC STYLES --- */
 .guidance_card {
-  grid-column: span 2;
-  grid-row: span 4;
+  grid-column: span 2; /* Keep existing span */
+  grid-row: span 4;    /* Keep existing span */
   background-color: #ffffff;
+  
+  /* Layout: Flex Column to stack content */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes top content up, bottom content down */
+  
+  padding: 30px 30px 0 30px; /* Padding top/sides, no padding bottom for character */
+  overflow: hidden; /* Ensures character doesn't spill out */
 }
 
+/* Top Content Section */
+.guidance-top-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.guidance-top-content h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 1.3;
+    max-width: 80%; /* Limits width like in the image */
+    text-align: left;
+}
+
+/* Icon Block (Top Right) */
+.guidance-icon-block {
+    align-self: flex-end; /* Moves the block to the right */
+    text-align: center;
+    margin-top: 16px; /* Pulls it up next to the title */
+}
+
+.guidance-icon-block img {
+    width: 60px; /* Adjust based on your icon size */
+    height: auto;
+    margin-bottom: 5px;
+}
+
+.guidance-icon-block span {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #005478; /* Dark blue color from image */
+}
+
+/* Bottom Character Image Section */
+.guidance-character-image {
+    display: flex;
+    justify-content: center; /* Centers character horizontally */
+    align-items: flex-end;   /* Aligns character to the bottom */
+    flex: 1; /* Takes up remaining space */
+}
+
+.guidance-character-image img {
+    max-width: 100%;
+    height: auto;
+    max-height: 350px; 
+    object-fit: contain;
+    margin-bottom: -5px; 
+}
+
+/* Responsive: Adjust layout on smaller screens */
+@media (max-width: 1200px) {
+    .guidance-top-content h2 {
+        font-size: 1.5rem;
+        max-width: 70%;
+    }
+    .guidance-icon-block {
+        margin-top: -40px;
+    }
+}
 .logo_card {
   grid-column: span 2;
   grid-row: span 2;
   background-color: #ffffff;
 }
 
+.logo_card img {
+    
+    width: 150px; 
+    height: auto; /* Keeps the aspect ratio perfect */
+    
+    /* Optional: Center it within the card */
+    display: block;
+    margin: 0 auto;
+}
+
+/* Update this class in Home.css */
 .convenience_card {
   grid-column: span 1;
   grid-row: span 2;
   background-color: #ffffff;
-  align-items: center;
+  
+  /* Flexbox to Center Vertically */
   display: flex;
   flex-direction: column;
+  justify-content: center; /* Centers content Up/Down */
+  
+  /* Text Alignment */
+  align-items: flex-start; /* Aligns Title and Text to the Left */
+  padding: 40px;           /* Adds consistent spacing around both Title and Text */
+}
+
+/* Update the paragraph class to be clean */
+.convenience_card p {
+    text-align: left;
+    padding-top: 15px;     /* Space between Title and Text */
+    margin: 0;  
+    color: #777;           /* Remove margin-left so it aligns with Title */
+    width: 100%;
+}
+
+.convenience_card h2 {
+    margin: 0;            /* Ensure Title has no extra margin throwing it off */
+    text-align: left;
+    color: #333;
 }
 
 /* Health tips section */

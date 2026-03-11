@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>PetWatch Admin - Health Tips</title>
+    
+    <!-- Main stylesheet -->
+     <link rel="stylesheet" href="../../Admin/css/sidebar.css" />
+    <link rel="stylesheet" href="../../Admin/css/healthView.css" />
+    
+    <!-- Sidebar manager -->
+    <script src="../../Admin/javascript/sidebar.js" defer></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar will be automatically inserted here -->
+    
+    <div class="admin-dashboard">
+        <!-- Main Content -->
+        <main>
+            <!-- Top Bar -->
+            <div class="topbar">
+                <div class="page-title">
+                    <h1>Health Tips</h1>
+                    <p class="subtitle">Manage pet health tips and educational content</p>
+                </div>
+                
+                <div class="user-profile">
+                    
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile Picture">
+                    <div class="user-info">
+                        <span class="username">Admin</span>
+                        <span class="user-role">Content Manager</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Health Tips Content -->
+            <div class="dashboard-content">
+                <!-- Stats Cards -->
+                <div class="quick-stats">
+                    <div class="stat-card total-tips">
+                        <div class="stat-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>48</h3>
+                            <p>Total Tips</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card published-tips">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>42</h3>
+                            <p>Published</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card categories">
+                        <div class="stat-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>6</h3>
+                            <p>Categories</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card views">
+                        <div class="stat-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>2.4K</h3>
+                            <p>Total Views</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters and Actions -->
+                <div class="tips-header">
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label for="category-filter"><i class="fas fa-tag"></i> Category</label>
+                            <select id="category-filter" class="filter-select">
+                                <option value="all">All Categories</option>
+                                <option value="cats" selected>Cats</option>
+                                <option value="dogs">Dogs</option>
+                                <option value="small-pets">Small Pets</option>
+                                <option value="birds">Birds</option>
+                                <option value="nutrition">Nutrition</option>
+                                <option value="grooming">Grooming</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="status-filter"><i class="fas fa-filter"></i> Status</label>
+                            <select id="status-filter" class="filter-select">
+                                <option value="all">All Status</option>
+                                <option value="published">Published</option>
+                                <option value="draft">Draft</option>
+                                <option value="archived">Archived</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="sort-filter"><i class="fas fa-sort-amount-down"></i> Sort By</label>
+                            <select id="sort-filter" class="filter-select">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="popular">Most Popular</option>
+                                <option value="title">Title A-Z</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="actions">
+                        <button class="btn-primary" id="add-tip-btn">
+                            <i class="fas fa-plus"></i> Add New Tip
+                        </button>
+                        <button class="btn-secondary" id="edit-tips-btn">
+                            <i class="fas fa-edit"></i> Edit Tips
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Health Tips Grid -->
+                <div class="card tips-grid-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-paw"></i> Health Tips</h3>
+                        <div class="table-actions">
+                            <input type="text" class="search-input" placeholder="Search health tips...">
+                            <button class="btn-refresh">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-grid" id="tipsGrid">
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <button class="pagination-btn" disabled>
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <div class="page-numbers">
+                            <button class="page-number active">1</button>
+                            <button class="page-number">2</button>
+                            <button class="page-number">3</button>
+                            <span class="ellipsis">...</span>
+                            <button class="page-number">5</button>
+                        </div>
+                        <button class="pagination-btn">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Statistics Section -->
+                <div class="stats-section">
+                    <div class="card category-stats-card">
+                        <h3><i class="fas fa-chart-pie"></i> Tips by Category</h3>
+                        <div class="category-stats">
+                            <div class="category-stat">
+                                <div class="category-info">
+                                    <span class="category-name cats">Cats</span>
+                                    <span class="category-count">18 tips</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress cats-progress" style="width: 37.5%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="category-stat">
+                                <div class="category-info">
+                                    <span class="category-name dogs">Dogs</span>
+                                    <span class="category-count">15 tips</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress dogs-progress" style="width: 31.2%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="category-stat">
+                                <div class="category-info">
+                                    <span class="category-name nutrition">Nutrition</span>
+                                    <span class="category-count">8 tips</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress nutrition-progress" style="width: 16.7%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="category-stat">
+                                <div class="category-info">
+                                    <span class="category-name grooming">Grooming</span>
+                                    <span class="category-count">4 tips</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress grooming-progress" style="width: 8.3%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="category-stat">
+                                <div class="category-info">
+                                    <span class="category-name others">Others</span>
+                                    <span class="category-count">3 tips</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress others-progress" style="width: 6.3%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card recent-activity-card">
+                        <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-plus-circle text-success"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <strong>New tip added</strong>
+                                    <p>"Bird Nutrition Essentials" was published</p>
+                                    <small>2 hours ago</small>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-edit text-warning"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <strong>Tip updated</strong>
+                                    <p>"Cat Grooming Tips" was edited</p>
+                                    <small>1 day ago</small>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-trash text-danger"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <strong>Tip deleted</strong>
+                                    <p>"Old Fish Care Guide" was archived</p>
+                                    <small>2 days ago</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+ <script src="../javascript/health-tips-view.js"></script>
+</body>
+</html>
