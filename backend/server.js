@@ -16,10 +16,10 @@ const port = process.env.PORT || 5001;
 app.use(cors()); 
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
-
+app.use('/api', petRoutes);
 
 // Serve static files from Frontend folder
-app.use(express.static(path.join(__dirname, '../Frontend')));  
+app.use(express.static(path.join(__dirname, '../Frontend')));  // Now path is defined
 app.use('/uploads', express.static('uploads'));
 
 // Database Connection
@@ -449,10 +449,6 @@ app.delete('/api/health-tips/:id', async (req, res) => {
 
 
 
-
-
-
-
 const UserPetSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     petName: String,
@@ -535,3 +531,4 @@ app.delete('/api/users/:userId/pets/:petId', async (req, res) => {
 app.listen(port, () => {
   console.log(`🚀 PetWatch Server live at http://localhost:${port}`);
 });
+

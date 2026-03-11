@@ -1,4 +1,4 @@
-/ Frontend/javascript/signup.js
+// Frontend/javascript/signup.js
 
 document.addEventListener('DOMContentLoaded', function() {
     const signupForm = document.getElementById('signupForm');
@@ -40,12 +40,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             if (response.ok) {
-                console.log('â Backend connection successful');
+                console.log('✅ Backend connection successful');
             } else {
-                console.log('â ï¸ Backend responded with status:', response.status);
+                console.log('⚠️ Backend responded with status:', response.status);
             }
         } catch (error) {
-            console.error('â Backend connection failed:', error);
+            console.error('❌ Backend connection failed:', error);
             showError('Cannot connect to server. Please make sure the backend is running on port 5001');
         }
     }
