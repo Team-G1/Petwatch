@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../Admin/css/sidebar.css" />
     <link rel="stylesheet" href="../../Admin/css/vets.css" />
     
+    <script src="../../Admin/javascript/vets.js"></script>
     <script src="../../Admin/javascript/sidebar.js" defer></script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -64,7 +65,9 @@
                                 <option value="colombo">Colombo</option>
                                 <option value="gampaha">Gampaha</option>
                             </select>
+
                         </div>
+                        
                         </div>
                     
                     <div class="actions">
@@ -78,6 +81,7 @@
                     <div class="card-header">
                         <h3><i class="fas fa-users"></i> Registered Veterinarians</h3>
                         <div class="table-actions">
+                            <input type="text" class="search-input" placeholder="Search by name...">
                             <input type="text" class="search-input" placeholder="Search by name...">
                             <button class="btn-refresh" id="refresh-btn">
                                 <i class="fas fa-sync-alt"></i> Refresh
@@ -94,96 +98,7 @@
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const vetsContainer = document.getElementById('vets-container');
-        const addBtn = document.getElementById('add-vet-btn');
-        const refreshBtn = document.getElementById('refresh-btn');
-        const searchInput = document.querySelector('.search-input');
-
-        // 1. Redirect to Add Page
-        addBtn.addEventListener('click', () => {
-            window.location.href = 'vetsAdd.html';
-        });
-
-        // 2. Load Vets from Backend
-        async function loadVets() {
-            try {
-                vetsContainer.innerHTML = '<p style="padding: 20px;">Loading...</p>';
-                const response = await fetch('http://localhost:5001/api/vets'); 
-                const vets = await response.json();
-                
-                vetsContainer.innerHTML = ''; // Clear container
-
-                if (vets.length === 0) {
-                    vetsContainer.innerHTML = '<p style="padding: 20px;">No veterinarians found.</p>';
-                    return;
-                }
-
-                vets.forEach(vet => {
-                    const card = document.createElement('div');
-                    card.className = 'vet-card';
-                    card.innerHTML = `
-                        <div class="vet-header">
-                            <span class="vet-badge">${vet.role || 'Vet'}</span>
-                            <div class="vet-actions">
-                                <button class="btn-action edit" title="Edit" data-id="${vet._id}">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="vet-avatar">
-                            <img src="${vet.image ? 'http://localhost:5001' + vet.image : 'https://via.placeholder.com/100'}" alt="${vet.name}">
-                            <span class="online-status ${vet.status === 'on-duty' ? 'active' : 'away'}"></span>
-                        </div>
-                        <div class="vet-info">
-                            <h3>${vet.name}</h3>
-                            <p class="vet-title">${vet.designation || 'Veterinarian'}</p>
-                            <div class="vet-meta">
-                                <span class="vet-location"><i class="fas fa-map-marker-alt"></i> ${vet.location}</span>
-                                <span class="vet-experience"><i class="fas fa-award"></i> ${vet.experience} Years</span>
-                            </div>
-                        </div>
-                    `;
-                    
-                    // Add Click listener for Edit Button
-                    card.querySelector('.edit').addEventListener('click', (e) => {
-                        const id = e.currentTarget.getAttribute('data-id');
-                        window.location.href = `vetsEdit.html?id=${id}`;
-                    });
-
-                    vetsContainer.appendChild(card);
-                });
-
-                // Update Stats
-                document.getElementById('stat-total').textContent = vets.length;
-                document.getElementById('stat-active').textContent = vets.filter(v => v.status === 'on-duty').length;
-
-            } catch (err) {
-                console.error("Fetch error:", err);
-                vetsContainer.innerHTML = '<p style="padding: 20px; color: red;">Failed to connect to backend server.</p>';
-            }
-        }
-
-        // Initial Load
-        loadVets();
-
-        // Refresh functionality
-        refreshBtn.addEventListener('click', () => {
-            refreshBtn.classList.add('refreshing');
-            loadVets().finally(() => {
-                setTimeout(() => refreshBtn.classList.remove('refreshing'), 500);
-            });
-        });
-
-        // Basic Filter logic (can be expanded)
-        searchInput.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            document.querySelectorAll('.vet-card').forEach(card => {
-                const name = card.querySelector('h3').textContent.toLowerCase();
-                card.style.display = name.includes(term) ? 'block' : 'none';
-            });
-        });
-    });
+ 
     </script>
 </body>
 </html>

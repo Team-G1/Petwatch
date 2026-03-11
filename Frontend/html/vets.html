@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctors - PetWatch</title>
+    <link rel="stylesheet" href="../../Frontend/css/navbar.css">
     <link rel="stylesheet" href="../../Frontend/css/vets.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -57,52 +58,13 @@
                         <option value="kandy">Kandy</option>
                         <option value="colombo">Colombo</option>
                         <option value="galle">Galle</option>
+                        <option value="gampaha">Gampaha</option>
                     </select>
                 </div>
             </div>
 
             <div class="panel-grid" id="panelGrid">
-                <div class="doc-card" data-location="kandy">
-                    <img src="https://randomuser.me/api/portraits/men/86.jpg" alt="Dr. Harry">
-                    <h3>Dr.Harry Fernando</h3>
-                    <span class="degrees">MBBS / MBA / PHD</span><br>
-                    <button class="btn-contact">Contact</button>
-                </div>
-
-                <div class="doc-card" data-location="kandy">
-                    <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Dr. Helen">
-                    <h3>Dr.Helen Perera</h3>
-                    <span class="degrees">MBBS / MBA / PHD</span><br>
-                    <button class="btn-contact">Contact</button>
-                </div>
-
-                <div class="doc-card" data-location="kandy">
-                    <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Dr. Vikum">
-                    <h3>Dr.Vikum Dissanayaka</h3>
-                    <span class="degrees">MBBS / MBA / PHD</span><br>
-                    <button class="btn-contact">Contact</button>
-                </div>
-
-                <div class="doc-card" data-location="colombo">
-                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Dr. Aruni">
-                    <h3>Dr.Aruni Dissanayaka</h3>
-                    <span class="degrees">MBBS / MBA / PHD</span><br>
-                    <button class="btn-contact">Contact</button>
-                </div>
-
-                <div class="doc-card" data-location="colombo">
-                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Dr. Ruwan">
-                    <h3>Dr.Ruwan Kumara</h3>
-                    <span class="degrees">MBBS / MBA / PHD</span><br>
-                    <button class="btn-contact">Contact</button>
-                </div>
-
-                <div class="doc-card" data-location="galle">
-                    <img src="https://randomuser.me/api/portraits/women/29.jpg" alt="Dr. Manel">
-                    <h3>Dr. Manel Ekanayaka</h3>
-                    <span class="degrees">MBBS / MBA / PHD</span><br>
-                    <button class="btn-contact">Contact</button>
-                </div>
+                <p style="padding: 20px;">Connecting to database...</p>
             </div>
         </section>
     </main>
@@ -115,23 +77,61 @@
     <script src="../../Frontend/javascript/footer.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const filterSelect = document.getElementById('locationFilter');
-            const cards = document.querySelectorAll('.doc-card');
+        document.addEventListener('DOMContentLoaded', function () {
+            const panelGrid = document.getElementById('panelGrid');
+            const locationFilter = document.getElementById('locationFilter');
+            let allVets = []; 
 
-            filterSelect.addEventListener('change', function() {
-                const selectedLocation = this.value.toLowerCase();
-
-                cards.forEach(card => {
-                    const cardLocation = card.getAttribute('data-location').toLowerCase();
+            // Fetch the list from admin database
+            async function fetchVets() {
+                try {
+                    // API endpoint from your admin logic
+                    const response = await fetch('http://localhost:5001/api/vets');
+                    allVets = await response.json();
                     
-                    if (selectedLocation === 'all' || cardLocation === selectedLocation) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
+                    // Display all vets from the database in the Panel section
+                    renderPanel(allVets);
+                } catch (error) {
+                    console.error("Error fetching vets:", error);
+                    panelGrid.innerHTML = "<p>Panelists currently unavailable.</p>";
+                }
+            }
+
+            function renderPanel(vetsList) {
+                panelGrid.innerHTML = '';
+                
+                if (vetsList.length === 0) {
+                    panelGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">No additional veterinarians found.</p>';
+                    return;
+                }
+
+                vetsList.forEach(vet => {
+                    const card = document.createElement('div');
+                    card.className = 'doc-card';
+                    card.setAttribute('data-location', vet.location.toLowerCase());
+                    
+                    // Uses the image path logic from your admin script
+                    card.innerHTML = `
+                        <img src="${vet.image ? 'http://localhost:5001' + vet.image : 'https://via.placeholder.com/150'}" alt="${vet.name}">
+                        <h3>${vet.name}</h3>
+                        <span class="degrees">${vet.designation}</span><br>
+                        <button class="btn-contact">Contact</button>
+                    `;
+                    panelGrid.appendChild(card);
                 });
+            }
+
+            //Filter Logic for the dynamic panel
+            locationFilter?.addEventListener('change', function() {
+                const selected = this.value.toLowerCase();
+                const filtered = selected === 'all' 
+                    ? allVets 
+                    : allVets.filter(v => v.location.toLowerCase().includes(selected));
+                
+                renderPanel(filtered);
             });
+
+            fetchVets();
         });
     </script>
 </body>
