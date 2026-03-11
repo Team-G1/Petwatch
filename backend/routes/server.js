@@ -251,6 +251,73 @@ app.delete('/api/health-tips/:id', async (req, res) => {
 });
 
 
+//locations
+
+// LOCATION SCHEMA
+const LocationSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    city: { type: String, required: true },
+    address: { type: String, required: true },
+    phone: { type: String },
+    lat: { type: Number, required: true },
+    lng: { type: Number, required: true },
+    createdAt: { type: Date, default: Date.now }
+});
+
+const Location = mongoose.model("Location", LocationSchema);
+// CREATE location
+app.post("/api/locations", async (req, res) => {
+
+    try {
+
+        const location = new Location(req.body);
+        await location.save();
+
+        res.json(location);
+
+    } catch (err) {
+
+        console.error(err);
+        res.status(500).json({ message: "Error creating location" });
+
+    }
+
+});
+
+
+// GET all locations
+app.get("/api/locations", async (req, res) => {
+
+    try {
+
+        const locations = await Location.find();
+        res.json(locations);
+
+    } catch (err) {
+
+        res.status(500).json({ message: "Error loading locations" });
+
+    }
+
+});
+
+
+// DELETE location
+app.delete("/api/locations/:id", async (req, res) => {
+
+    try {
+
+        await Location.findByIdAndDelete(req.params.id);
+        res.json({ message: "Location deleted" });
+
+    } catch (err) {
+
+        res.status(500).json({ message: "Error deleting location" });
+
+    }
+
+});
+
 
 app.listen(port, () => {
   console.log(`🚀 Server listening on http://localhost:${port}`);
