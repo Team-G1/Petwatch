@@ -1,207 +1,248 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+/* Frontend/css/signup.css */
 
-*{
+body {
+    font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
 }
-html, body {
-    height: 135%;
-    background-color: #ffffff;
-}
 
-body {
-    font-family: Arial, sans-serif;
-}
-
-
-/* Sign Up Card */
-.card_body {
+/* Light Background with subtle concentric rings to match screenshot */
+.signup-main {
+    background-color: #fafcfd;
+    background-image: repeating-radial-gradient(circle at center, transparent 0, transparent 80px, rgba(0, 0, 0, 0.02) 80px, rgba(0, 0, 0, 0.02) 81px);
+    min-height: 100vh;
+    padding: 140px 20px 80px; /* Top padding to clear fixed navbar */
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px;
-    height: 100vh;
 }
 
-.container {
-    display: flex;
-    background-color: #fff;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
-    overflow: hidden;
+.signup-container {
     width: 100%;
-    max-width: 900px;
-    height: 80vh;
-    margin-top: 50px;
+    max-width: 950px;
 }
 
-/*Sign up card left section*/
-.signup_left_section h2{
-  text-align: left;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  margin-left: 40px;
-}
-.signup_left_section p{
-  text-align: left;
-  padding-bottom: 60px;
-  font-weight: lighter;
-  color: #959595;
-  margin-top: 20px; 
-  margin-left: 40px;
+/* --- THE CARD --- */
+.signup-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    display: flex;
+    overflow: hidden; /* Important: Keeps the blue blob contained */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
 }
 
-.Signup_sub_txt {
-  color: #17AFEF;
-  font-weight: bold;
+/* --- LEFT COLUMN --- */
+.signup-left {
+    flex: 1;
+    position: relative;
+    padding: 50px 40px 0 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.signup_left_section {
-    background-image: url(../../Resources/Ellipse\ 5.png);
-    background-repeat: no-repeat;
-    background-position: 0px 120px;
-    padding: 30px;
-    width: 50%;
-    text-align: center;
+.left-text h2 {
+    color: #1a365d; /* Dark navy tone */
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
 }
 
-.signup_left_section img {
-    width: 100%;   
+.left-text p {
+    color: #888;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
 }
 
-/*Sign up card right section*/
-.signup_right_section {
-    padding: 50px;
-    width: 50%;
+.left-text a {
+    color: #17AFEF; /* Brand Blue */
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.left-graphics {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* The light blue organic blob shape in the background */
+.blue-blob {
+    position: absolute;
+    bottom: 0;
+    left: -40px; /* Expands into padding */
+    width: calc(100% + 40px);
+    height: 90%;
+    background-color: #cdebfd; /* Light sky blue from image */
+    border-top-right-radius: 100% 90%;
+    z-index: 1;
+}
+
+.pets-img {
+    position: relative;
+    z-index: 2;
+    max-width: 85%;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: -5px; /* Sink it nicely onto the bottom edge */
+}
+
+/* --- RIGHT COLUMN --- */
+.signup-right {
+    flex: 1;
+    padding: 50px 60px 50px 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.signup_right_section h2 {
-  text-align: center; 
-  padding-bottom: 25px;
+.form-title {
+    text-align: center;
+    color: #222;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 30px 0;
 }
 
-.input_field {
-    margin-bottom: 20px; 
-    margin-right: 28px;
-
+/* --- FORM AND INPUTS (With Bulletproof Fixes) --- */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.input_field input {
-    width: 100%; 
-    padding: 13px; 
-    border: 1px solid rgba(187, 234, 254, 1);
-    border-radius: 30px; 
+.input-group {
+    position: relative;
+    display: flex !important;
+    flex-direction: row !important; /* Forces items side-by-side */
+    align-items: center !important; /* Centers items vertically */
+    justify-content: flex-start;
+    border: 1px solid #dbeafe; 
+    border-radius: 25px; 
+    padding: 0 20px;
+    height: 48px !important; /* Locks height */
+    min-height: 48px;
+    background-color: #fff;
+    box-sizing: border-box; /* Prevents padding from breaking height */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* The outer blue glow when clicking anywhere inside the group */
+.input-group:focus-within {
+    border-color: #17AFEF;
+    box-shadow: 0 0 0 3px rgba(23, 175, 239, 0.1);
+}
+
+.input-group i {
+    color: #94a3b8; 
+    font-size: 16px;
+    width: 24px; /* Fixed width so icons align perfectly */
+    text-align: center;
+    flex-shrink: 0; /* Stops icon from squishing */
+    margin: 0; 
+}
+
+/* THE FIX: Stripping the default styling off the actual input element */
+.input-group input {
+    flex: 1;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 0 0 0 10px; /* Spacing between icon and text */
     font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    height: 100%;
+    margin: 0;
 }
 
-.signup_btn {
-    width: 100%; 
-    padding: 13px; 
-    background-color: rgba(23, 175, 239, 1);
-    color: #fff;
-    border: none; 
-    border-radius: 30px; 
-    font-size: 14px;
-    font-weight: bold;
+/* Ensure focus states on the input don't trigger browser default rings */
+.input-group input:focus,
+.input-group input:active,
+.input-group input:focus-visible {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.input-group input::placeholder {
+    color: #94a3b8;
+}
+
+.toggle-pwd {
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-right: 20px;
+    color: #94a3b8;
+    margin-left: auto; /* Pushes eye icon to the right */
 }
 
-.signup_btn:hover {
-    background-color: #DE732D;
-}
-
-.signup_right_section p {
-    text-align: center; 
-    padding-top: 25px;
-    font-weight: 100;
-}
-
-.signup_right_section a{
+.toggle-pwd:hover {
     color: #17AFEF;
 }
 
-.Signup_option_btn {
-  color: #17AFEF; 
-  font-weight: bold;
-  font-style: italic;
+/* --- BUTTON & LINKS --- */
+.btn-signup {
+    background-color: #4eb6f3; /* Slightly softer blue to match screenshot */
+    color: white;
+    border: none;
+    border-radius: 25px; /* Pill shape */
+    height: 48px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: background-color 0.3s;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .card_body {
-        padding: 30px;
-    }
-
-    .container {
-        flex-direction: column;
-        height: auto;
-    }
-
-    .signup_left_section, .signup_right_section {
-        width: 100%;
-        padding: 20px;
-    }
-
-    .signup_left_section img {
-        display: none;
-    }
-
-    .signup_btn {
-        width: 100%;
-    }
+.btn-signup:hover {
+    background-color: #17AFEF;
 }
 
-@media (max-width: 480px) {
-    .card_body {
-        padding: 10px;
-    }
-
-    .container {
-        padding: 10px;
-    }
-
-    .signup_btn {
-        font-size: 12px;
-        padding: 10px;
-    }
-
-    /* Add this to the end of your existing signup.css file */
-
-/* Style for validation and error messages */
-.validation_error {
-    margin: 10px 28px 20px 0; /* Align with form elements */
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 13px;
-    font-weight: bold;
+/* Already have an account link */
+.login-link {
     text-align: center;
+    margin-top: 25px;
+    font-size: 13px;
+    color: #444;
 }
 
-.validation_error.error {
-    background-color: #ffdddd; /* Light red background for errors */
-    color: #cc0000; /* Darker red text */
-    border: 1px solid #cc0000;
+.login-link a {
+    color: #4eb6f3;
+    text-decoration: none;
+    font-weight: 700;
+    font-style: italic; /* Added italic to match design */
 }
 
-.validation_error.success {
-    background-color: #ddffdd; /* Light green background for success */
-    color: #008000; /* Darker green text */
-    border: 1px solid #008000;
+.login-link a:hover {
+    text-decoration: underline;
 }
 
-/* Style for small hint text below input fields (e.g., for mobile number format) */
-.hint {
-    display: block;
-    font-size: 11px;
-    color: #959595;
-    margin-top: -15px; /* Pull it closer to the input field */
-    margin-bottom: 10px;
-    margin-left: 10px;
-    text-align: left;
-}
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 900px) {
+    .signup-card {
+        flex-direction: column;
+    }
+    
+    .signup-left {
+        padding: 40px 30px 0 30px;
+    }
+    
+    .blue-blob {
+        left: -30px;
+        width: 150%;
+        height: 120%;
+    }
+    
+    .pets-img {
+        max-width: 70%;
+    }
+    
+    .signup-right {
+        padding: 40px 30px;
+    }
 }
