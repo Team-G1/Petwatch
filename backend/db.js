@@ -1,4 +1,3 @@
-// db.js
 const mongoose = require('mongoose');
 
 // This function handles the connection logic

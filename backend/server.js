@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -20,6 +20,7 @@ app.use('/api', petRoutes);
 
 // Serve static files from Frontend folder
 app.use(express.static(path.join(__dirname, '../Frontend')));  // Now path is defined
+app.use('/uploads', express.static('uploads'));
 
 // Database Connection
 connectDB();
@@ -35,33 +36,95 @@ const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
+    destination: (req, file, cb) => { cb(null, 'uploads/'); },
+    filename: (req, file, cb) => { cb(null, Date.now() + path.extname(file.originalname)); }
 });
-
 const upload = multer({
     storage,
     limits: { fileSize: 2 * 1024 * 1024 },
     fileFilter: (req, file, cb) => {
         if (!file.mimetype.startsWith('image/')) {
-            cb(new Error('Only image files allowed'));
+            return cb(new Error('Only image files allowed'));
         }
         cb(null, true);
     }
 });
 
+// --- VETERINARIAN ROUTES ---
+
+//Create a new Veterinarian
+
+app.post('/api/vets', upload.single('image'), async (req, res) => {
+    try {
+        const vetData = {
+            ...req.body,
+            image: req.file ? `/uploads/${req.file.filename}` : null
+        };
+        const newVet = new Vet(vetData);
+        await newVet.save();
+        res.status(201).json({ success: true, message: 'Vet created successfully' });
+    } catch (error) {
+        console.error("Save Error:", error);
+        res.status(500).json({ success: false, message: 'Server error saving vet' });
+    }
+});
+
+//Fetch all Veterinarians
+
+app.get('/api/vets', async (req, res) => {
+    try {
+        const vets = await Vet.find().sort({ createdAt: -1 });
+        res.status(200).json(vets);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching vets' });
+    }
+});
+
+//Fetch single Veterinarian by ID
+
+app.get('/api/vets/:id', async (req, res) => {
+    try {
+        const vet = await Vet.findById(req.params.id);
+        if (!vet) return res.status(404).json({ message: 'Vet not found' });
+        res.json(vet);
+    } catch (err) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+//Update Veterinarian
+
+app.put('/api/vets/:id', upload.single('image'), async (req, res) => {
+    try {
+        const updatedData = { ...req.body };
+        if (req.file) updatedData.image = `/uploads/${req.file.filename}`;
+
+        const updatedVet = await Vet.findByIdAndUpdate(req.params.id, updatedData, { new: true });
+        if (!updatedVet) return res.status(404).json({ message: "Vet not found" });
+        
+        res.json({ success: true, data: updatedVet });
+    } catch (error) {
+        res.status(400).json({ success: false, message: error.message });
+    }
+});
+
+//Delete Veterinarian
+
+app.delete('/api/vets/:id', async (req, res) => {
+    try {
+        await Vet.findByIdAndDelete(req.params.id);
+        res.json({ success: true, message: "Deleted" });
+    } catch (error) {
+        res.status(500).json({ message: "Delete failed" });
+    }
+});
 
 
-// --- 1. SCHEMA DESIGN ---
+// --- SCHEMA DESIGN ---
 
-
-// This schema holds both pet info (Step 1) and user info (Step 2)
+// schema holds both pet info and user info
 const BookingSchema = new mongoose.Schema({
-    // Step 1: Pet & Service Details
+    // Pet & Service Details
     serviceType: String,
     petName: String,
     petType: String,
@@ -77,7 +140,7 @@ const BookingSchema = new mongoose.Schema({
     timeTo: String,
     groomingPackage: String,
     
-    // Step 2: User Details (Updated later via PUT)
+    //User Details 
     userName: String,
     userPhone: String,
     userEmail: String,
@@ -164,9 +227,8 @@ app.post('/api/book', async (req, res) => {
     }
 });
 
-/**
- * STEP 2: Update existing booking with User contact info
- */
+//Update existing booking with User contact info
+ 
 app.put('/api/book/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -181,9 +243,8 @@ app.put('/api/book/:id', async (req, res) => {
     }
 });
 
-/**
- * STEP 3: Fetch full details for the Confirmation Page & QR Code
- */
+//Fetch full details for the Confirmation Page & QR Code
+
 app.get('/api/book/:id', async (req, res) => {
     try {
         const booking = await Booking.findById(req.params.id);
@@ -195,11 +256,10 @@ app.get('/api/book/:id', async (req, res) => {
 });
 
 
-// --- 3. ADMIN-FACING ROUTES ---
+// --- ADMIN-FACING ROUTES ---
 
-/**
- * Fetch all bookings for the Admin Table
- */
+// Fetch all bookings for the Admin Table
+
 app.get('/api/admin/bookings', async (req, res) => {
     try {
         const bookings = await Booking.find().sort({ createdAt: -1 });
@@ -209,9 +269,8 @@ app.get('/api/admin/bookings', async (req, res) => {
     }
 });
 
-/**
- * Calculate statistics for Admin Dashboard cards
- */
+// Calculate statistics for Admin Dashboard cards
+
 app.get('/api/admin/stats', async (req, res) => {
     try {
         const todayStr = new Date().toISOString().split('T')[0];
@@ -234,9 +293,8 @@ app.get('/api/admin/stats', async (req, res) => {
     }
 });
 
-/**
- * Update Status (When Admin clicks Complete or Cancel)
- */
+//Update Status (When Admin clicks Complete or Cancel)
+
 app.patch('/api/book/status/:id', async (req, res) => {
     try {
         const { status } = req.body;
@@ -248,7 +306,6 @@ app.patch('/api/book/status/:id', async (req, res) => {
 });
 
 // Start Server
-
 
 // HEALTH TIP SCHEMA
 const HealthTipSchema = new mongoose.Schema({
@@ -286,7 +343,7 @@ const HealthTipSchema = new mongoose.Schema({
 
 const HealthTip = mongoose.model('HealthTip', HealthTipSchema);
 
-// Route D: Create Health Tip
+// Create Health Tip
 app.post('/api/health-tips', upload.single('image'), async (req, res) => {
     try {
         const {
@@ -324,7 +381,7 @@ app.post('/api/health-tips', upload.single('image'), async (req, res) => {
     }
 });
 
-// Route E: Get All Health Tips
+// Get All Health Tips
 app.get('/api/health-tips', async (req, res) => {
     try {
         const tips = await HealthTip.find().sort({ createdAt: -1 });
@@ -389,7 +446,7 @@ app.delete('/api/health-tips/:id', async (req, res) => {
 });
 
 
-
 app.listen(port, () => {
   console.log(`🚀 PetWatch Server live at http://localhost:${port}`);
 });
+

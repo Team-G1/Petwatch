@@ -7,7 +7,7 @@
     
     <!-- Main stylesheet -->
      <link rel="stylesheet" href="../../Admin/css/sidebar.css" />
-    <link rel="stylesheet" href="../../Admin/css/health-edit.css" />
+    <link rel="stylesheet" href="../../Admin/css/healthEdit.css" />
     
     <!-- Sidebar manager -->
     <script src="../../Admin/javascript/sidebar.js" defer></script>
@@ -48,7 +48,7 @@
             <div class="dashboard-content">
                 <!-- Breadcrumb -->
                 <div class="breadcrumb">
-                    <a href="health-tips-view.html" class="breadcrumb-link">
+                    <a href="healthTipsView.html" class="breadcrumb-link">
                         <i class="fas fa-arrow-left"></i> Back to Health Tips
                     </a>
                 </div>
@@ -122,9 +122,9 @@ Ensure your cat receives routine veterinary check-ups to catch any health issues
                             </div>
                         </div>
 
-                        <!-- Status Settings -->
+                        <!-- Status settings -->
                         <div class="form-section">
-                            <h4 class="section-title">Status Settings</h4>
+                            <h4 class="section-title">Status settings</h4>
                             
                             <div class="form-row">
                                 <div class="form-group">
@@ -188,7 +188,7 @@ changeImageBtn.addEventListener('click', () => {
 
     if (!tipId) {
         alert('Invalid tip ID');
-        window.location.href = 'health-tips-view.html';
+        window.location.href = 'healthTipsView.html';
         return;
     }
 
@@ -274,7 +274,7 @@ changeImageBtn.addEventListener('click', () => {
             if (!res.ok) throw new Error();
 
             alert('Health tip updated');
-            window.location.href = 'health-tips-view.html';
+            window.location.href = 'healthTipsView.html';
 
         } catch {
             alert('Update failed');
@@ -291,7 +291,7 @@ changeImageBtn.addEventListener('click', () => {
             method: 'DELETE'
         });
 
-        window.location.href = 'health-tips-view.html';
+        window.location.href = 'healthTipsView.html';
     });
 
 });

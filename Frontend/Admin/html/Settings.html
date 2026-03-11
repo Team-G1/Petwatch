@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>PetWatch Admin - settings</title>
+    
+    <link rel="stylesheet" href="../../Admin/css/settings.css" />
+    <link rel="stylesheet" href="../../Admin/css/sidebar.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="../../Admin/javascript/sidebar.js" defer></script>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <main class="main-content">
+
+        <div class="topbar">
+                <div class="page-title">
+                    <h1>settings</h1>
+                    <p class="subtitle">Manage Profile</p>
+                </div>
+                
+                <div class="user-profile">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile Picture">
+                    <div class="user-info">
+                        <span class="username">Admin</span>
+                        <span class="user-role">Administrator</span>
+                    </div>
+                </div>
+            </div>
+
+        <section class="settings-section">
+            <div class="settings-card">
+                <div class="settings-tabs">
+                    <button class="tab-btn active" data-tab="profile">Profile</button>
+                    <button class="tab-btn" data-tab="preferences">Preferences</button>
+                    <button class="tab-btn" data-tab="security">Security</button>
+                </div>
+
+                <div id="profile-tab" class="tab-content active">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile" id="display-avatar"/>
+                            <button class="avatar-edit-btn" onclick="document.getElementById('avatar-upload').click()">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                            <input type="file" id="avatar-upload" hidden accept="image/*">
+                        </div>
+                    </div>
+
+                    <form class="settings-form" id="profile-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="user-name">User Name</label>
+                                <input type="text" id="user-name" value="Emma Roberts">
+                            </div>
+                            <div class="form-group">
+                                <label for="dob">Date of Birth</label>
+                                <input type="date" id="dob" value="1990-01-25">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" value="Emma213@gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Location</label>
+                                <input type="text" id="address" value="Kandy, Sri Lanka">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="branch">Primary Branch</label>
+                                <select id="branch">
+                                    <option selected>Kandy</option>
+                                    <option>Colombo</option>
+                                    <option>Galle</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="save-btn">Update Profile</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="preferences-tab" class="tab-content">
+                    <form class="preferences-form" id="preferences-form">
+                        <div class="toggle-group">
+                            <div>
+                                <h3>Operational Status</h3>
+                                <p>Set your center as active/inactive for bookings</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Operational From</label>
+                                <input type="time" value="08:00">
+                            </div>
+                            <div class="form-group">
+                                <label>Operational To</label>
+                                <input type="time" value="17:00">
+                            </div>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div>
+                                <h3>Push Notifications</h3>
+                                <p>Receive alerts for new appointments</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="notif-toggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="save-btn">Save Preferences</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="security-tab" class="tab-content">
+                    <div class="security-tab-content">
+                        <h3>Update Password</h3>
+                        <form id="security-form" class="settings-form">
+                            <div class="form-group">
+                                <label>Current Password</label>
+                                <input type="password" placeholder="••••••••">
+                            </div>
+                            <div class="form-group">
+                                <label>New Password</label>
+                                <input type="password" id="new-password" placeholder="Enter new password">
+                                <div class="password-strength">
+                                    <div id="strength-bar" class="strength-meter"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm New Password</label>
+                                <input type="password" id="confirm-password" placeholder="Confirm new password">
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="save-btn">Change Password</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+    // Tab and Form Logic
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.tab;
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(`${target}-tab`).classList.add('active');
+            });
+        });
+
+        // Avatar Preview
+        const avatarUpload = document.getElementById('avatar-upload');
+        const displayAvatar = document.getElementById('display-avatar');
+        if(avatarUpload) {
+            avatarUpload.addEventListener('change', (e) => {
+                if (e.target.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => displayAvatar.src = event.target.result;
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+        }
+
+        // Password Strength
+        const passInput = document.getElementById('new-password');
+        const bar = document.getElementById('strength-bar');
+        if(passInput) {
+            passInput.addEventListener('input', () => {
+                const val = passInput.value;
+                let strength = 0;
+                if (val.length > 5) strength += 33;
+                if (val.match(/[A-Z]/)) strength += 33;
+                if (val.match(/[0-9]/)) strength += 34;
+                bar.style.width = strength + '%';
+                bar.style.backgroundColor = strength < 40 ? '#ef4444' : strength < 80 ? '#f59e0b' : '#10b981';
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

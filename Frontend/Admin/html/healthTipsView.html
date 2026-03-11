@@ -7,7 +7,7 @@
     
     <!-- Main stylesheet -->
      <link rel="stylesheet" href="../../Admin/css/sidebar.css" />
-    <link rel="stylesheet" href="../../Admin/css/health-view.css" />
+    <link rel="stylesheet" href="../../Admin/css/healthView.css" />
     
     <!-- Sidebar manager -->
     <script src="../../Admin/javascript/sidebar.js" defer></script>
@@ -386,7 +386,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             document.getElementById('add-tip-btn').addEventListener('click', function() {
                 console.log('Opening new tip form...');
                 // Open modal or redirect to add page
-                window.location.href = 'health-tips-add.html';
+                window.location.href = 'healthTipsAdd.html';
             });
             
             // Tip action buttons
@@ -395,7 +395,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     if (!editBtn) return;
 
     const id = editBtn.dataset.id;
-    window.location.href = `health-tips-edit.html?id=${id}`;
+    window.location.href = `healthTipsEdit.html?id=${id}`;
 });
 
             
