@@ -6,21 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PetWatch Admin - Appointments</title>
     
-    <!-- Main stylesheet -->
      <link rel="stylesheet" href="../../Admin/css/sidebar.css" />
     <link rel="stylesheet" href="../../Admin/css/adminAppointments.css">
     
-    <!-- Sidebar manager -->
     <script src="../../Admin/javascript/sidebar.js" defer></script>
+    <script src="../../Admin/javascript/adminAppointment.js" defer></script>
     
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Sidebar will be automatically inserted here -->
+
     
     <div class="admin-dashboard">
         <!-- Main Content -->
@@ -54,7 +51,7 @@
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                         <div class="stat-info">
-                            <h3>150</h3>
+                            <h3></h3>
                             <p>Total Appointments</p>
                         </div>
                     </div>
@@ -64,7 +61,7 @@
                             <i class="fas fa-calendar-day"></i>
                         </div>
                         <div class="stat-info">
-                            <h3>15</h3>
+                            <h3></h3>
                             <p>Today's Appointments</p>
                         </div>
                     </div>
@@ -74,7 +71,7 @@
                             <i class="fas fa-check-circle"></i>
                         </div>
                         <div class="stat-info">
-                            <h3>10</h3>
+                            <h3></h3>
                             <p>Completed</p>
                         </div>
                     </div>
@@ -84,7 +81,7 @@
                             <i class="fas fa-times-circle"></i>
                         </div>
                         <div class="stat-info">
-                            <h3>5</h3>
+                            <h3></h3>
                             <p>Cancelled</p>
                         </div>
                     </div>
@@ -99,7 +96,7 @@
                                 <option value="all">All Locations</option>
                                 <option value="kandy" selected>Kandy</option>
                                 <option value="colombo">Colombo</option>
-                                <option value="gampaha">Gampaha</option>
+                                <option value="gampaha">Kurunegala</option>
                                 <option value="jaffna">Jaffna</option>
                                 <option value="galle">Galle</option>
                             </select>
@@ -109,7 +106,6 @@
                             <label for="status-filter"><i class="fas fa-filter"></i> Status</label>
                             <select id="status-filter" class="filter-select">
                                 <option value="all">All Status</option>
-                                <option value="pending">Pending</option>
                                 <option value="confirmed">Confirmed</option>
                                 <option value="completed">Completed</option>
                                 <option value="cancelled">Cancelled</option>
@@ -143,7 +139,7 @@
                         <h3><i class="fas fa-list"></i> All Appointments</h3>
                         <div class="table-actions">
                             <input type="text" class="search-input" placeholder="Search appointments...">
-                            <button class="btn-refresh">
+                            <button class="btn-refresh" id="refresh-btn">
                                 <i class="fas fa-sync-alt"></i> Refresh
                             </button>
                         </div>
@@ -187,9 +183,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Row 1 -->
-                                
-                                
                                 
                             </tbody>
                         </table>
@@ -262,7 +255,7 @@
                             
                             <div class="location-stat">
                                 <div class="location-info">
-                                    <span class="location-name">Gampaha</span>
+                                    <span class="location-name">Kurunegala</span>
                                     <span class="location-count">10</span>
                                 </div>
                                 <div class="progress-bar">
@@ -276,166 +269,6 @@
         </main>
     </div>
 
-    <!-- JavaScript for interactive elements -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // --- configuration ---
-        const API_BASE_URL = 'http://localhost:5001/api';
-        const tableBody = document.querySelector('.appointments-table tbody');
-
-        /**
-         * 1. MAIN LOAD FUNCTION
-         * Fetches both the list of bookings and the dashboard statistics
-         */
-        async function refreshDashboard() {
-            try {
-                const [bookingsRes, statsRes] = await Promise.all([
-                    fetch(`${API_BASE_URL}/admin/bookings`),
-                    fetch(`${API_BASE_URL}/admin/stats`)
-                ]);
-
-                if (!bookingsRes.ok || !statsRes.ok) throw new Error("Server error");
-
-                const bookings = await bookingsRes.json();
-                const stats = await statsRes.json();
-
-                renderStats(stats);
-                renderTable(bookings);
-            } catch (err) {
-                console.error("Dashboard Load Error:", err);
-                // Optional: Show user-friendly error on UI
-            }
-        }
-
-        /**
-         * 2. RENDER STATISTICS CARDS
-         */
-        function renderStats(stats) {
-            document.querySelector('.total-appointments h3').textContent = stats.total || 0;
-            document.querySelector('.today-appointments h3').textContent = stats.today || 0;
-            document.querySelector('.completed-appointments h3').textContent = stats.completed || 0;
-            document.querySelector('.cancelled-appointments h3').textContent = stats.cancelled || 0;
-
-            // Render Location Progress Bars
-            const locContainer = document.querySelector('.location-stats');
-            if (locContainer) {
-                locContainer.innerHTML = '';
-                stats.locations.forEach(loc => {
-                    if(!loc._id) return;
-                    const percentage = (loc.count / stats.total) * 100;
-                    const locHTML = `
-                        <div class="location-stat">
-                            <div class="location-info">
-                                <span class="location-name">${loc._id}</span>
-                                <span class="location-count">${loc.count}</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: ${percentage}%"></div>
-                            </div>
-                        </div>`;
-                    locContainer.insertAdjacentHTML('beforeend', locHTML);
-                });
-            }
-        }
-
-        /**
-         * 3. RENDER APPOINTMENTS TABLE
-         */
-        function renderTable(bookings) {
-            tableBody.innerHTML = ''; 
-            const todayStr = new Date().toISOString().split('T')[0];
-
-            bookings.forEach(appt => {
-                // LOGIC: Requirement for status labels
-                // Confirmed -> Pending (If current date matches appointment date)
-                let displayStatus = appt.status || 'Confirmed';
-                
-                if (displayStatus === 'Confirmed' && appt.date === todayStr) {
-                    displayStatus = 'Pending';
-                }
-
-                const statusClass = displayStatus.toLowerCase();
-                
-                const rowHTML = `
-                    <tr>
-                        <td>
-                            <div class="user-info">
-                                <div class="user-details">
-                                    <span class="user-name">${appt.userName || 'Unknown'}</span>
-                                    <span class="user-location">${appt.userPhone || 'No Contact'}</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td><strong>${appt.appointmentNumber || 'N/A'}</strong></td>
-                        <td>
-                            <div class="date-info">
-                                <span class="date">${appt.date}</span>
-                                <span class="time">${appt.time}</span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="date-info">
-                                <span class="date">${new Date(appt.createdAt).toLocaleDateString()}</span>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="status-badge ${statusClass}">
-                                <i class="fas fa-circle" style="font-size: 8px; margin-right: 5px;"></i>
-                                ${displayStatus}
-                            </span>
-                        </td>
-                        <td>
-                            <div class="action-buttons">
-                                <button onclick="updateStatus('${appt._id}', 'Completed')" class="btn-action complete" title="Mark as Attended">
-                                    <i class="fas fa-check"></i>
-                                </button>
-                                <button onclick="updateStatus('${appt._id}', 'Cancelled')" class="btn-action cancel" title="Cancel Booking">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-                tableBody.insertAdjacentHTML('beforeend', rowHTML);
-            });
-        }
-
-        /**
-         * 4. UPDATE STATUS ACTION
-         * Attached to window so the HTML onclick can find it
-         */
-        window.updateStatus = async (id, newStatus) => {
-            if (!confirm(`Are you sure you want to mark this as ${newStatus}?`)) return;
-
-            try {
-                const response = await fetch(`${API_BASE_URL}/book/status/${id}`, {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ status: newStatus })
-                });
-
-                if (response.ok) {
-                    refreshDashboard(); // Reload data to show updated stats and labels
-                } else {
-                    alert("Failed to update status.");
-                }
-            } catch (err) {
-                console.error("Update Error:", err);
-            }
-        };
-
-        // 5. Initial Execution
-        refreshDashboard();
-
-        // Refresh button logic (if you have one with class .btn-refresh)
-        const refreshBtn = document.querySelector('.btn-refresh');
-        if (refreshBtn) {
-            refreshBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                refreshDashboard();
-            });
-        }
-    });
-</script>
+    
 </body>
 </html>

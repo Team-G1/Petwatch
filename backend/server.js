@@ -1,4 +1,4 @@
-require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -7,10 +7,10 @@ const crypto = require('crypto');
 const multer = require('multer');
 const path = require('path'); 
 const petRoutes = require('./routes/petRoutes');
+const Vet = require('./models/vet');
 
 const app = express();
 const port = process.env.PORT || 5001; 
-
 
 // Middleware
 app.use(cors()); 
@@ -28,6 +28,7 @@ connectDB();
 // Import Models
 const User = require('./models/User');
 const Pet = require('./models/Pet');
+
 
 // Import Routes
 const authRoutes = require('./routes/authRoutes');
@@ -442,6 +443,91 @@ app.delete('/api/health-tips/:id', async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Delete failed' });
+    }
+});
+
+
+
+
+
+
+
+
+const UserPetSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    petName: String,
+    petType: String,
+    breed: String,
+    age: String,
+    weight: String,
+    createdAt: { type: Date, default: Date.now }
+});
+
+const UserPet = mongoose.model('UserPet', UserPetSchema);
+
+
+// Update User Details (Name, Email, Mobile)
+app.put('/api/users/:id', async (req, res) => {
+    try {
+        const { username, email, mobile } = req.body;
+        const updatedUser = await User.findByIdAndUpdate(
+            req.params.id, 
+            { username, email, mobile }, 
+            { new: true }
+        );
+        if (!updatedUser) return res.status(404).json({ message: "User not found" });
+        res.json(updatedUser);
+    } catch (error) {
+        res.status(500).json({ message: "Update failed" });
+    }
+});
+
+
+// GET all pets for a specific user
+app.get('/api/users/:userId/pets', async (req, res) => {
+    try {
+        const pets = await UserPet.find({ userId: req.params.userId });
+        res.json(pets);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching pets" });
+    }
+});
+
+// POST a new pet for a user
+app.post('/api/users/:userId/pets', async (req, res) => {
+    try {
+        const newPet = new UserPet({
+            userId: req.params.userId,
+            ...req.body
+        });
+        await newPet.save();
+        res.status(201).json(newPet);
+    } catch (error) {
+        res.status(500).json({ message: "Error saving pet" });
+    }
+});
+
+// PUT (Update) a specific pet
+app.put('/api/users/:userId/pets/:petId', async (req, res) => {
+    try {
+        const updatedPet = await UserPet.findByIdAndUpdate(
+            req.params.petId,
+            req.body,
+            { new: true }
+        );
+        res.json(updatedPet);
+    } catch (error) {
+        res.status(500).json({ message: "Update failed" });
+    }
+});
+
+// DELETE a specific pet
+app.delete('/api/users/:userId/pets/:petId', async (req, res) => {
+    try {
+        await UserPet.findByIdAndDelete(req.params.petId);
+        res.json({ message: "Pet deleted" });
+    } catch (error) {
+        res.status(500).json({ message: "Delete failed" });
     }
 });
 
