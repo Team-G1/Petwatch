@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Since rememberMe is false, always use sessionStorage
                     sessionStorage.setItem('user', JSON.stringify(userData));
                     if (data.token) sessionStorage.setItem('token', data.token);
+                    localStorage.setItem('token', data.token);
                     
                     showSuccess('Sign in successful! Redirecting...');
                     

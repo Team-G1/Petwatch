@@ -1,0 +1,49 @@
+
+        /* Page Specific Styles */
+        .map-container-box {
+            background: white;
+            width: 100%;
+            max-width: 1000px; 
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        /* The Map Element - HEIGHT IS CRITICAL */
+        #sl-map {
+            height: 500px; 
+            width: 100%;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 2px solid #eee;
+            z-index: 1; /* Ensures it sits behind the navbar dropdowns */
+        }
+
+        .location-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .loc-card {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 15px;
+            width: 180px;
+            text-align: left;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .loc-card:hover {
+            border-color: #17AFEF;
+            background: #f0f9ff;
+            transform: translateY(-3px);
+        }
+        .loc-card h3 { font-size: 1rem; color: #333; margin-bottom: 5px; }
+        .loc-card p { font-size: 0.85rem; color: #666; }
+        .loc-card i { color: #17AFEF; margin-right: 5px; }
+    
