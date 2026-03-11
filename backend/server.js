@@ -6,6 +6,7 @@ const connectDB = require('./db');
 const crypto = require('crypto');
 const multer = require('multer');
 const path = require('path'); 
+const petRoutes = require('./routes/petRoutes');
 const Vet = require('./models/vet');
 
 const app = express();
@@ -26,6 +27,7 @@ connectDB();
 
 // Import Models
 const User = require('./models/User');
+const Pet = require('./models/Pet');
 
 
 // Import Routes

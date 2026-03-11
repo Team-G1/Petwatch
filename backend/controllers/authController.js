@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const crypto = require('crypto');
 
+
 const authController = {
     // SIGNUP
     async signup(req, res) {
