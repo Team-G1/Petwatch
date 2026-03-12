@@ -73,6 +73,12 @@ function setupEventListeners() {
         saveUserDetails();
     });
     
+    const resetBtn = document.getElementById('resetPasswordBtn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+            window.location.href = 'resetPassword.html';
+        });
+        }
     // Add new pet button
     document.getElementById('addNewPetBtn').addEventListener('click', function() {
         addNewPetForm();
@@ -715,6 +721,7 @@ function escapeHtml(unsafe) {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 }
+
 
 function logout() {
     sessionStorage.clear();

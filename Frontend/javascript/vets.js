@@ -51,24 +51,6 @@ document.addEventListener('DOMContentLoaded', function () {
     loadVetsForUser();
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const navbar = document.querySelector('.navbar_container');
 let lastScrollY = window.scrollY;
 let isScrollingDown = false;

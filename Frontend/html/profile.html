@@ -23,9 +23,15 @@
 
         <div class="profile-card">
             <div class="profile-left">
-                <div class="profile-image-container">
-                    <img src="../../Resources/profileImg.png" alt="User with Pets">
+                <div class="profile-image-container" id="profileImageContainer" style="cursor: pointer; position: relative;" title="Change Profile Picture">
+                    <img src="../../Resources/profileImg.png" alt="User" id="displayProfileImage">
+                    
+                    <div style="position: absolute; bottom: 15px; right: 25px; background: #17AFEF; color: white; border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                        <i class="fa-solid fa-camera"></i>
+                    </div>
                 </div>
+                <input type="file" id="profileImageInput" accept="image/*" style="display: none;">
+            </div>
             </div>
 
             <div class="profile-right">
@@ -46,9 +52,14 @@
                         <input type="email" id="email" class="form-control" placeholder="Emma213@gmail.com" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" class="form-control" placeholder="********" readonly>
-                    </div>
+    <label for="password">Password</label>
+    <div class="password-wrapper">
+        <input type="password" id="password" class="form-control" placeholder="********" readonly>
+        <button type="button" class="reset-link-btn" id="resetPasswordBtn">
+            <i class="fa-solid fa-key"></i> Reset Password
+        </button>
+    </div>
+</div>
                     <div class="form-group">
                         <label for="mobile">Mobile</label>
                         <input type="tel" id="mobile" class="form-control" placeholder="**********" readonly>
@@ -71,11 +82,16 @@
                 </div>
 
                 <div class="actions-container">
-                    <button class="logout-btn" id="logoutBtn">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
-                    </button>
-                    <button class="save-btn" id="saveDetailsBtn" style="display: none;">Save Details</button>
-                </div>
+    <button class="logout-btn" id="logoutBtn">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+    </button>
+    
+    <button class="reset-btn" id="resetPasswordBtn">
+        <i class="fa-solid fa-key"></i> Reset Password
+    </button>
+    
+    <button class="save-btn" id="saveDetailsBtn" style="display: none;">Save Details</button>
+</div>
             </div>
         </div>
     </main>

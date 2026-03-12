@@ -155,9 +155,7 @@ body {
 .date-stamp {
     font-size: 12px;
     color: #888;
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    position: static; 
 }
 
 /* RESPONSIVE */

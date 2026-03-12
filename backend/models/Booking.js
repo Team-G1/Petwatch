@@ -1,42 +1,51 @@
-
 const mongoose = require('mongoose');
 
-const bookingSchema = new mongoose.Schema({
-    // Reference the specific pet being booked
-    pet: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Pet',
-        required: true
-    },
-    // Reference the user who created the booking (the pet owner)
+const BookingSchema = new mongoose.Schema({
+    // Secure Links to User and Pet
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
+    pet: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Pet',
+        required: false
+    },
+    
+    // Service Info
     serviceType: {
         type: String,
-        enum: ['Walk', 'Sitting', 'Drop-in Visit', 'Grooming'],
+        enum: ['Pet Clinic', 'Pet Care', 'Pet Grooming'],
         required: true
     },
-    startDate: {
-        type: Date,
-        required: true
-    },
-    endDate: {
-        type: Date,
-        required: true
-    },
+    
+    // Snapshot of pet details at the time of booking
+    petName: String,
+    petType: String,
+    breed: String,
+    age: String,
+    weight: String,
+    
+    // Form specifics
+    location: String,
+    date: String,
+    time: String,
+    dateFrom: String,
+    dateTo: String,
+    timeFrom: String,
+    timeTo: String,
+    groomingPackage: String,
+    
+    // Admin specifics
+    appointmentNumber: String,
     status: {
         type: String,
         enum: ['Pending', 'Confirmed', 'Completed', 'Cancelled'],
         default: 'Pending'
-    },
-    notes: {
-        type: String
     }
 }, {
     timestamps: true
 });
 
-module.exports = mongoose.model('Booking', bookingSchema);
+module.exports = mongoose.model('Booking', BookingSchema);
