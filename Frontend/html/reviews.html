@@ -1,113 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Owner Reviews</title>
+    <title>Customer Reviews - PetWatch</title>
+    
+    <link rel="stylesheet" href="../../Frontend/css/Home.css">
+    <link rel="stylesheet" href="../../Frontend/css/help.css">
     <link rel="stylesheet" href="../../Frontend/css/reviews.css">
-    <link rel="stylesheet" href="../../Frontend/css/Footer.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../Frontend/css/navbar.css">
 </head>
-
-
 <body>
-    <div class="navbar_container">
-        <div class="navbar_left"> 
-            <div class="logo">
-                <img src="../../Resources/pwlogo.png" alt="Logo" width="24" height="24">
-                    PetWatch
+
+    <div id="navbar"></div>
+
+    <main class="main-content">
+        <section class="reviews_section">
+            <div class="reviews_container">
+                <div class="reviews_header">
+                    <h2>Hear from Our Happy Pet Owners</h2>
+                    <img src="../../Resources/reviewsIconPets.png" alt="Reviews Icon">
+                </div>
+
+                <div class="reviews_grid" id="reviewsDisplayGrid">
+                    <div class="reviews_card">
+                        <img src="../../Resources/Dinusha.png" alt="Dinusha Gamage">
+                        <div class="rating">★★★★★</div>
+                        <h3>Dinusha Gamage</h3>
+                        <p>PetWatch has been a fantastic platform for managing all my pet care needs. The website is easy to navigate, and scheduling appointments for grooming...</p>
+                        <a href="#">See more ></a>
+                    </div>
+
+                    <div class="reviews_card">
+                        <img src="../../Resources/Adrian.png" alt="Adrian Perera">
+                        <div class="rating">★★★★★</div>
+                        <h3>Adrian Perera</h3>
+                        <p>I’ve been using PetWatch for several months now, and it has truly made pet care more accessible. The booking system is seamless...</p>
+                        <a href="#">See more ></a>
+                    </div>
+
+                    <div class="reviews_card">
+                        <img src="../../Resources/Kasun.png" alt="Kasun Rathnayaka">
+                        <div class="rating">★★★★★</div>
+                        <h3>Kasun Rathnayaka</h3>
+                        <p>PetWatch has exceeded my expectations. The platform is well-designed, user-friendly, and provides all the essential services I need...</p>
+                        <a href="#">See more ></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="reviews-container">
+            <div class="add-review-wrapper">
+                <div class="review-left">
+                    <h2>Share Your Story!</h2>
+                    <p class="review-desc">
+                        Your feedback helps us improve our care for all pets. Tell us about your experience with our services and our staff.
+                    </p>
+                    
+                    <div class="illustration-box">
+                        <i class="fa-solid fa-star"></i>
+                        <div class="icon-bg">
+                            <i class="fa-solid fa-heart"></i>
+                            <i class="fa-solid fa-paw"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-right">
+                    <div class="form-card">
+                        <h3>Write your review here.</h3>
+                        <form id="reviewForm">
+                            <div class="input-group">
+                                <label>Your Name</label>
+                                <input type="text" id="revName" placeholder="Emma Roberts" required>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Rating</label>
+                                <select id="revRating" required>
+                                    <option value="5">★★★★★ - Excellent</option>
+                                    <option value="4">★★★★ - Very Good</option>
+                                    <option value="3">★★★ - Good</option>
+                                    <option value="2">★★ - Fair</option>
+                                    <option value="1">★ - Poor</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Your Experience</label>
+                                <textarea id="revComment" rows="4" placeholder="How was our service?..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-submit">Submit Review</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-        
-            <div class="navbar_right">
-                <div class="nav_links">
-                    <a href="#home">Home</a>
-                    <a href="#services">Our services</a>
-                    <a href="#about">About us</a>
-                    <a href="#help">Help</a>
-                </div>
-                <div class="nav-buttons">
-                    <a href="#signup" class="signup_button">Sign Up</a>
-                    <a href="#signin" class="signin_button">Sign In</a>
-                </div>
-            </div>
-        </div>
+    </main>
 
-    <header class="header-section">
-        <div class="add-review">
-            <span class="plus-icon">+</span> Add a review
-        </div>
-        <h1>Hear from Our Happy Pet Owners</h1>
-        <p class="subtitle">Discover How We've Made a Difference in the Lives of Pets and Their Families</p>
-    </header>
+    <div id="footer"></div>
 
-    <main class="testimonial-grid" id="testimonial-container">
-        </main>
-
-    <section class="footer">
-        <div class="footer_row">
-            <div class="footer_col">
-            <h4>Petwatch</h4>
-                <ul class="links">
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Help & Feedback</a></li>
-                  <li><a href="#">Terms of Services</a></li>
-                  <li><a href="#">Privacy Policy</a></li>                  
-                </ul>
-            </div>
-
-            <div class="footer_col">
-            <h4>Our Services</h4>
-                <ul class="links">
-                  <li><a href="#">Pet Care</a></li>
-                  <li><a href="#">Pet Clinic</a></li>
-                  <li><a href="#">Pet Grooming</a></li>
-                  <li><a href="#">Health Tips</a></li>                  
-                </ul>
-            </div>
-
-            <div class="footer_col">
-            <h4>Our Locations</h4>
-                <ul class="links">
-                  <li><a href="#">Kandy</a></li>
-                  <li><a href="#">Colombo</a></li>
-                  <li><a href="#">Gampaha</a></li>
-                  <li><a href="#">Jaffna</a></li>
-                  <li><a href="#">Galle</a></li>  
-                </ul>
-            </div>
-
-            <div class="footer_col">
-            <h4>Contact Us</h4>
-                <ul class="links">
-                  <p><a href="mailto:pw@gmail.com">pw@gmail.com</a></p>
-                  
-                </ul>
-            </div>
-
-            <div class="footer_col">
-                <div class="logo_container">
-                  <img src="../../Resources/footerimg.png" alt="PetWatch Logo" class="logo">
-                  <button class="footer_button">PetWatch</button>
-                </div>
-                <p>Connect with Us</p>
-                <div class="footer_icons">
-                  <a href="#"><img src="../../Resources/facebook.png" alt="Facebook"></a>
-                  <a href="#"><img src="../../Resources/instagram.png" alt="Instagram"></a>
-                  <a href="#"><img src="../../Resources/tiktok.png" alt="TikTok"></a>
-                </div>
-            </div>              
-        </div>
-
-            <div class="footer_copyright">
-              <p>© 2024 PetWatch. All rights reserved.</p>
-            </div>
-
-    </section>
-
-        
+    <script src="../../Frontend/javascript/navbar.js"></script>
+    <script src="../../Frontend/javascript/footer.js"></script>
     <script src="../../Frontend/javascript/reviews.js"></script>
+
+    
 </body>
 </html>

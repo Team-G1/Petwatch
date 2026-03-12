@@ -1,210 +1,145 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* Reviews Page Specific Styles (Form Area) */
+.reviews-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 120px 80px 120px; /* Matching the margin used in Home.css */
 }
 
-/*Navigation Bar*/
-.navbar_container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  width: 100%;
-  top: 15px;
-  background: transparent;
-  position: fixed;
-  z-index: 1;
-  transition: top 0.3s; 
+/* ADD REVIEW SECTION (Matches Help Page Inquiry Style) */
+.add-review-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 40px 0;
+    align-items: center;
 }
 
-.navbar_left, .navbar_right {
-  display: flex;
-  align-items: center;
-  border-radius: 45px;
-  padding: 15px;
-  height: 30px;
+.review-left {
+    flex: 1;
+    min-width: 300px;
 }
 
-.navbar_left {
-  background-color: #F2FCFF;
-  margin-left: 120px;
-  width: 200px;
-  justify-content: center;
+.review-left h2 {
+    font-size: 2rem;
+    color: #222;
+    margin-bottom: 15px;
+    font-weight: 800;
 }
 
-.navbar_right {
-  background-color: #F2FCFF;
-  margin-right: 120px;
-  justify-content: space-between;
+.review-desc {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    font-size: 0.95rem;
 }
 
-.nav_links {
-  display: flex;
-  align-items: center;
+/* Illustration Box matching Help Page */
+.illustration-box {
+    position: relative;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.nav_links a {
-  text-decoration: none;
-  color: rgb(101, 64, 64);
-  font-size: 14px;
-  margin: 0 20px;
+.illustration-box i.fa-star {
+    font-size: 80px;
+    color: #FFD700;
+    z-index: 2;
+    text-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
 }
 
-.nav_links a:hover {
-  color: #17AFEF;
+.icon-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 120px;
+    background: #fff9e6;
+    border-radius: 50%;
+    z-index: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
-.nav_buttons {
-  display: flex;
-  align-items: center;
+.icon-bg i {
+    font-size: 40px;
+    color: #ffe8a3;
 }
 
-/*Navigation bar sign up button*/
-.signup_button {
-  background-color: transparent; 
-  border: 2px solid #17AFEF; 
-  color: #17AFEF; 
-  padding: 5px 32px;
-  border-radius: 20px;
-  font-weight: bold;
-  font-size: 14px; 
-  transition: background-color 0.3s ease, color 0.3s ease; 
-  text-decoration: none;
-  margin-left: 10px;
+/* Form Card (Matches Help Page) */
+.review-right {
+    flex: 1;
+    min-width: 300px;
 }
 
-.signup_button:hoverin{
-  background-color: transparent; 
-  border: 2px solid #DE732D; 
-  color: #DE732D; 
+.form-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
 }
 
-/*Navigation bar sign in button*/
-.signin_button {
-  background-color: #17AFEF;
-  padding: 7px 32px;
-  border-radius: 20px;
-  color: white;
-  font-weight: bold;
-  font-size: 14px; 
-  transition: background-color 0.3s ease;
-  text-decoration: none;
-  margin-left: 10px;
-}
-
-.signin_button:hover {
-  background-color: #DE732D;
-  color: white;
-}
-
-
-body {
-    background-color: #ffffff;
-    padding: 50px 20px;
+.form-card h3 {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
     color: #333;
 }
 
-.header-section {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.add-review {
-    color: #00a8e8;
-    font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 20px;
-    
-    /* Flex properties to move text to the left */
-    display: flex;
-    justify-content: flex-start; 
-    align-items: center;
-    gap: 5px;
-
-    /* Matching the grid width so it aligns with the first card */
-    max-width: 1100px; 
-    margin: 0 auto 10px auto; /* Centers the container, but content inside stays left */
-    width: 100%;
-}
-
-.plus-icon {
-    font-size: 24px;
-}
-
-h1 {
-    font-size: 2.2rem;
-    margin-bottom: 10px;
-}
-
-.subtitle {
-    color: #777;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* Grid Layout */
-.testimonial-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-/* Card Styling */
-.card {
-    background: #fff;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    padding-bottom: 20px;
-    transition: transform 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-}
-
-.image-container {
-    background-color: #e9ecef; 
-    height: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-
-.image-container img {
-    height: 90%;
-    width: auto;
-}
-
-.card-content {
-    padding: 20px;
-}
-
-.stars {
-    color: #ffc107;
+.input-group {
     margin-bottom: 15px;
 }
 
-.name {
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-}
-
-.testimonial-text {
-    font-size: 0.9rem;
+.input-group label {
+    display: block;
+    font-size: 0.85rem;
     color: #666;
-    line-height: 1.5;
+    margin-bottom: 5px;
 }
 
-.see-more {
-    color: #00a8e8;
-    text-decoration: none;
-    font-weight: 500;
+.input-group input, 
+.input-group select, 
+.input-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #eee;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group textarea {
+    border-radius: 15px;
+    resize: none;
+}
+
+.btn-submit {
+    width: auto;
+    min-width: 150px;
+    margin: 10px auto 0;
+    display: block;
+    background-color: #17AFEF;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(23, 175, 239, 0.3);
+}
+
+.btn-submit:hover {
+    background-color: #001016;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .add-review-wrapper { flex-direction: column; }
+    .review-left { text-align: center; }
+    .reviews-container { padding: 0 20px 40px 20px; }
 }
