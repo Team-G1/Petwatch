@@ -434,3 +434,52 @@ select.form-control {
             padding: 40px;
             color: #666;
         }
+
+        .btn-reset {
+    background-color: #f8fbfc;
+    color: #ff4d4d; /* Red text to indicate a security action */
+    border: 1px solid #ff4d4d;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.btn-reset:hover {
+    background-color: #ff4d4d;
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 77, 77, 0.2);
+    transform: translateY(-2px);
+}
+
+.password-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.reset-link-btn {
+    background: none;
+    border: none;
+    color: #17AFEF;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0;
+    width: fit-content;
+    transition: color 0.3s ease;
+}
+
+.reset-link-btn:hover {
+    color: #0d8bc0;
+    text-decoration: underline;
+}
+
+.reset-link-btn i {
+    font-size: 0.8rem;
+}
