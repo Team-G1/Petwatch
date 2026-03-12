@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PetWatch Admin - Add Location</title>
+
+<link rel="stylesheet" href="../../Admin/css/sidebar.css">
+<link rel="stylesheet" href="../../Admin/css/health-edit.css">
+
+<script src="../../Admin/javascript/sidebar.js" defer></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="admin-dashboard">
+
+<main>
+
+<!-- TOPBAR -->
+<div class="topbar">
+
+<div class="page-title">
+<h1>Add Location</h1>
+<p class="subtitle">Create a new PetWatch service center</p>
+</div>
+
+<div class="user-profile">
+
+<div class="notification-icon">
+<i class="fas fa-bell"></i>
+<span class="notification-badge">3</span>
+</div>
+
+<img src="https://randomuser.me/api/portraits/women/44.jpg">
+
+<div class="user-info">
+<span class="username">Admin</span>
+<span class="user-role">Location Manager</span>
+</div>
+
+</div>
+</div>
+
+
+<!-- PAGE CONTENT -->
+<div class="dashboard-content">
+
+<div class="breadcrumb">
+<a href="locations.html" class="breadcrumb-link">
+<i class="fas fa-arrow-left"></i> Back to Locations
+</a>
+</div>
+
+
+<!-- FORM CARD -->
+<div class="card edit-form-card">
+
+<div class="card-header">
+<h3><i class="fas fa-map-marker-alt"></i> Add Service Location</h3>
+
+<div class="status-indicator">
+<span class="status-badge draft">New</span>
+</div>
+</div>
+
+
+<div class="edit-form">
+
+<!-- BASIC INFO -->
+<div class="form-section">
+
+<h4 class="section-title">Location Information</h4>
+
+<div class="form-row">
+
+<div class="form-group">
+<label for="location-name">Clinic Name</label>
+<input
+type="text"
+id="location-name"
+class="form-input"
+placeholder="Example: PetWatch Colombo"
+>
+</div>
+
+<div class="form-group">
+<label for="location-city">City</label>
+<input
+type="text"
+id="location-city"
+class="form-input"
+placeholder="Example: Colombo"
+>
+</div>
+
+</div>
+
+
+<div class="form-group">
+<label for="location-address">Address</label>
+<textarea
+id="location-address"
+class="form-textarea"
+rows="4"
+placeholder="Union Place, Colombo 02"
+></textarea>
+</div>
+
+<div class="form-group">
+<label for="location-phone">Phone</label>
+<input
+type="text"
+id="location-phone"
+class="form-input"
+placeholder="011-2233445"
+>
+</div>
+
+</div>
+
+
+<!-- MAP COORDINATES -->
+<div class="form-section">
+
+<h4 class="section-title">Map Coordinates</h4>
+
+<div class="form-row">
+
+<div class="form-group">
+<label for="location-lat">Latitude</label>
+<input
+type="number"
+step="any"
+id="location-lat"
+class="form-input"
+placeholder="6.9271"
+>
+</div>
+
+<div class="form-group">
+<label for="location-lng">Longitude</label>
+<input
+type="number"
+step="any"
+id="location-lng"
+class="form-input"
+placeholder="79.8612"
+>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ACTION BUTTONS -->
+<div class="form-actions">
+
+<div class="action-buttons">
+<button type="button" class="btn-secondary">
+<i class="fas fa-map"></i> Preview
+</button>
+</div>
+
+<div class="save-buttons">
+
+<button type="button" class="btn-cancel">
+Cancel
+</button>
+
+<button type="button" class="btn-save" id="save-location">
+<i class="fas fa-save"></i> Create Location
+</button>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+<script src="../javascript/locations-add.js"></script>
+
+</body>
+</html>

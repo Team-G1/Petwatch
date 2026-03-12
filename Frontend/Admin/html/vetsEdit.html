@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../Admin/css/sidebar.css" />
     <link rel="stylesheet" href="../../Admin/css/vetsEdit.css" /> 
     
+    <script src="../../Admin/javascript/vets.js"></script>
     <script src="../../Admin/javascript/sidebar.js" defer></script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -79,89 +80,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            // 1. CATCH THE ID FROM THE URL
-            const params = new URLSearchParams(window.location.search);
-            const vetId = params.get('id');
-
-            if (!vetId) {
-                alert('Error: No Veterinarian ID provided.');
-                window.location.href = 'vets.html';
-                return;
-            }
-
-            // 2. FETCH CURRENT DATA TO PRE-FILL FORM
-            try {
-                const response = await fetch(`http://localhost:5001/api/vets/${vetId}`);
-                if (!response.ok) throw new Error('Vet not found');
-                
-                const vet = await response.json();
-
-                // Map database fields to input IDs
-                document.getElementById('vet-name').value = vet.name || '';
-                document.getElementById('vet-designation').value = vet.designation || '';
-                document.getElementById('vet-location').value = vet.location || '';
-                document.getElementById('vet-phone').value = vet.phone || '';
-            } catch (err) {
-                console.error('Fetch error:', err);
-                alert('Failed to load professional data.');
-            }
-
-            // 3. HANDLE SAVE (UPDATE) BUTTON
-            document.getElementById('save-btn').addEventListener('click', async function() {
-                const updatedData = {
-                    name: document.getElementById('vet-name').value,
-                    designation: document.getElementById('vet-designation').value,
-                    location: document.getElementById('vet-location').value,
-                    phone: document.getElementById('vet-phone').value
-                };
-
-                this.disabled = true;
-                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
-
-                try {
-                    const res = await fetch(`http://localhost:5001/api/vets/${vetId}`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(updatedData)
-                    });
-
-                    if (res.ok) {
-                        alert('Profile updated successfully!');
-                        window.location.href = 'vets.html';
-                    } else {
-                        const error = await res.json();
-                        alert('Update failed: ' + (error.message || 'Server error'));
-                        this.disabled = false;
-                        this.innerHTML = '<i class="fas fa-save"></i> Update Profile';
-                    }
-                } catch (err) {
-                    console.error('Update Error:', err);
-                    alert('Connection to server failed.');
-                    this.disabled = false;
-                }
-            });
-
-            // 4. HANDLE DELETE BUTTON
-            document.getElementById('delete-btn').addEventListener('click', async () => {
-                if (!confirm('Are you sure you want to permanently delete this professional profile?')) return;
-
-                try {
-                    const res = await fetch(`http://localhost:5001/api/vets/${vetId}`, {
-                        method: 'DELETE'
-                    });
-
-                    if (res.ok) {
-                        alert('Veterinarian removed successfully.');
-                        window.location.href = 'vets.html';
-                    } else {
-                        alert('Failed to delete the profile.');
-                    }
-                } catch (err) {
-                    console.error('Delete error:', err);
-                }
-            });
-        });
+        
     </script>
 </body>
 </html>

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../Admin/css/sidebar.css" />
     <link rel="stylesheet" href="../../Admin/css/vetsEdit.css" />
 
+    <script src="../../Admin/javascript/vets.js"></script>
     <script src="../../Admin/javascript/sidebar.js" defer></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -144,84 +145,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const imageUpload = document.getElementById('image-upload');
-            const uploadBtn = document.getElementById('upload-btn');
-            const currentImage = document.getElementById('current-image');
-            const saveBtn = document.getElementById('save-btn');
-
-            // 1. Handle Image Upload Trigger and Preview
-            uploadBtn.addEventListener('click', () => imageUpload.click());
-
-            imageUpload.addEventListener('change', function (e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => currentImage.src = e.target.result;
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            // 2. Handle Form Submission
-            saveBtn.addEventListener('click', async function () {
-                const vetData = {
-                    name: document.getElementById('vet-name').value,
-                    designation: document.getElementById('vet-designation').value,
-                    location: document.getElementById('vet-location').value,
-                    experience: document.getElementById('vet-experience').value,
-                    phone: document.getElementById('vet-phone').value,
-                    email: document.getElementById('vet-email').value,
-                    tags: document.getElementById('vet-tags').value,
-                    status: document.getElementById('duty-status').value,
-                    role: document.getElementById('vet-role').value
-                };
-
-                // Basic validation for required fields
-                if (!vetData.name || !vetData.email || !vetData.location) {
-                    alert('Please complete the Name, Email, and Location fields.');
-                    return;
-                }
-
-                // Use FormData to support image file upload
-                const formData = new FormData();
-                Object.keys(vetData).forEach(key => formData.append(key, vetData[key]));
-                
-                const imageFile = imageUpload.files[0];
-                if (imageFile) formData.append('image', imageFile);
-
-                this.disabled = true;
-                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
-
-                try {
-                    const response = await fetch('http://localhost:5001/api/vets', {
-                        method: 'POST',
-                        body: formData // Backend handles Multipart/Form-Data
-                    });
-
-                    if (response.ok) {
-                        alert('New Veterinarian profile created successfully!');
-                        window.location.href = 'vets.html';
-                    } else {
-                        const error = await response.json();
-                        alert('Failed to save profile: ' + (error.message || 'Unknown error'));
-                        this.disabled = false;
-                        this.innerHTML = '<i class="fas fa-save"></i> Save Vet Profile';
-                    }
-                } catch (error) {
-                    console.error('Submission error:', error);
-                    alert('Server error: Could not reach the database.');
-                    this.disabled = false;
-                    this.innerHTML = '<i class="fas fa-save"></i> Save Vet Profile';
-                }
-            });
-
-            // 3. Handle Cancel Button
-            document.getElementById('cancel-btn').addEventListener('click', () => {
-                if (confirm('Discard changes and return to the list?')) {
-                    window.location.href = 'vets.html';
-                }
-            });
-        });
+     
     </script>
 </body>
 </html>

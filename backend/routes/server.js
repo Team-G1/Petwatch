@@ -1,133 +1,48 @@
+// server.js
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const connectDB = require('./db'); 
-const crypto = require('crypto');
-const multer = require('multer');
-const path = require('path'); 
-
-const Vet = require('./models/vet');
+const connectDB = require('./db'); // Ensure you have this file from previous steps
 
 const app = express();
 const port = process.env.PORT || 5001; 
 
-// Middleware
+
 app.use(cors()); 
 app.use(express.json());
-app.use('/uploads', express.static('uploads'));
 
-
-// Serve static files from Frontend folder
-app.use(express.static(path.join(__dirname, '../Frontend')));  
-app.use('/uploads', express.static('uploads'));
-
-// Database Connection
 connectDB();
+const multer = require('multer');
+const path = require('path');
 
-// Import Models
-const User = require('./models/User');
-const Pet = require('./models/Pet'); 
-const auth = require('./middleware/auth');
-
-
-
-// Import Routes
-const authRoutes = require('./routes/authRoutes');
-
-// Use Routes
-app.use('/api/auth', authRoutes);
+app.use('/uploads', express.static('uploads'));
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => { cb(null, 'uploads/'); },
-    filename: (req, file, cb) => { cb(null, Date.now() + path.extname(file.originalname)); }
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
 });
+
 const upload = multer({
     storage,
     limits: { fileSize: 2 * 1024 * 1024 },
     fileFilter: (req, file, cb) => {
         if (!file.mimetype.startsWith('image/')) {
-            return cb(new Error('Only image files allowed'));
+            cb(new Error('Only image files allowed'));
         }
         cb(null, true);
     }
 });
 
-// --- VETERINARIAN ROUTES ---
-
-//Create a new Veterinarian
-
-app.post('/api/vets', upload.single('image'), async (req, res) => {
-    try {
-        const vetData = {
-            ...req.body,
-            image: req.file ? `/uploads/${req.file.filename}` : null
-        };
-        const newVet = new Vet(vetData);
-        await newVet.save();
-        res.status(201).json({ success: true, message: 'Vet created successfully' });
-    } catch (error) {
-        console.error("Save Error:", error);
-        res.status(500).json({ success: false, message: 'Server error saving vet' });
-    }
-});
-
-//Fetch all Veterinarians
-
-app.get('/api/vets', async (req, res) => {
-    try {
-        const vets = await Vet.find().sort({ createdAt: -1 });
-        res.status(200).json(vets);
-    } catch (error) {
-        res.status(500).json({ message: 'Error fetching vets' });
-    }
-});
-
-//Fetch single Veterinarian by ID
-
-app.get('/api/vets/:id', async (req, res) => {
-    try {
-        const vet = await Vet.findById(req.params.id);
-        if (!vet) return res.status(404).json({ message: 'Vet not found' });
-        res.json(vet);
-    } catch (err) {
-        res.status(500).json({ message: 'Server error' });
-    }
-});
-
-//Update Veterinarian
-
-app.put('/api/vets/:id', upload.single('image'), async (req, res) => {
-    try {
-        const updatedData = { ...req.body };
-        if (req.file) updatedData.image = `/uploads/${req.file.filename}`;
-
-        const updatedVet = await Vet.findByIdAndUpdate(req.params.id, updatedData, { new: true });
-        if (!updatedVet) return res.status(404).json({ message: "Vet not found" });
-        
-        res.json({ success: true, data: updatedVet });
-    } catch (error) {
-        res.status(400).json({ success: false, message: error.message });
-    }
-});
-
-//Delete Veterinarian
-
-app.delete('/api/vets/:id', async (req, res) => {
-    try {
-        await Vet.findByIdAndDelete(req.params.id);
-        res.json({ success: true, message: "Deleted" });
-    } catch (error) {
-        res.status(500).json({ message: "Delete failed" });
-    }
-});
 
 
-// ---BOOKING SCHEMA DESIGN ---
-
-// schema holds both pet info and user info
+// 1. UPDATED SCHEMA (Includes User Details & Appt Number)
 const BookingSchema = new mongoose.Schema({
-    // Pet & Service Details
+    // Pet Details
     serviceType: String,
     petName: String,
     petType: String,
@@ -143,172 +58,59 @@ const BookingSchema = new mongoose.Schema({
     timeTo: String,
     groomingPackage: String,
     
-    //User Details 
+    // User Details (Added in Step 2)
     userName: String,
     userPhone: String,
     userEmail: String,
     userAddress: String,
 
-    // System Metadata & Admin Logic
-    appointmentNumber: String, 
-    status: {
-        type: String,
-        enum: ['Confirmed', 'Pending', 'Completed', 'Cancelled'],
-        default: 'Confirmed'
-    },
+    // System Generated
+    appointmentNumber: String, // e.g., #APT-1234
     createdAt: { type: Date, default: Date.now }
 });
 
 const Booking = mongoose.model('Booking', BookingSchema);
 
-// --- 2. USER-FACING ROUTES ---
+// 2. API ROUTES
 
-/**
- * SIGN UP ROUTE (Using Built-in Node.js Crypto)
- */
-app.post('/api/auth/signup', async (req, res) => {
-    console.log("🚀 SIGNUP ROUTE WAS HIT! Request body:", req.body); 
-
-    try {
-        const { username, email, mobile, password } = req.body;
-
-        // 1. Check if the user already exists by email
-        let existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: 'User already exists with this email' });
-        }
-
-        // 2. Hash the password using Node's built-in crypto module
-        
-        const salt = crypto.randomBytes(16).toString('hex');
-        
-        // We hash the password combined with the salt
-        const hashedPassword = crypto.scryptSync(password, salt, 64).toString('hex');
-        
-        
-        const savedPassword = `${salt}:${hashedPassword}`;
-
-        // 3. Create and save the new user
-        const newUser = new User({
-            username,
-            email,
-            mobile,
-            password: savedPassword
-        });
-
-        await newUser.save();
-        console.log("✅ User saved successfully!");
-        res.status(201).json({ message: 'Account created successfully!' });
-
-    } catch (error) {
-        console.error("Signup Error:", error);
-        res.status(500).json({ message: 'Server error during signup' });
-    }
-});
-
-/**
- * STEP 1: Create initial booking with Pet details
- * Generate the Appointment Number and returns the Database ID
- */
+// Route A: Create Initial Booking (Pet Info)
 app.post('/api/book', async (req, res) => {
     try {
+        // Generate a random 6-digit Appointment Number
         const apptNum = '#APT-' + Math.floor(100000 + Math.random() * 900000);
         
         const newBooking = new Booking({
             ...req.body,
             appointmentNumber: apptNum
         });
-        
         await newBooking.save();
-        res.status(201).json({ 
-            message: 'Step 1 Complete', 
-            bookingId: newBooking._id 
-        });
+        res.status(201).json({ message: 'Step 1 Complete', bookingId: newBooking._id });
     } catch (error) {
-        console.error("Step 1 Error:", error);
-        res.status(500).json({ message: 'Server error saving pet details' });
+        res.status(500).json({ message: 'Server error' });
     }
 });
 
-//Update existing booking with User contact info
- 
+// Route B: Update Booking (Add User Info)
 app.put('/api/book/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const updated = await Booking.findByIdAndUpdate(id, req.body, { new: true });
-        
-        if (!updated) return res.status(404).json({ message: 'Booking not found' });
-        
+        await Booking.findByIdAndUpdate(id, req.body); // Update with user details
         res.status(200).json({ message: 'Step 2 Complete' });
     } catch (error) {
-        console.error("Step 2 Error:", error);
         res.status(500).json({ message: 'Could not save user details' });
     }
 });
 
-//Fetch full details for the Confirmation Page & QR Code
-
+// Route C: Get Booking Details (For Confirmation Page)
 app.get('/api/book/:id', async (req, res) => {
     try {
         const booking = await Booking.findById(req.params.id);
         if (!booking) return res.status(404).json({ message: 'Booking not found' });
         res.status(200).json(booking);
     } catch (error) {
-        res.status(500).json({ message: 'Server error fetching summary' });
+        res.status(500).json({ message: 'Server error' });
     }
 });
-
-
-// --- ADMIN-FACING ROUTES ---
-
-// Fetch all bookings for the Admin Table
-
-app.get('/api/admin/bookings', async (req, res) => {
-    try {
-        const bookings = await Booking.find().sort({ createdAt: -1 });
-        res.status(200).json(bookings);
-    } catch (error) {
-        res.status(500).json({ message: 'Error fetching admin records' });
-    }
-});
-
-// Calculate statistics for Admin Dashboard cards
-
-app.get('/api/admin/stats', async (req, res) => {
-    try {
-        const todayStr = new Date().toISOString().split('T')[0];
-        
-        const total = await Booking.countDocuments();
-        const today = await Booking.countDocuments({ 
-            $or: [{ date: todayStr }, { dateFrom: todayStr }] 
-        });
-        const completed = await Booking.countDocuments({ status: 'Completed' });
-        const cancelled = await Booking.countDocuments({ status: 'Cancelled' });
-
-        // Aggregate counts by location for progress bars
-        const locations = await Booking.aggregate([
-            { $group: { _id: "$location", count: { $sum: 1 } } }
-        ]);
-
-        res.status(200).json({ total, today, completed, cancelled, locations });
-    } catch (error) {
-        res.status(500).json({ message: 'Error calculating statistics' });
-    }
-});
-
-//Update Status (When Admin clicks Complete or Cancel)
-
-app.patch('/api/book/status/:id', async (req, res) => {
-    try {
-        const { status } = req.body;
-        const updated = await Booking.findByIdAndUpdate(req.params.id, { status }, { new: true });
-        res.status(200).json(updated);
-    } catch (error) {
-        res.status(500).json({ message: 'Update failed' });
-    }
-});
-
-// Start Server
 
 // HEALTH TIP SCHEMA
 const HealthTipSchema = new mongoose.Schema({
@@ -346,7 +148,7 @@ const HealthTipSchema = new mongoose.Schema({
 
 const HealthTip = mongoose.model('HealthTip', HealthTipSchema);
 
-// Create Health Tip
+// Route D: Create Health Tip
 app.post('/api/health-tips', upload.single('image'), async (req, res) => {
     try {
         const {
@@ -384,7 +186,7 @@ app.post('/api/health-tips', upload.single('image'), async (req, res) => {
     }
 });
 
-// Get All Health Tips
+// Route E: Get All Health Tips
 app.get('/api/health-tips', async (req, res) => {
     try {
         const tips = await HealthTip.find().sort({ createdAt: -1 });
@@ -447,6 +249,9 @@ app.delete('/api/health-tips/:id', async (req, res) => {
         res.status(500).json({ message: 'Delete failed' });
     }
 });
+
+
+//locations
 
 // LOCATION SCHEMA
 const LocationSchema = new mongoose.Schema({
@@ -673,74 +478,7 @@ app.delete('/api/inquiries/:id', async (req, res) => {
     }
 });
 
-// Update User Details (Name, Email, Mobile)
-app.put('/api/users/:id', async (req, res) => {
-    try {
-        const { username, email, mobile } = req.body;
-        const updatedUser = await User.findByIdAndUpdate(
-            req.params.id, 
-            { username, email, mobile }, 
-            { new: true }
-        );
-        if (!updatedUser) return res.status(404).json({ message: "User not found" });
-        res.json(updatedUser);
-    } catch (error) {
-        res.status(500).json({ message: "Update failed" });
-    }
-});
-
-// GET all pets for a specific user (Secured)
-app.get('/api/users/:userId/pets', auth, async (req, res) => {
-    try {
-        const pets = await Pet.findByUser(req.params.userId);
-        res.json(pets);
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching pets" });
-    }
-});
-
-// POST a new pet for a user (Secured)
-app.post('/api/users/:userId/pets', auth, async (req, res) => {
-    try {
-        const newPet = new Pet({
-            userId: req.params.userId,
-            ...req.body
-        });
-        await newPet.save();
-        res.status(201).json(newPet);
-    } catch (error) {
-        console.error("Save Pet Error:", error);
-        res.status(400).json({ message: "Error saving pet", error: error.message });
-    }
-});
-
-// PUT (Update) a specific pet (Secured)
-app.put('/api/users/:userId/pets/:petId', auth, async (req, res) => {
-    try {
-        const updatedPet = await Pet.findByIdAndUpdate(
-            req.params.petId,
-            req.body,
-            { new: true, runValidators: true }
-        );
-        if (!updatedPet) return res.status(404).json({ message: "Pet not found" });
-        res.json(updatedPet);
-    } catch (error) {
-        res.status(400).json({ message: "Update failed", error: error.message });
-    }
-});
-
-// DELETE a specific pet (Secured)
-app.delete('/api/users/:userId/pets/:petId', auth, async (req, res) => {
-    try {
-        await Pet.findByIdAndDelete(req.params.petId);
-        res.json({ message: "Pet deleted" });
-    } catch (error) {
-        res.status(500).json({ message: "Delete failed" });
-    }
-});
-
 
 app.listen(port, () => {
-  console.log(`🚀 PetWatch Server live at http://localhost:${port}`);
+  console.log(`🚀 Server listening on http://localhost:${port}`);
 });
-

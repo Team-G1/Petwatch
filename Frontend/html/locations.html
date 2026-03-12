@@ -30,26 +30,7 @@
             <div id="sl-map"></div>
 
             <div class="location-grid">
-                <div class="loc-card" onclick="focusMap(6.9271, 79.8612)">
-                    <h3><i class="fa-solid fa-location-dot"></i> Colombo</h3>
-                    <p>Headquarters<br>Union Place, Col 02</p>
-                </div>
-                <div class="loc-card" onclick="focusMap(7.2906, 80.6337)">
-                    <h3><i class="fa-solid fa-location-dot"></i> Kandy</h3>
-                    <p>Central Hub<br>Peradeniya Rd</p>
-                </div>
-                <div class="loc-card" onclick="focusMap(6.0535, 80.2210)">
-                    <h3><i class="fa-solid fa-location-dot"></i> Galle</h3>
-                    <p>Southern Clinic<br>Fort Area</p>
-                </div>
-                <div class="loc-card" onclick="focusMap(7.2008, 79.8737)">
-                    <h3><i class="fa-solid fa-location-dot"></i> Negombo</h3>
-                    <p>West Coast<br>Beach Road</p>
-                </div>
-                <div class="loc-card" onclick="focusMap(7.4863, 80.3623)">
-                    <h3><i class="fa-solid fa-location-dot"></i> Kurunegala</h3>
-                    <p>North Western<br>Colombo Rd</p>
-                </div>
+              
             </div>
 
             <div style="margin-top: 30px;">
@@ -61,7 +42,7 @@
     </main>
 
     <div id="footer"></div>
-
+<script src="../../Frontend/javascript/locations.js"></script>
     <script src="../../Frontend/javascript/navbar.js"></script>
     <script src="../../Frontend/javascript/footer.js"></script>
     
@@ -80,14 +61,47 @@
             attribution: '© OpenStreetMap'
         }).addTo(map);
 
-        // 3. Define our 5 Locations
-        const locations = [
-            { name: "PetWatch Colombo (HQ)", lat: 6.9271, lng: 79.8612, info: "Union Place, Colombo 02<br>Tel: 011-2233445" },
-            { name: "PetWatch Kandy", lat: 7.2906, lng: 80.6337, info: "Peradeniya Road, Kandy<br>Tel: 081-2233445" },
-            { name: "PetWatch Galle", lat: 6.0535, lng: 80.2210, info: "Galle Fort, Galle<br>Tel: 091-2233445" },
-            { name: "PetWatch Negombo", lat: 7.2008, lng: 79.8737, info: "Poruthota Road, Negombo<br>Tel: 031-2233445" },
-            { name: "PetWatch Kurunegala", lat: 7.4863, lng: 80.3623, info: "Colombo Road, Kurunegala<br>Tel: 037-2233445" }
-        ];
+   
+        async function loadLocations() {
+
+    try {
+
+        const response = await fetch("http://localhost:5001/api/locations");
+        const locations = await response.json();
+
+        const grid = document.querySelector(".location-grid");
+        grid.innerHTML = "";
+
+        locations.forEach(loc => {
+
+            // Add marker to map
+            L.marker([loc.lat, loc.lng])
+                .addTo(map)
+                .bindPopup(`<b>${loc.name}</b><br>${loc.address}<br>${loc.phone || ""}`);
+
+            // Create card
+            const card = document.createElement("div");
+            card.className = "loc-card";
+
+            card.innerHTML = `
+                <h3><i class="fa-solid fa-location-dot"></i> ${loc.city}</h3>
+                <p>${loc.name}<br>${loc.address}</p>
+            `;
+
+            // Click zoom
+            card.addEventListener("click", function () {
+                focusMap(loc.lat, loc.lng);
+            });
+
+            grid.appendChild(card);
+
+        });
+
+    } catch (err) {
+        console.error("Error loading locations:", err);
+    }
+}
+        loadLocations();
 
         // 4. Add Markers to Map
         locations.forEach(loc => {
