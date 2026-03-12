@@ -82,6 +82,63 @@ app.get('/api/reviews', async (req, res) => {
 });
 
 // --- 4. FILE UPLOADS CONFIG ---
+// Import Routes
+const authRoutes = require('./routes/authRoutes');
+
+// Use Routes
+app.use('/api/auth', authRoutes);
+
+// Review Schema
+// --- server.js ---
+const ReviewSchema = new mongoose.Schema({
+    userName: { type: String, required: true, trim: true },
+    rating: { type: Number, required: true, min: 1, max: 5 },
+    comment: { type: String, required: true, trim: true },
+    createdAt: { type: Date, default: Date.now }
+});
+
+const Review = mongoose.model('Review', ReviewSchema);
+
+/**
+ * @route   POST /api/reviews
+ * @desc    Save a new customer review
+ */
+app.post('/api/reviews', async (req, res) => {
+    try {
+        const { userName, rating, comment } = req.body;
+
+        if (!userName || !rating || !comment) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+
+        const newReview = new Review({
+            userName,
+            rating: parseInt(rating),
+            comment
+        });
+
+        await newReview.save();
+        res.status(201).json({ success: true, message: "Review added!" });
+    } catch (error) {
+        console.error("Review Save Error:", error);
+        res.status(500).json({ message: "Server error saving review" });
+    }
+});
+
+/**
+ * @route   GET /api/reviews
+ * @desc    Get all reviews (Sorted by newest first)
+ */
+app.get('/api/reviews', async (req, res) => {
+    try {
+        const reviews = await Review.find().sort({ createdAt: -1 });
+        res.status(200).json(reviews);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching reviews" });
+    }
+});
+
+// --- 4. FILE UPLOADS CONFIG ---
 const storage = multer.diskStorage({
     destination: (req, file, cb) => { cb(null, 'uploads/'); },
     filename: (req, file, cb) => { cb(null, Date.now() + path.extname(file.originalname)); }
