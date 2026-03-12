@@ -111,7 +111,6 @@ const authRoutes = require('./routes/authRoutes');
 // Use Routes
 app.use('/api/auth', authRoutes);
 
-<<<<<<< HEAD
 // Review Schema
 // --- server.js ---
 const ReviewSchema = new mongoose.Schema({
@@ -163,8 +162,6 @@ app.get('/api/reviews', async (req, res) => {
 });
 
 // --- 4. FILE UPLOADS CONFIG ---
-=======
->>>>>>> cf50556f07a00eb85f58666c0403f0937341045b
 const storage = multer.diskStorage({
     destination: (req, file, cb) => { cb(null, 'uploads/'); },
     filename: (req, file, cb) => { cb(null, Date.now() + path.extname(file.originalname)); }
