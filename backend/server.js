@@ -33,10 +33,11 @@ const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);
 
 // Review Schema
+// --- server.js ---
 const ReviewSchema = new mongoose.Schema({
-    userName: { type: String, required: true },
+    userName: { type: String, required: true, trim: true },
     rating: { type: Number, required: true, min: 1, max: 5 },
-    comment: { type: String, required: true },
+    comment: { type: String, required: true, trim: true },
     createdAt: { type: Date, default: Date.now }
 });
 

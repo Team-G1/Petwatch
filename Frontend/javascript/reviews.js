@@ -27,21 +27,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            reviews.forEach(rev => {
-                // Create star string based on numeric rating
-                const stars = '★'.repeat(rev.rating) + '☆'.repeat(5 - rev.rating);
-                
-                const card = document.createElement('div');
-                card.className = 'reviews_card';
-                card.innerHTML = `
-                    <img src="../../Resources/reviewsIconPets.png" alt="User">
-                    <div class="rating">${stars}</div>
-                    <h3>${rev.userName}</h3>
-                    <p>${rev.comment.substring(0, 100)}${rev.comment.length > 100 ? '...' : ''}</p>
-                    <a href="#">See more ></a>
-                `;
-                reviewsGrid.appendChild(card);
-            });
+            // Inside reviews.js -> loadReviews function
+reviews.forEach(rev => {
+    const stars = '★'.repeat(rev.rating) + '☆'.repeat(5 - rev.rating);
+    const isLong = rev.comment.length > 100;
+    
+    const card = document.createElement('div');
+    card.className = 'reviews_card';
+    card.innerHTML = `
+        <img src="../../Resources/reviewsIconPets.png" alt="User">
+        <div class="rating">${stars}</div>
+        <h3>${rev.userName}</h3>
+        <p class="comment-text">
+            ${rev.comment.substring(0, 100)}${isLong ? '...' : ''}
+        </p>
+        ${isLong ? `<button class="see-more-btn" onclick="alert('${rev.comment.replace(/'/g, "\\'")}')">See more ></button>` : ''}
+    `;
+    reviewsGrid.appendChild(card);
+});
         } catch (error) {
             console.error("❌ Error loading reviews:", error);
             reviewsGrid.innerHTML = '<p style="text-align: center; color: #ff4444;">Error loading reviews. Please try again later.</p>';
