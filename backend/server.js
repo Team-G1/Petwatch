@@ -438,7 +438,232 @@ app.delete('/api/health-tips/:id', async (req, res) => {
     }
 });
 
-// --- 9. USER & PET LOGIC ---
+// LOCATION SCHEMA
+const LocationSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    city: { type: String, required: true },
+    address: { type: String, required: true },
+    phone: { type: String },
+    lat: { type: Number, required: true },
+    lng: { type: Number, required: true },
+    createdAt: { type: Date, default: Date.now }
+});
+
+const Location = mongoose.model("Location", LocationSchema);
+// CREATE location
+app.post("/api/locations", async (req, res) => {
+
+    try {
+
+        const location = new Location(req.body);
+        await location.save();
+
+        res.json(location);
+
+    } catch (err) {
+
+        console.error(err);
+        res.status(500).json({ message: "Error creating location" });
+
+    }
+
+});
+
+
+// GET all locations
+app.get("/api/locations", async (req, res) => {
+
+    try {
+
+        const locations = await Location.find();
+        res.json(locations);
+
+    } catch (err) {
+
+        res.status(500).json({ message: "Error loading locations" });
+
+    }
+
+});
+
+
+// DELETE location
+app.delete("/api/locations/:id", async (req, res) => {
+
+    try {
+
+        await Location.findByIdAndDelete(req.params.id);
+        res.json({ message: "Location deleted" });
+
+    } catch (err) {
+
+        res.status(500).json({ message: "Error deleting location" });
+
+    }
+
+});
+
+// INQUIRY SCHEMA
+const InquirySchema = new mongoose.Schema({
+    branch: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    email: {
+        type: String,
+        required: true,
+        trim: true,
+        lowercase: true
+    },
+    message: {
+        type: String,
+        required: true
+    },
+    status: {
+        type: String,
+        enum: ['new', 'read', 'replied'],
+        default: 'new'
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+const Inquiry = mongoose.model('Inquiry', InquirySchema);
+
+// CREATE a new inquiry
+app.post('/api/inquiries', async (req, res) => {
+    try {
+        const { branch, name, email, message } = req.body;
+        
+        // Validate required fields
+        if (!branch || !name || !email || !message) {
+            return res.status(400).json({ 
+                message: 'All fields are required' 
+            });
+        }
+
+        // Create new inquiry
+        const newInquiry = new Inquiry({
+            branch,
+            name,
+            email,
+            message
+        });
+
+        await newInquiry.save();
+
+        res.status(201).json({ 
+            message: 'Inquiry sent successfully',
+            inquiryId: newInquiry._id 
+        });
+
+    } catch (error) {
+        console.error('Error creating inquiry:', error);
+        res.status(500).json({ 
+            message: 'Failed to send inquiry. Please try again.' 
+        });
+    }
+});
+
+// GET all inquiries (for admin panel)
+app.get('/api/inquiries', async (req, res) => {
+    try {
+        const inquiries = await Inquiry.find().sort({ createdAt: -1 });
+        res.status(200).json(inquiries);
+    } catch (error) {
+        console.error('Error fetching inquiries:', error);
+        res.status(500).json({ 
+            message: 'Failed to fetch inquiries' 
+        });
+    }
+});
+
+// GET a single inquiry by ID
+app.get('/api/inquiries/:id', async (req, res) => {
+    try {
+        const inquiry = await Inquiry.findById(req.params.id);
+        
+        if (!inquiry) {
+            return res.status(404).json({ 
+                message: 'Inquiry not found' 
+            });
+        }
+        
+        res.status(200).json(inquiry);
+    } catch (error) {
+        console.error('Error fetching inquiry:', error);
+        res.status(500).json({ 
+            message: 'Failed to fetch inquiry' 
+        });
+    }
+});
+
+// UPDATE inquiry status (mark as read/replied)
+app.patch('/api/inquiries/:id', async (req, res) => {
+    try {
+        const { status } = req.body;
+        
+        if (!['new', 'read', 'replied'].includes(status)) {
+            return res.status(400).json({ 
+                message: 'Invalid status value' 
+            });
+        }
+
+        const inquiry = await Inquiry.findByIdAndUpdate(
+            req.params.id,
+            { status },
+            { new: true }
+        );
+
+        if (!inquiry) {
+            return res.status(404).json({ 
+                message: 'Inquiry not found' 
+            });
+        }
+
+        res.status(200).json({ 
+            message: 'Inquiry updated successfully',
+            inquiry 
+        });
+
+    } catch (error) {
+        console.error('Error updating inquiry:', error);
+        res.status(500).json({ 
+            message: 'Failed to update inquiry' 
+        });
+    }
+});
+
+// DELETE an inquiry
+app.delete('/api/inquiries/:id', async (req, res) => {
+    try {
+        const inquiry = await Inquiry.findByIdAndDelete(req.params.id);
+        
+        if (!inquiry) {
+            return res.status(404).json({ 
+                message: 'Inquiry not found' 
+            });
+        }
+        
+        res.status(200).json({ 
+            message: 'Inquiry deleted successfully' 
+        });
+    } catch (error) {
+        console.error('Error deleting inquiry:', error);
+        res.status(500).json({ 
+            message: 'Failed to delete inquiry' 
+        });
+    }
+});
+
+// Update User Details (Name, Email, Mobile)
 app.put('/api/users/:id', async (req, res) => {
     try {
         const { username, email, mobile } = req.body;

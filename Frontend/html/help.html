@@ -79,25 +79,25 @@
                 <div class="inquiry-right">
                     <div class="form-card">
                         <h3>Please write your inquiry here.</h3>
-                        <form id="inquiryForm">
+                        <form  id="inquiryForm">
                             <div class="input-group">
                                 <label>Service Branch</label>
-                                <input type="text" placeholder="Kandy">
+                                <input type="text" placeholder="Kandy" name="branch">
                             </div>
 
                             <div class="input-group">
                                 <label>Your Name</label>
-                                <input type="text" placeholder="Emma Roberts">
+                                <input type="text" placeholder="Emma Roberts" name="name">
                             </div>
 
                             <div class="input-group">
                                 <label>Your Email</label>
-                                <input type="email" placeholder="em@gmail.com">
+                                <input type="email" placeholder="em@gmail.com" name="email">
                             </div>
 
                             <div class="input-group">
                                 <label>Message</label>
-                                <textarea rows="4" placeholder="............"></textarea>
+                                <textarea rows="4" placeholder="............" name="message"></textarea>
                             </div>
 
                             <button type="submit" class="btn-submit">Send inquiry</button>
@@ -111,18 +111,18 @@
     </main>
 
     <div id="footer"></div>
-
+<script src="../../Frontend/javascript/help.js"></script>
     <script src="../../Frontend/javascript/navbar.js"></script>
     <script src="../../Frontend/javascript/footer.js"></script>
 
-    <script>
+    <!-- <script>
         // Simple Interaction for the Inquiry Form
         document.getElementById('inquiryForm').addEventListener('submit', function(e) {
             e.preventDefault();
             alert("Thank you! Your inquiry has been sent to our support team.");
             this.reset();
         });
-    </script>
+    </script> -->
 
 </body>
 </html>

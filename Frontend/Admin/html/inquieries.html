@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetWatch Admin - Inquiries</title>
+    
+    <link rel="stylesheet" href="../../Admin/css/sidebar.css">
+    <link rel="stylesheet" href="../../Admin/css/healthEdit.css">
+    
+    <script src="../../Admin/javascript/sidebar.js" defer></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../Admin/css/inquieris.css">
+</head>
+<body>
+    <div class="admin-dashboard">
+        <main>
+            <div class="topbar">
+                <div class="page-title">
+                    <h1>Inquiries</h1>
+                    <p class="subtitle">Manage customer inquiries and messages</p>
+                </div>
+                
+                <div class="user-profile">
+                  
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg">
+                    <div class="user-info">
+                        <span class="username">Admin</span>
+                        <span class="user-role">Inquiry Manager</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE CONTENT -->
+            <div class="dashboard-content">
+                <!-- Stats Cards -->
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-count">0</div>
+                        <div class="stat-label">Total Inquiries</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="new-count">0</div>
+                        <div class="stat-label">New</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="read-count">0</div>
+                        <div class="stat-label">Read</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="replied-count">0</div>
+                        <div class="stat-label">Replied</div>
+                    </div>
+                </div>
+
+                <!-- MAIN CARD -->
+                <div class="card edit-form-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-envelope"></i> Customer Inquiries</h3>
+                        <div class="filter-group">
+                            <button type="button" class="btn-secondary" id="refresh-btn">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Filter Section -->
+                    <div class="filter-section">
+                        <div class="filter-group">
+                            <select class="filter-select" id="status-filter">
+                                <option value="all">All Status</option>
+                                <option value="new">New</option>
+                                <option value="read">Read</option>
+                                <option value="replied">Replied</option>
+                            </select>
+                            
+                            <select class="filter-select" id="branch-filter">
+                                <option value="all">All Branches</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <input type="text" class="search-input" id="search-input" placeholder="Search by name or email...">
+                        </div>
+                    </div>
+
+                    <!-- Inquiries Table -->
+                    <div class="inquiries-table-container">
+                        <table class="inquiries-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Branch</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Message Preview</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inquiries-table-body">
+                                <tr class="empty-state">
+                                    <td colspan="7">
+                                        <i class="fas fa-inbox"></i>
+                                        <p>Loading inquiries...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- View Inquiry Modal -->
+    <div class="modal" id="view-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-envelope-open-text"></i> Inquiry Details</h3>
+                <button class="modal-close" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="mark-read-btn">
+                    <i class="fas fa-check"></i> Mark as Read
+                </button>
+                <button class="btn-secondary" id="mark-replied-btn">
+                    <i class="fas fa-reply"></i> Mark as Replied
+                </button>
+                <button class="btn-danger" id="delete-inquiry-btn">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+<script src="../../Admin/javascript/inquieries.js"></script>
+</body>
+</html>
